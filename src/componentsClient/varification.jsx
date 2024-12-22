@@ -72,7 +72,7 @@ const Varification = () => {
           <h1 className="">password verification</h1>
 
           <p className="text-center mb-4 mt-2">
-            Enter the 4-digit security code we send to :{" "}
+            Enter the 5-digit security code we send to :{" "}
             <strong>{myEmail}</strong>
           </p>
 
