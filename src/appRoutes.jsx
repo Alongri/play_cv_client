@@ -17,6 +17,7 @@ import VarificationforgotPass from './componentsClient/varificationforgotPass'
 import LogoutClient from './componentsClient/logoutClient';
 import QuestionPage from './componentsClient/QuestionPage';
 import NameProject from './componentsClient/NameProject';
+import EditPage from './componentsClient/EditPage';
 
 function AppRoutes() {
   return (
@@ -36,6 +37,7 @@ function AppRoutes() {
           <Route path="/homeClient" element={<HomeClient />} /> 
           <Route path="/nameProject" element={<NameProject />} /> 
           <Route path="/questionPage" element={<QuestionPage />} /> 
+          <Route path="/editPage" element={<EditPage />} /> 
           <Route path="/submit" element={<Submit />} />
           <Route path="/forgotPassClient" element={<ForgotPass />} />
           <Route path="/help" element={<Help/>} />
