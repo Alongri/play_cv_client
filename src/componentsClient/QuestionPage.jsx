@@ -159,7 +159,4 @@ const QuestionPage = () => {
         </button>
       </div>
     </div>
-  );
-};
 
-export default QuestionPage;
