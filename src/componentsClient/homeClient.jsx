@@ -35,7 +35,7 @@ const HomeClient = () => {
     return (
         <div className="container text-center" style={{ height: '100vh', padding: '20px', }}>
             <h1 className='mb-2'>Welcome {myName}{myInfo.FirstName}</h1>
-            <button className='btn btn-success fs-4 fw-bold mt-5' onClick={() => navigate('/questionPage')}>NEW</button>
+            <button className='btn btn-success fs-4 fw-bold mt-5' onClick={() => navigate('/nameProject')}>NEW</button>
         </div>
     );
 };
