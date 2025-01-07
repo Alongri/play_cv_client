@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { json, useNavigate } from "react-router-dom";
 import { API_URL, doApiMethod } from "../services/apiService";
+import { useSelector } from "react-redux";
 
 const QuestionPage = () => {
   const questions = [
@@ -27,6 +28,14 @@ const QuestionPage = () => {
   const ansTextRef = useRef();
   const ansImageRef = useRef();
   const navigate = useNavigate();
+   const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
+  // const idVideo = useSelector(state => state.myDetailsSlice.idVideo);
+
+
+  useEffect(() => { 
+    console.log(IdVideo);
+    
+  }, [IdVideo]);
 
   const handleTextChange = () => {
     setAnsText(ansTextRef.current.value);
@@ -35,12 +44,12 @@ const QuestionPage = () => {
     setAnsImage(ansImageRef.current.value);
   };
 
-  useEffect(() => { }, []);
+
 
   const handleNext = async () => {
     // doApiImage(data);
     const data = {
-      id_video: "",
+      id_video: IdVideo,
       question: questions[qIndex],
       answer: ansText,
       image: ansImage,
@@ -70,7 +79,6 @@ const QuestionPage = () => {
         return true;
       }
       // dispatch(addEmail({ email: _dataBody.email }));
-      // dispatch(addIfShowNav({ ifShowNav: true }));
       return resp;
     } catch (err) {
       alert(err.message);
