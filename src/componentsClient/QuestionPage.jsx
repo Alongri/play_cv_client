@@ -23,18 +23,17 @@ const QuestionPage = () => {
   const [qIndex, setQIndex] = useState(0);
   // const [question, setQuestion] = useState(questions[qIndex]);
   const [ansText, setAnsText] = useState("");
+  const [idChild, setIdChild] = useState("");
   const [child, setChild] = useState({});
   const [ansImage, setAnsImage] = useState("");
   const ansTextRef = useRef();
   const ansImageRef = useRef();
   const navigate = useNavigate();
-   const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
-  // const idVideo = useSelector(state => state.myDetailsSlice.idVideo);
+  const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
 
 
-  useEffect(() => { 
+  useEffect(() => {
     console.log(IdVideo);
-    
   }, [IdVideo]);
 
   const handleTextChange = () => {
@@ -52,25 +51,82 @@ const QuestionPage = () => {
       id_video: IdVideo,
       question: questions[qIndex],
       answer: ansText,
-      image: ansImage,
+      imageLink: ansImage,
+      index: qIndex,
     };
-    console.log(data);
-    const newChild = await doApiNewChild(data);
+    console.log(idChild);
+    let newChild = {};
+    if (idChild == "") {
+      console.log("aa");
+      newChild = await doApiNewChild(data);
+      console.log(newChild);
+    } else {
+      console.log("aaww");
+      const newData = {
+        _id: idChild,
+        id_video: IdVideo,
+        question: questions[qIndex],
+        answer: ansText,
+        imageLink: ansImage,
+        index: qIndex,
+      }
+      console.log(newData);
+      newChild = await doApiUpdateChild(newData);
+      console.log(newChild);
+
+    }
     console.log(newChild);
     if (newChild) {
-      setQIndex(qIndex + 1);
       ansTextRef.current.value = "";
       setAnsText("");
       ansImageRef.current.value = "";
       setAnsImage("");
+      let data = await doApiNextIndex();
+      if (data._id) {
+        setIdChild(data._id);
+        ansTextRef.current.value = data.answer;
+        setAnsText(data.answer);
+        ansImageRef.current.value = data.imageLink;
+        setAnsImage(data.imageLink);
+      } else {
+        // ansTextRef.current.value = "";
+        // setAnsText("");
+        // ansImageRef.current.value = "";
+        // setAnsImage("");
+        setIdChild("");
+      }
+      setQIndex(qIndex + 1);
       if (qIndex >= 11) {
         navigate("/editPage");
       }
     }
   };
 
+  const doApiNextIndex = async () => {
+    const dataBody = {
+      id_video: IdVideo,
+      index: qIndex + 1,
+    }
+    console.log(dataBody);
+    let url = API_URL + "/videos/nextIndex";
+    try {
+      let resp = await doApiMethod(url, "PATCH", dataBody);
+      console.log(resp.data);
+      if (resp.status == 200) {
+        return resp.data;
+      }
+      // dispatch(addEmail({ email: _dataBody.email }));
+      console.log(resp);
+      return {};
+    } catch (err) {
+      alert(err.message);
+      console.log(err.message);
+      return err;
+    }
+  }
+
+
   const doApiNewChild = async (_dataBody) => {
-    // console.log(_dataBody);
     let url = API_URL + "/videos/child";
     try {
       let resp = await doApiMethod(url, "POST", _dataBody);
@@ -79,6 +135,29 @@ const QuestionPage = () => {
         return true;
       }
       // dispatch(addEmail({ email: _dataBody.email }));
+      console.log(resp);
+
+      return resp;
+    } catch (err) {
+      alert(err.message);
+      console.log(err.message);
+      return false;
+    }
+  };
+
+
+  const doApiUpdateChild = async (_dataBody) => {
+    // console.log(_dataBody);
+    let url = API_URL + "/videos/updatedchild";
+    try {
+      let resp = await doApiMethod(url, "PATCH", _dataBody);
+      console.log(resp.data);
+      if (resp.status == 200) {
+        return true;
+      }
+      // dispatch(addEmail({ email: _dataBody.email }));
+      console.log(resp);
+
       return resp;
     } catch (err) {
       alert(err.message);
@@ -90,32 +169,41 @@ const QuestionPage = () => {
 
   const handlePrev = async () => {
     if (qIndex != 0) {
-      setQIndex(qIndex - 1);
       const data = {
-        id_video: "",
-        index: qIndex
+        id_video: IdVideo,
+        index: qIndex - 1
       };
-
+      setQIndex(qIndex - 1);
       const _child = await doApiGetChild(data)
       console.log(_child);
-      if (_child) {
-        ansTextRef.current.value = child.answer;
-        setAnsText(child.answer);
-        ansImageRef.current.value = child.image;
-        setAnsImage(child.image);
+      console.log(child);
+      // if (_child) {
+      //   ansTextRef.current.value = child.answer;
+      //   setAnsText(child.answer);
+      //   ansImageRef.current.value = child.imageLink;
+      //   setAnsImage(child.imageLink);
+      //   console.log(child);
 
-      }
+      //   setIdChild(child._id);
+      // }
     }
   };
 
   const doApiGetChild = async (_dataBody) => {
-    // console.log(_dataBody);
+    console.log(_dataBody);
     let url = API_URL + "/videos/child";
     try {
-      let resp = await doApiMethod(url, "GET", _dataBody);
+      let resp = await doApiMethod(url, "PATCH", _dataBody);
       console.log(resp.data);
       if (resp.status == 200) {
         setChild(resp.data);
+        ansTextRef.current.value = resp.data.answer;
+        setAnsText(resp.data.answer);
+        // ansImageRef.current.value = resp.data.imageLink;
+        setAnsImage(resp.data.imageLink);
+        console.log(resp.data);
+        console.log(resp.data._id);
+        setIdChild(resp.data._id);
         return true;
       }
       // dispatch(addEmail({ email: _dataBody.email }));
@@ -167,7 +255,7 @@ const QuestionPage = () => {
         </button>
       </div>
     </div>
-    )
-  }
-  
-  export default QuestionPage
+  )
+}
+
+export default QuestionPage
