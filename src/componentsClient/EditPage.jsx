@@ -5,7 +5,7 @@ const EditPage = () => {
   // States
   const images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const [currentImages, setCurrentImages] = useState([1, 2, 3, 4]);
-  // const [numOfImages, setNumOfImages] = useState(0);
+  const [numOfImages, setNumOfImages] = useState(4);
   const [start, setStart] = useState(0);
 
   // Event handlers
@@ -30,11 +30,14 @@ const EditPage = () => {
     updateImages(newStart);
   };
  
+  const handleResize = () => {
+    // Update numOfImages according to window dimensions here.
+  }
 
   // Update current images when start index changes
   const updateImages = (newStart) => {
     const newCurrentImages = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < numOfImages; i++) {
       if (i + newStart >= images.length) {
         newCurrentImages.push(images[i + newStart - images.length]);
       } else {
@@ -44,13 +47,13 @@ const EditPage = () => {
     setCurrentImages(newCurrentImages);
     console.log(newCurrentImages);
   };
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
+  
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div className="d-flex justify-content-center flex-wrap w-100 col-10">
       <h1 className="w-100 text-center">Edit Page</h1>
@@ -78,6 +81,10 @@ const EditPage = () => {
                 height: "100%",
                 width: "100%",
                 border: "2px solid blue",
+                fontSize: "80px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               {image}
