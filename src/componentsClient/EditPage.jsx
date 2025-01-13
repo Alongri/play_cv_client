@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
+import EditDialog from "./EditDialog";
 
 const EditPage = () => {
   // States
@@ -7,6 +8,9 @@ const EditPage = () => {
   const [currentImages, setCurrentImages] = useState([1, 2, 3, 4]);
   const [numOfImages, setNumOfImages] = useState(4);
   const [start, setStart] = useState(0);
+  const [selectedImg, setSelectedImg] = useState(images[0]);
+  const [isEditing, setIsEditing] = useState(false);
+  const selectedView = useRef();
 
   // Event handlers
   const handleForward = () => {
@@ -29,12 +33,20 @@ const EditPage = () => {
     }
     updateImages(newStart);
   };
- 
+  const handleEditButtonClick = () => {
+    const editing = !isEditing;
+    setIsEditing(!isEditing);
+    if (editing) {
+      console.log(editing);
+    } else {
+      console.log(editing);
+    }
+  }
   const handleResize = () => {
     // Update numOfImages according to window dimensions here.
   }
 
-  // Update current images when start index changes
+  // Update current images array when start index changes
   const updateImages = (newStart) => {
     const newCurrentImages = [];
     for (let i = 0; i < numOfImages; i++) {
@@ -59,13 +71,14 @@ const EditPage = () => {
       <h1 className="w-100 text-center">Edit Page</h1>
       <div
         style={{ height: "54vh" }}
-        className="col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-6 col-12 bg-primary"
+        className="col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-6 col-12 bg-primary rounded-4 d-flex justify-content-center align-items-center h1 position-relative"
       >
-        1
+        <div style={{ fontSize: "200px" }} ref={selectedView}>{selectedImg}</div>
+        <button onClick={handleEditButtonClick} style={{ fontSize: "60px" }} className="btn position-absolute top-0 end-0"><i className="bi bi-pencil-square"></i></button>
       </div>
       <div
+        className="d-flex justify-content-between w-100 bg-success"
         style={{ height: "30vh" }}
-        className="d-flex justify-content-between w-100 bg-dark"
       >
         <button
           className="btn text-white float-start p-lg-4"
@@ -73,18 +86,22 @@ const EditPage = () => {
         >
           <i style={{ fontSize: "60px" }} className="bi bi-arrow-left"></i>
         </button>
-        <div className="text-white d-flex justify-content-around align-items-center w-100">
+        <div className="text-white d-flex justify-content-around align-items-center w-100 gap-1 ">
           {currentImages.map((image, index) => (
             <div
               key={index}
               style={{
                 height: "100%",
                 width: "100%",
-                border: "2px solid blue",
                 fontSize: "80px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                cursor: "pointer"
+              }}
+              onClick={() => {
+                setSelectedImg(image);
+                selectedView.current.innerHTML = image
               }}
             >
               {image}
@@ -95,6 +112,7 @@ const EditPage = () => {
           <i style={{ fontSize: "60px" }} className="bi bi-arrow-right"></i>
         </button>
       </div>
+      {isEditing && <EditDialog isEditing = {isEditing} setIsEditing = {setIsEditing} selectedImg = {selectedImg}/>}
     </div>
   );
 };
