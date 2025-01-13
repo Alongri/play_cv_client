@@ -58,13 +58,13 @@ const EditPage = () => {
     <div className="d-flex justify-content-center flex-wrap w-100 col-10">
       <h1 className="w-100 text-center">Edit Page</h1>
       <div
-        style={{ height: "42vh" }}
+        style={{ height: "54vh" }}
         className="col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-6 col-12 bg-primary"
       >
         1
       </div>
       <div
-        style={{ height: "42vh" }}
+        style={{ height: "30vh" }}
         className="d-flex justify-content-between w-100 bg-dark"
       >
         <button
