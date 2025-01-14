@@ -106,7 +106,7 @@ const Help = () => {
                     </h2>
                     <div
                         className={`accordion-collapse collapse ${openIndex === 4 ? 'show' : ''}`}
-                        aria-labelledby="headingFour"
+                        aria-labelledby="headingFive"
                     >
                         <div className="accordion-body">
                             While the focus of the video is on your personal journey, you can certainly include professional achievements, experiences, and skills if they are part of your life story. The goal is to present a well-rounded version of yourself, so feel free to touch on your career, education, or any other work-related topics in a way that aligns with your personal narrative                        </div>
@@ -125,7 +125,7 @@ const Help = () => {
                     </h2>
                     <div
                         className={`accordion-collapse collapse ${openIndex === 5 ? 'show' : ''}`}
-                        aria-labelledby="headingFour"
+                        aria-labelledby="headingSix"
                     >
                         <div className="accordion-body">
                             Yes, we recommend keeping your video between 3 to 5 minutes for optimal engagement. This gives you enough time to share key aspects of your life story without overwhelming your audience. You can adjust the length as needed depending on the content you want to include.                        </div>
@@ -144,7 +144,7 @@ const Help = () => {
                     </h2>
                     <div
                         className={`accordion-collapse collapse ${openIndex === 6 ? 'show' : ''}`}
-                        aria-labelledby="headingFour"
+                        aria-labelledby="headingSeven"
                     >
                         <div className="accordion-body">
                             Yes, you can make updates to your video at any time. Whether you want to add new life experiences, adjust content, or change the visuals, you have the flexibility to edit and republish your video whenever you need.                        </div>
@@ -163,7 +163,7 @@ const Help = () => {
                     </h2>
                     <div
                         className={`accordion-collapse collapse ${openIndex === 7 ? 'show' : ''}`}
-                        aria-labelledby="headingFour"
+                        aria-labelledby="headingEight"
                     >
                         <div className="accordion-body">
                             Absolutely! Once your video is ready, you can easily share it via a link or directly on your social media platforms. Many users also use their life story videos as part of job applications or to introduce themselves in professional networks, providing a more personal touch beyond the traditional resume.                        </div>
@@ -182,7 +182,7 @@ const Help = () => {
                     </h2>
                     <div
                         className={`accordion-collapse collapse ${openIndex === 8 ? 'show' : ''}`}
-                        aria-labelledby="headingFour"
+                        aria-labelledby="headingNine"
                     >
                         <div className="accordion-body">
                             Yes, we offer privacy settings that allow you to control who can view your video. You can make your video public, share it privately with specific people, or restrict access entirely, depending on your preferences.                        </div>
@@ -201,7 +201,7 @@ const Help = () => {
                     </h2>
                     <div
                         className={`accordion-collapse collapse ${openIndex === 9 ? 'show' : ''}`}
-                        aria-labelledby="headingFour"
+                        aria-labelledby="headingTen"
                     >
                         <div className="accordion-body">
                             Your video should tell the story of who you are as a person. You might include personal anecdotes, lessons you've learned, meaningful experiences, challenges you've overcome, and what you value most in life. Feel free to get creative with how you present these aspects—whether it's through narration, images, or even clips from your personal life.                        </div>
