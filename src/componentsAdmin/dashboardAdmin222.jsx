@@ -71,8 +71,8 @@ function DashboardAdmin222() {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{user.date_created ? user.date_created.substring(10, length - 1) : ""}</td>
-                  <td>{user.level}</td>
+                  <td>{user.createdAt ? user.createdAt.substring(10, length - 1) : ""}</td>
+                  <td>{user.title}</td>
                   <td>{user.time}</td>
                 </tr>
               );
