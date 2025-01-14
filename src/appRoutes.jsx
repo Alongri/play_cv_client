@@ -8,7 +8,6 @@ import Page404 from './componentsClient/Page404'
 import Welcome from './componentsClient/welcome';
 import HomeClient from './componentsClient/homeClient';
 import DashboardAdmin from './componentsAdmin/dashboardAdmin';
-import DashboardAdmin222 from './componentsAdmin/dashboardAdmin222';
 import ForgotPass from './componentsClient/forgotPass';
 import Varification from './componentsClient/varification';
 import Submit from './componentsClient/submit';
@@ -18,6 +17,8 @@ import LogoutClient from './componentsClient/logoutClient';
 import QuestionPage from './componentsClient/QuestionPage';
 import NameProject from './componentsClient/NameProject';
 import EditPage from './componentsClient/EditPage';
+import AllVideo from './componentsAdmin/allVideo';
+import ThisVideo from './componentsAdmin/thisvideo';
 
 function AppRoutes() {
   return (
@@ -25,7 +26,8 @@ function AppRoutes() {
       <Routes>
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<DashboardAdmin />} />
-          <Route path='/admin/admin222' element={<DashboardAdmin222 />} />
+          <Route path='/admin/allvideo' element={<AllVideo />} />
+          <Route path='/admin/thisvideo' element={<ThisVideo />} />
         </Route>
 
         <Route path="/" element={<LayoutClient />}>

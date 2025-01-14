@@ -76,7 +76,7 @@ const DashboardAdmin = () => {
     console.log("_id");
     console.log(id);
     dispatch(addIdMorInfoAdmin({ idMorInfoAdmin: id }));
-    nav("/admin/admin222");
+    nav("/admin/allvideo");
   };
 
   return (

@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../services/apiService";
+import { useNavigate } from "react-router-dom";
 
-function DashboardAdmin222() {
-  const initialUsers = [
-    {
-      id: 1,
-      tate: "William Justice",
-      time: "Davis",
-      level: "hvusa",
-    },
-    {
-      id: 2,
-      tate: "William Justice",
-      time: "Davis",
-      level: "hvusa",
-    },
-  ];
+function AllVideo() {
+  // const initialUsers = [
+  //   {
+  //     id: 1,
+  //     tate: "William Justice",
+  //     time: "Davis",
+  //     level: "hvusa",
+  //   },
+  //   {
+  //     id: 2,
+  //     tate: "William Justice",
+  //     time: "Davis",
+  //     level: "hvusa",
+  //   },
+  // ];
 
-  let [ar, setAr] = useState(initialUsers);
+  let [ar, setAr] = useState([]);
   const ThisID = useSelector((state) => state.myDetailsSlice.idMorInfoAdmin);
   const [thisUser, setThisUser] = useState([]);
+   let nav = useNavigate();
 
   useEffect(() => {
     doApi();
@@ -49,6 +51,13 @@ function DashboardAdmin222() {
   };
 
 
+  const toThisVideo = (id) => {
+    console.log(id);
+    // dispatch(addIdMorInfoAdmin({ idMorInfoAdmin: id }));
+    nav("/admin/thisvideo");
+  };
+
+
   return (
     <div className="container">
       <div style={{ textAlign: "center", justifyContent: "center" }}>
@@ -67,13 +76,17 @@ function DashboardAdmin222() {
             </tr>
           </thead>
           <tbody>
-            {ar.map((user, index) => {
+            {ar.map((video, index) => {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{user.createdAt ? user.createdAt.substring(10, length - 1) : ""}</td>
-                  <td>{user.title}</td>
-                  <td>{user.time}</td>
+                  <td>{video.createdAt ? video.createdAt.substring(10, length - 1) : ""}</td>
+                  <td>{video.title}</td>
+                  <td>
+                    <button className="btn btn-sm" onClick={() => toThisVideo(video._id)}>
+                      <i className="bi bi-arrow-right-circle-fill"></i>
+                    </button>
+                  </td>
                 </tr>
               );
             })}
@@ -84,4 +97,4 @@ function DashboardAdmin222() {
   );
 }
 
-export default DashboardAdmin222;
+export default AllVideo;
