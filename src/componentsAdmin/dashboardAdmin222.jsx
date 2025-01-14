@@ -3,22 +3,8 @@ import { useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../services/apiService";
 
 function DashboardAdmin222() {
-  const initialUsers = [
-    {
-      id: 1,
-      tate: "William Justice",
-      time: "Davis",
-      level: "hvusa",
-    },
-    {
-      id: 2,
-      tate: "William Justice",
-      time: "Davis",
-      level: "hvusa",
-    },
-  ];
 
-  let [ar, setAr] = useState(initialUsers);
+  let [ar, setAr] = useState([]);
   const ThisID = useSelector((state) => state.myDetailsSlice.idMorInfoAdmin);
   const [thisUser, setThisUser] = useState([]);
 
@@ -27,40 +13,14 @@ function DashboardAdmin222() {
   }, []);
 
   const doApi = async () => {
-    let url = API_URL + "/users/single/" + ThisID;
+    let url = API_URL + "/videos/allUserVideos/" + ThisID;
     try {
       let data = await doApiGet(url);
-      // console.log(data.data);
-      setThisUser(data.data);
-      doApiAllTests();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const doApiAllTests = async () => {
-    
-    let url = API_URL + "/chats/allChats/" + ThisID;
-    try {
-      let data = await doApiGet(url);
-      console.log(data.data);
       setAr(data.data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  const steps = [
-    { label: "Name", step: 1 },
-    { label: "LastName", step: 2 },
-    { label: "Level", step: 3 },
-  ];
-
-  const stepst = [
-    { label: "Level", step: 1 },
-    { label: "Time", step: 2 },
-    { label: "Date", step: 3 },
-  ];
 
   return (
     <div className="container">
@@ -75,7 +35,7 @@ function DashboardAdmin222() {
             <tr>
               <th>List</th>
               <th>date</th>
-              <th>level</th>
+              <th>title</th>
               <th>time</th>
             </tr>
           </thead>
@@ -85,7 +45,7 @@ function DashboardAdmin222() {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{user.date_created ? user.date_created.substring(10, length - 1) : ""}</td>
-                  <td>{user.level}</td>
+                  <td>{user.fullName}</td>
                   <td>{user.time}</td>
                 </tr>
               );

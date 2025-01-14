@@ -7,26 +7,26 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addIdMorInfoAdmin } from '../featuers/myDetailsSlice';
 
-const initialUsers = [
-  {
-    id: 1,
-    FirstName: 'test1',
-    LastName: 'test1',
-    email: 'test1@gmail.com',
-    role: 'Admin',
-  },
-  {
-    id: 2,
-    FirstName: 'test2',
-    LastName: 'test2',
-    email: 'test2@gmail.com',
-    role: 'user',
-  },
-];
+// const initialUsers = [
+//   {
+//     id: 1,
+//     FirstName: 'test1',
+//     LastName: 'test1',
+//     email: 'test1@gmail.com',
+//     role: 'Admin',
+//   },
+//   {
+//     id: 2,
+//     FirstName: 'test2',
+//     LastName: 'test2',
+//     email: 'test2@gmail.com',
+//     role: 'user',
+//   },
+// ];
 
 const DashboardAdmin = () => {
   let nav = useNavigate();
-  let [ar, setAr] = useState(initialUsers);
+  let [ar, setAr] = useState([]);
   let [ar2, setAr2] = useState([]);
   let [searchText, setSearchText] = useState("");
   const dispatch = useDispatch();
@@ -108,7 +108,6 @@ const DashboardAdmin = () => {
                 <td>{user.LastName}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
-
                 <td>
                   <button className="btn btn-sm" onClick={() => toAdmin2(user._id)}>
                     <i className="bi bi-arrow-right-circle-fill"></i>
