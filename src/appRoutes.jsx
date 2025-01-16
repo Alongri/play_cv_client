@@ -18,7 +18,7 @@ import QuestionPage from './componentsClient/QuestionPage';
 import NameProject from './componentsClient/NameProject';
 import EditPage from './componentsClient/EditPage';
 import AllVideo from './componentsAdmin/allVideo';
-import ThisVideo from './componentsAdmin/thisvideo';
+import ThisVideo from "./componentsAdmin/thisVideo";
 
 function AppRoutes() {
   return (
