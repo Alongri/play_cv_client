@@ -52,30 +52,45 @@ const NameProject = () => {
     };
 
     return (
-        <div className="container text-center">
-            <h1 className="my-3">Start a new project</h1>
-            <h3 className="my-2">Some rules and guidelines...</h3>
-            <h3 className="my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, nulla.</h3>
-            <h3 className="my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, nulla.</h3>
-            <h3 className="my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, nulla.</h3>
-
-            <h2 className="mt-4">Please name your new project:</h2>
-            <h6 className="my-2 h4 col-8 m-auto">
-                Please choose a name for your new project. This name will be used as the title for your project and will appear in your user's profile.
-            </h6>
-            <input ref={titleIn} className="form-control my-3 w-50 mx-auto" type="text"
-                onChange={() => { updateTitle() }}></input>
-            <div className="d-flex justify-content-between w-50 m-auto">
-                <button className="btn fw-bold btn-primary px-4"
-                    onClick={toHome}>
-                    Back to Home
-                </button>
-                <button className="btn fw-bold btn-primary px-4"
-                    onClick={onProceed}>
-                    Proceed
-                </button>
-            </div>
+        <div className="container text-center py-5">
+        <h1 className="display-4 fw-bold mb-4">Start a New Project</h1>
+        <div className="bg-light p-4 rounded shadow-sm mb-4">
+            <h3 className="fw-semibold">Guidelines for Creating Your Project</h3>
+            <ul className="text-start list-unstyled mt-3 mx-auto" style={{ maxWidth: "700px", lineHeight: "1.8" }}>
+                <li><strong>1.</strong> Every project is unique and represents your vision. Choosing a meaningful name will make it easily identifiable.</li>
+                <li><strong>2.</strong> A well-named project simplifies organization and future reference.</li>
+                <li><strong>3.</strong> Ensure the name reflects your project's essence and purpose clearly.</li>
+            </ul>
         </div>
+        <div className="bg-white p-4 rounded shadow-sm">
+            <h2 className="mt-4">Please Name Your New Project:</h2>
+            <p className="text-muted mt-2" style={{ maxWidth: "700px", margin: "0 auto" }}>
+                Enter a descriptive title that resonates with your project's goals and objectives. 
+                This title will be prominently displayed in your profile and help in identifying the project.
+            </p>
+            <label htmlFor="projectName" className="form-label mt-3 fw-semibold">Project Name</label>
+            <input 
+                ref={titleIn} 
+                id="projectName" 
+                className="form-control my-3 w-50 mx-auto shadow-sm" 
+                type="text" 
+                placeholder="Enter your project name"
+                onChange={() => { updateTitle(); }} 
+            />
+        </div>
+        <div className="d-flex justify-content-center mt-4">
+            <button 
+                className="btn fw-bold btn-primary mx-3 px-4 py-2" 
+                onClick={toHome}>
+                Back to Home
+            </button>
+            <button 
+                className="btn fw-bold btn-primary mx-3 px-4 py-2" 
+                onClick={onProceed}>
+                Proceed
+            </button>
+        </div>
+    </div>
     );
 };
 

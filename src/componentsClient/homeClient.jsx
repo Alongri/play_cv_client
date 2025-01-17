@@ -33,10 +33,34 @@ const HomeClient = () => {
     }
 
     return (
-        <div className="container text-center" style={{ height: '100vh', padding: '20px', }}>
-            <h1 className='mb-2'>Welcome {myName}{myInfo.FirstName}</h1>
-            <button className='btn btn-success fs-4 fw-bold mt-5' onClick={() => navigate('/nameProject')}>NEW</button>
+        <div className="container-fluid d-flex flex-column bg-light" style={{ minHeight: '100vh', padding: '20px' }}>
+        {/* Original Section */}
+        <div className="container text-center my-4 py-4 bg-white shadow rounded">
+            <h1 className="mb-2 display-4 fw-bold">Welcome {myName || myInfo.FirstName}</h1>
+            <button 
+                className="btn btn-success fs-4 fw-bold mt-5 px-5 py-2" 
+                onClick={() => navigate('/nameProject')}
+            >
+                NEW
+            </button>
         </div>
+
+        {/* Informative Section */}
+        <div className="container text-center my-4 py-4 bg-white shadow rounded">
+            <h3 className="fw-bold">Your Dashboard</h3>
+            <p className="text-muted fs-5">
+                Discover tools and resources to help you manage your projects efficiently. This space is designed to provide quick access to the most important features for your success.
+            </p>
+            <button 
+                className="btn btn-outline-primary fw-bold mt-3 px-4 py-2"
+                onClick={() => navigate('/profile')}
+            >
+                View Profile
+            </button>
+        </div>
+
+     
+    </div>
     );
 };
 
