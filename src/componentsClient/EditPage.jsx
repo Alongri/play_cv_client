@@ -4,18 +4,36 @@ import EditDialog from "./EditDialog";
 
 const EditPage = () => {
   // States
-  const images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const [currentImages, setCurrentImages] = useState([1, 2, 3, 4]);
+  const imagesData = [
+    "./assets/Apple.webp", 
+    "./assets/Avocado.webp", 
+    "./assets/Coconut.jpg", 
+    "./assets/Grapes.webp", 
+    "./assets/Kiwi.webp", 
+    "./assets/Lemon.jpg", 
+    "./assets/Mango.webp", 
+    "./assets/Melon.jpg", 
+    "./assets/Orange.jpg", 
+    "./assets/Peach.jpg",  
+    "./assets/Pineapple.webp",  
+    "./assets/Watermelon.jpg", 
+  ];
+  const [currentImages, setCurrentImages] = useState([
+    "./assets/Apple.webp", 
+    "./assets/Avocado.webp", 
+    "./assets/Coconut.jpg", 
+    "./assets/Grapes.webp"
+  ]);
   const [numOfImages, setNumOfImages] = useState(4);
   const [start, setStart] = useState(0);
-  const [selectedImg, setSelectedImg] = useState(images[0]);
+  const [selectedImg, setSelectedImg] = useState(imagesData[0]);
   const [isEditing, setIsEditing] = useState(false);
   const selectedView = useRef();
 
   // Event handlers
   const handleForward = () => {
     let newStart = start + 1;
-    if (newStart >= images.length) {
+    if (newStart >= imagesData.length) {
       newStart = 0;
       setStart(0);
     } else {
@@ -28,8 +46,8 @@ const EditPage = () => {
     if (newStart >= 0) {
       setStart(newStart);
     } else {
-      newStart = images.length - 1;
-      setStart(images.length - 1);
+      newStart = imagesData.length - 1;
+      setStart(imagesData.length - 1);
     }
     updateImages(newStart);
   };
@@ -46,14 +64,14 @@ const EditPage = () => {
     // Update numOfImages according to window dimensions here.
   }
 
-  // Update current images array when start index changes
+  // Update current imagesData array when start index changes
   const updateImages = (newStart) => {
     const newCurrentImages = [];
     for (let i = 0; i < numOfImages; i++) {
-      if (i + newStart >= images.length) {
-        newCurrentImages.push(images[i + newStart - images.length]);
+      if (i + newStart >= imagesData.length) {
+        newCurrentImages.push(imagesData[i + newStart - imagesData.length]);
       } else {
-        newCurrentImages.push(images[i + newStart]);
+        newCurrentImages.push(imagesData[i + newStart]);
       }
     }
     setCurrentImages(newCurrentImages);
@@ -73,7 +91,10 @@ const EditPage = () => {
         style={{ height: "54vh" }}
         className="col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-6 col-12 bg-primary rounded-4 d-flex justify-content-center align-items-center h1 position-relative"
       >
-        <div style={{ fontSize: "200px" }} ref={selectedView}>{selectedImg}</div>
+        <div style={{ fontSize: "200px", textAlign: "center" }} ref={selectedView}>
+          <img className="selectedImg mb-4" src={selectedImg}></img>
+          <h2>{selectedImg}</h2>
+        </div>
         <button onClick={handleEditButtonClick} style={{ fontSize: "60px" }} className="btn position-absolute top-0 end-0"><i className="bi bi-pencil-square"></i></button>
       </div>
       <div
@@ -89,10 +110,11 @@ const EditPage = () => {
         <div className="text-white d-flex justify-content-around align-items-center w-100 gap-1 ">
           {currentImages.map((image, index) => (
             <div
+              className="carouselItem"
               key={index}
               style={{
                 height: "100%",
-                width: "100%",
+                width: "25%",
                 fontSize: "80px",
                 display: "flex",
                 justifyContent: "center",
@@ -101,10 +123,9 @@ const EditPage = () => {
               }}
               onClick={() => {
                 setSelectedImg(image);
-                selectedView.current.innerHTML = image
               }}
             >
-              {image}
+              <img className="carouselImg" src={image} alt={image.split(".")[0]}></img>
             </div>
           ))}
         </div>

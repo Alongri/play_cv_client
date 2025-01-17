@@ -1,0 +1,32 @@
+.carouselImg {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.selectedImg {
+    height: 350px;
+    object-fit: cover;
+}
+.editDialog {
+    height: 75vh;
+    margin-top: 80px;
+    padding: 30px;
+}
+.dialogFileIn {
+    height: 200px;
+    cursor: pointer;
+    position: relative;
+    i {
+        position: absolute;
+        top: 25px;
+        right: -20px;
+        transform: translate(-50%, -50%);
+        font-size: 50px;
+        color: #000;
+    }
+    img {
+        height: 200px;
+        object-fit: cover;
+    }   
+}
+#fileIn{display: none;}
