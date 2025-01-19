@@ -1,16 +1,37 @@
+.editContainer {
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-between;
+    overflow: hidden;
+}
+.carousel{
+    margin-top: auto;
+    height: 25vh;
+}
 .carouselImg {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
+i{
+    font-size: 60px;
+}
 .selectedImg {
-    height: 350px;
+    height: 30vh;
     object-fit: cover;
 }
 .editDialog {
+    overflow-y: scroll;
     height: 75vh;
-    margin-top: 80px;
+    margin-top: 5vh;
     padding: 30px;
+    h1{
+        padding: 20px 0;
+    }
 }
 .dialogFileIn {
     height: 200px;
@@ -30,3 +51,19 @@
     }   
 }
 #fileIn{display: none;}
+
+@media  (max-width: 1300px) {
+    .editDialog{
+        height: 100vh;
+        margin-top: 0;
+        bottom: 0;
+        padding: 5px;
+        overflow-y: unset;
+        h1{
+            padding: 0;
+        }
+    }
+    i{
+        font-size: 30px;
+    }
+}

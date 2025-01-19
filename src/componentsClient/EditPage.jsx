@@ -84,30 +84,29 @@ const EditPage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+
   return (
-    <div className="d-flex justify-content-center flex-wrap w-100 col-10">
+    <div className="editContainer w-100">
       <h1 className="w-100 text-center">Edit Page</h1>
       <div
-        style={{ height: "54vh" }}
-        className="col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-6 col-12 bg-primary rounded-4 d-flex justify-content-center align-items-center h1 position-relative"
+        className="col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-6 col-12 bg-primary rounded-4 d-flex justify-content-center align-items-center position-relative"
       >
-        <div style={{ fontSize: "200px", textAlign: "center" }} ref={selectedView}>
+        <div style={{ textAlign: "center" }} ref={selectedView}>
           <img className="selectedImg mb-4" src={selectedImg}></img>
           <h2>{selectedImg}</h2>
         </div>
         <button onClick={handleEditButtonClick} style={{ fontSize: "60px" }} className="btn position-absolute top-0 end-0"><i className="bi bi-pencil-square"></i></button>
       </div>
       <div
-        className="d-flex justify-content-between w-100 bg-success"
-        style={{ height: "30vh" }}
-      >
+        className="carousel d-flex justify-content-between w-100">
         <button
-          className="btn text-white float-start p-lg-4"
+          className="btn float-start p-lg-4"
           onClick={handleBackward}
         >
-          <i style={{ fontSize: "60px" }} className="bi bi-arrow-left"></i>
+          <i className="bi bi-arrow-left"></i>
         </button>
-        <div className="text-white d-flex justify-content-around align-items-center w-100 gap-1 ">
+        <div className="text-white d-flex justify-content-around align-items-center w-100 gap-1">
           {currentImages.map((image, index) => (
             <div
               className="carouselItem"
@@ -115,22 +114,18 @@ const EditPage = () => {
               style={{
                 height: "100%",
                 width: "25%",
-                fontSize: "80px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
                 cursor: "pointer"
               }}
               onClick={() => {
                 setSelectedImg(image);
               }}
             >
-              <img className="carouselImg" src={image} alt={image.split(".")[0]}></img>
+              <img className="carouselImg" src={image}></img>
             </div>
           ))}
         </div>
-        <button className="btn text-white p-lg-4" onClick={handleForward}>
-          <i style={{ fontSize: "60px" }} className="bi bi-arrow-right"></i>
+        <button className="btn p-lg-4" onClick={handleForward}>
+          <i className="bi bi-arrow-right"></i>
         </button>
       </div>
       {isEditing && <EditDialog isEditing = {isEditing} setIsEditing = {setIsEditing} selectedImg = {selectedImg}/>}
