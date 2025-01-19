@@ -6,18 +6,18 @@ import { useSelector } from "react-redux";
 
 const QuestionPage = () => {
   const questions = [
-    "Blabla ? 1",
-    "Blabla ? 2",
-    "Blabla ? 3",
-    "Blabla ? 4 ",
-    "Blabla ? 5",
-    "Blabla ? 6",
-    "Blabla ? 7",
-    "Blabla ? 8",
-    "Blabla ? 9",
-    "Blabla ? 10",
-    "Blabla ? 11",
-    "Blabla ? 12",
+    "When did you lead a team?",
+    "Describe a challenging project you worked on.",
+    "What’s a proud moment in your career?",
+    "Tell me about an event you participated in.",
+    "Describe a difficult situation you managed.",
+    "Have you volunteered?",
+    "What’s the most creative project you’ve done?",
+    "When did you give a great presentation?",
+    "What’s a photo of a challenge you overcame?",
+    "Tell me about a team success.",
+    "When did you step out of your comfort zone?",
+    "Describe a professional achievement.",
   ];
 
   const [qIndex, setQIndex] = useState(0);
