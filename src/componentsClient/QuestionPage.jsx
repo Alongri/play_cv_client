@@ -30,9 +30,7 @@ const QuestionPage = () => {
   const navigate = useNavigate();
   const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
 
-  useEffect(() => {
-    console.log(IdVideo);
-  }, [IdVideo]);
+  useEffect(() => {}, []);
 
   const triggerFileInput = () => {
     fileInputRef.current.click();
@@ -52,7 +50,6 @@ const QuestionPage = () => {
   };
 
   const handleNext = async () => {
-    fileInputRef.current.value = "";
     const data = {
       id_video: IdVideo,
       question: questions[qIndex],
@@ -60,8 +57,6 @@ const QuestionPage = () => {
       imageLink: ansImage,
       index: qIndex,
     };
-    console.log(idChild);
-
     let newChild = {};
 
     if (idChild === "") {
@@ -93,15 +88,17 @@ const QuestionPage = () => {
       setAnsText("");
       fileInputRef.current.value = "";
       setAnsImage("");
-      let data = await doApiNextIndex();
+      let data = await doApiNextIndex(qIndex + 1);
       if (data._id) {
         setIdChild(data._id);
         ansTextRef.current.value = data.answer;
         setAnsText(data.answer);
-        fileInputRef.current.value = data.imageLink;
         setAnsImage(data.imageLink);
       } else {
+        ansTextRef.current.value = "";
         setIdChild("");
+        setAnsText("");
+        setAnsImage("");
       }
       setQIndex(qIndex + 1);
       if (qIndex >= 11) {
@@ -110,12 +107,12 @@ const QuestionPage = () => {
     }
   };
 
-  const doApiNextIndex = async () => {
+  const doApiNextIndex = async (_qIndex) => {
+    console.log(IdVideo);
     const dataBody = {
       id_video: IdVideo,
-      index: qIndex + 1,
+      index: _qIndex,
     };
-    console.log(dataBody);
     let url = API_URL + "/videos/nextIndex";
     try {
       let resp = await doApiMethod(url, "PATCH", dataBody);
@@ -170,40 +167,16 @@ const QuestionPage = () => {
 
   const handlePrev = async () => {
     if (qIndex > 0) {
-      const data = {
-        id_video: IdVideo,
-        index: qIndex - 1,
-      };
-      setQIndex(qIndex - 1);
-      const prevChild = await doApiGetChild(data);
-      if (prevChild) {
+      const prevChild = await doApiNextIndex(qIndex - 1);
+      if (prevChild._id) {
+        setIdChild(prevChild._id);
+        ansTextRef.current.value = prevChild.answer;
         setAnsText(prevChild.answer);
         setAnsImage(prevChild.imageLink);
+      } else {
+        setIdChild("");
       }
-    }
-  };
-
-  const doApiGetChild = async (_dataBody) => {
-    console.log(_dataBody);
-    let url = API_URL + "/videos/child";
-    try {
-      let resp = await doApiMethod(url, "PATCH", _dataBody);
-      console.log(resp.data);
-      if (resp.status === 200) {
-        setChild(resp.data);
-        ansTextRef.current.value = resp.data.answer;
-        setAnsText(resp.data.answer);
-        setAnsImage(resp.data.imageLink);
-        console.log(resp.data);
-        console.log(resp.data._id);
-        setIdChild(resp.data._id);
-        return true;
-      }
-      return resp;
-    } catch (err) {
-      alert(err.message);
-      console.log(err.message);
-      return false;
+      setQIndex(qIndex - 1);
     }
   };
 
