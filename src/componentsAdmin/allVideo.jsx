@@ -52,17 +52,15 @@ function AllVideo() {
 
 
   const toThisVideo = (id) => {
-    console.log(id);
-    // dispatch(addIdMorInfoAdmin({ idMorInfoAdmin: id }));
-    nav("/admin/thisvideo");
+    nav(`/admin/thisvideo/${id}`);
   };
 
 
   return (
     <div className="container">
       <div style={{ textAlign: "center", justifyContent: "center" }}>
-        <h1>user details</h1>
-        <h4>Name :{thisUser.FirstName}</h4>
+        <h1>My projects</h1>
+        <h4>Name : {thisUser.FirstName}</h4>
       </div>
 
       <div>
@@ -70,9 +68,9 @@ function AllVideo() {
           <thead>
             <tr>
               <th>List</th>
-              <th>date</th>
+              <th>Creation Date</th>
               <th>Title</th>
-              <th>time</th>
+              <th>More Info</th>
             </tr>
           </thead>
           <tbody>
@@ -83,8 +81,8 @@ function AllVideo() {
                   <td>{video.createdAt ? video.createdAt.substring(10, length - 1) : ""}</td>
                   <td>{video.title}</td>
                   <td>
-                    <button className="btn btn-sm" onClick={() => toThisVideo(video._id)}>
-                      <i className="bi bi-arrow-right-circle-fill"></i>
+                  <button className="btn btn-sm" onClick={() => toThisVideo(video._id)}>
+                  <i className="bi bi-arrow-right-circle-fill"></i>
                     </button>
                   </td>
                 </tr>
