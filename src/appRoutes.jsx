@@ -27,8 +27,8 @@ function AppRoutes() {
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<DashboardAdmin />} />
           <Route path='/admin/allvideo' element={<AllVideo />} />
-          <Route path='/admin/thisvideo' element={<ThisVideo />} />
-        </Route>
+          <Route path="/admin/thisvideo/:id" element={<ThisVideo />} />
+          </Route>
 
         <Route path="/" element={<LayoutClient />}>
           <Route index element={<Welcome />} />

@@ -6,18 +6,18 @@ import { useSelector } from "react-redux";
 
 const QuestionPage = () => {
   const questions = [
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-    "ccccccccccccccccccccccccccccccccccccccccccccc",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
+    "Blabla ? 1",
+    "Blabla ? 2",
+    "Blabla ? 3",
+    "Blabla ? 4 ",
+    "Blabla ? 5",
+    "Blabla ? 6",
+    "Blabla ? 7",
+    "Blabla ? 8",
+    "Blabla ? 9",
+    "Blabla ? 10",
+    "Blabla ? 11",
+    "Blabla ? 12",
   ];
 
   const [qIndex, setQIndex] = useState(0);
