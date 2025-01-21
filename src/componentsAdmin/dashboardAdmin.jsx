@@ -7,22 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addIdMorInfoAdmin } from '../featuers/myDetailsSlice';
 
-// const initialUsers = [
-//   {
-//     id: 1,
-//     FirstName: 'test1',
-//     LastName: 'test1',
-//     email: 'test1@gmail.com',
-//     role: 'Admin',
-//   },
-//   {
-//     id: 2,
-//     FirstName: 'test2',
-//     LastName: 'test2',
-//     email: 'test2@gmail.com',
-//     role: 'user',
-//   },
-// ];
+
 
 const DashboardAdmin = () => {
   let nav = useNavigate();
@@ -76,7 +61,7 @@ const DashboardAdmin = () => {
     console.log("_id");
     console.log(id);
     dispatch(addIdMorInfoAdmin({ idMorInfoAdmin: id }));
-    nav("/admin/allvideo");
+    nav("/admin/AllVideoAdmin");
   };
 
   return (

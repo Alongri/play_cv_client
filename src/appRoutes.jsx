@@ -17,8 +17,8 @@ import LogoutClient from './componentsClient/logoutClient';
 import QuestionPage from './componentsClient/QuestionPage';
 import NameProject from './componentsClient/NameProject';
 import EditPage from './componentsClient/EditPage';
-import AllVideo from './componentsAdmin/allVideo';
 import ThisVideo from "./componentsAdmin/thisVideo";
+import AllVideoAdmin from './componentsAdmin/allVideoAdmin';
 
 function AppRoutes() {
   return (
@@ -26,7 +26,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<DashboardAdmin />} />
-          <Route path='/admin/allvideo' element={<AllVideo />} />
+          <Route path='/admin/AllVideoAdmin' element={<AllVideoAdmin />} />
           <Route path="/admin/thisvideo/:id" element={<ThisVideo />} />
           </Route>
 

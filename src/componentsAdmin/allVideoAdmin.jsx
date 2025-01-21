@@ -3,21 +3,8 @@ import { useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../services/apiService";
 import { useNavigate } from "react-router-dom";
 
-function AllVideo() {
-  // const initialUsers = [
-  //   {
-  //     id: 1,
-  //     tate: "William Justice",
-  //     time: "Davis",
-  //     level: "hvusa",
-  //   },
-  //   {
-  //     id: 2,
-  //     tate: "William Justice",
-  //     time: "Davis",
-  //     level: "hvusa",
-  //   },
-  // ];
+function AllVideoAdmin() {
+
 
   let [ar, setAr] = useState([]);
   const ThisID = useSelector((state) => state.myDetailsSlice.idMorInfoAdmin);
@@ -40,7 +27,7 @@ function AllVideo() {
   };
 
   const doApiAllVideo = async () => {
-    let url = API_URL + "/videos/allUserVideos/" + ThisID;
+    let url = API_URL + "/videos/allUserVideosAdmin/" + ThisID;
     try {
       let data = await doApiGet(url);
       console.log(data.data);
@@ -95,4 +82,4 @@ function AllVideo() {
   );
 }
 
-export default AllVideo;
+export default AllVideoAdmin;
