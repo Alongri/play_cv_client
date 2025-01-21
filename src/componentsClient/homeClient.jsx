@@ -36,17 +36,7 @@ const HomeClient = () => {
         <div className="container-fluid d-flex flex-column bg-light" style={{ minHeight: '100vh', padding: '20px' }}>
             {/* Original Section */}
             <div className="container text-center my-4 py-4 bg-white shadow rounded">
-                <h1 className="mb-2 display-4 fw-bold">Welcome <span
-                    style={{
-                        fontWeight: 'bold',
-                        fontSize: '3rem',
-                        color: 'transparent',
-                        backgroundImage: 'linear-gradient(to right, #2196F3, #8E24AA)',
-                        backgroundClip: 'text',
-                        WebkitBackgroundClip: 'text',
-                    }}
-                >{myName || myInfo.FirstName}</span>
-                </h1>
+                <h1 className="mb-2 display-4 fw-bold">Welcome <span className='playCVGradient'>{myName || myInfo.FirstName}</span></h1>
                 <button
                     className="btn btn-success fs-4 fw-bold mt-5 px-5 py-2"
                     onClick={() => navigate('/nameProject')}

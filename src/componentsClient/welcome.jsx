@@ -122,16 +122,7 @@ const Welcome = () => {
             {/* Content */}
             <div style={{ position: 'relative', zIndex: '1' }}>
               <h3
-                className="py-2"
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: '3rem',
-                  color: 'transparent',
-                  backgroundImage: 'linear-gradient(to right, #2196F3, #8E24AA)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  display: 'inline',
-                }}
+                className="py-2 playCVGradient"
               >
                 About Us
               </h3>
