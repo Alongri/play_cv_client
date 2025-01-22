@@ -1,8 +1,7 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
-import { json, useNavigate } from "react-router-dom";
-import { API_URL, doApiMethod } from "../services/apiService";
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { API_URL, doApiMethod } from "../services/apiService";
 
 const QuestionPage = () => {
   const questions = [
@@ -22,15 +21,16 @@ const QuestionPage = () => {
 
   const [qIndex, setQIndex] = useState(0);
   const [ansText, setAnsText] = useState("");
-  const [idChild, setIdChild] = useState("");
-  const [child, setChild] = useState({});
   const [ansImage, setAnsImage] = useState("");
+  const [idChild, setIdChild] = useState("");
+  const [errorText, setErrorText] = useState(false);
+  const [errorImage, setErrorImage] = useState(false);
+  const [formError, setFormError] = useState(false);
+
   const ansTextRef = useRef();
   const fileInputRef = useRef();
   const navigate = useNavigate();
   const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
-
-  useEffect(() => {}, []);
 
   const triggerFileInput = () => {
     fileInputRef.current.click();
@@ -38,77 +38,85 @@ const QuestionPage = () => {
 
   const handleTextChange = () => {
     setAnsText(ansTextRef.current.value);
+    setErrorText(false); // Clear error if user starts typing
   };
 
   const handleFileChange = (event) => {
-    const file = event?.target?.files?.[0]; // Safely access the file
-    console.log(file);
+    const file = event?.target?.files?.[0];
     if (file) {
-      const imagePath = URL.createObjectURL(file); // Create object URL
-      setAnsImage(imagePath); // Set it to your state to display
+      const imagePath = URL.createObjectURL(file);
+      setAnsImage(imagePath);
+      setErrorImage(false); // Clear error if image is selected
     }
   };
 
   const handleNext = async () => {
-    const data = {
-      id_video: IdVideo,
-      question: questions[qIndex],
-      answer: ansText,
-      imageLink: ansImage,
-      index: qIndex,
-    };
-    let newChild = {};
-
-    if (idChild === "") {
-      const uploadedImageUrl = ansImage; // Bypass upload
-      if (uploadedImageUrl) {
-        data.imageLink = uploadedImageUrl;
-        newChild = await doApiNewChild(data);
-        console.log(newChild);
-      }
+    if (ansText === "" || ansImage === "") {
+      setFormError(true); 
+      if (ansText === "") setErrorText(true);
+      if (ansImage === "") setErrorImage(true);
     } else {
-      const newData = {
-        _id: idChild,
+      const data = {
         id_video: IdVideo,
         question: questions[qIndex],
         answer: ansText,
         imageLink: ansImage,
         index: qIndex,
       };
-      const uploadedImageUrl = ansImage; // Bypass upload
-      if (uploadedImageUrl) {
-        newData.imageLink = uploadedImageUrl;
-        newChild = await doApiUpdateChild(newData);
-        console.log(newChild);
-      }
-    }
 
-    if (newChild) {
-      ansTextRef.current.value = "";
-      setAnsText("");
-      fileInputRef.current.value = "";
-      setAnsImage("");
-      let data = await doApiNextIndex(qIndex + 1);
-      if (data._id) {
-        setIdChild(data._id);
-        ansTextRef.current.value = data.answer;
-        setAnsText(data.answer);
-        setAnsImage(data.imageLink);
+      let newChild = {};
+      if (idChild === "") {
+        const uploadedImageUrl = ansImage;
+        if (uploadedImageUrl) {
+          data.imageLink = uploadedImageUrl;
+          newChild = await doApiNewChild(data);
+        }
       } else {
-        ansTextRef.current.value = "";
-        setIdChild("");
+        const newData = {
+          _id: idChild,
+          id_video: IdVideo,
+          question: questions[qIndex],
+          answer: ansText,
+          imageLink: ansImage,
+          index: qIndex,
+        };
+        const uploadedImageUrl = ansImage;
+        if (uploadedImageUrl) {
+          newData.imageLink = uploadedImageUrl;
+          newChild = await doApiUpdateChild(newData);
+        }
+      }
+
+      if (newChild) {
         setAnsText("");
         setAnsImage("");
-      }
-      setQIndex(qIndex + 1);
-      if (qIndex >= 11) {
-        navigate("/editPage");
+        setErrorText(false);
+        setErrorImage(false);
+        setFormError(false); 
+
+        if (ansTextRef.current) ansTextRef.current.value = "";
+        if (fileInputRef.current) fileInputRef.current.value = "";
+
+        let data = await doApiNextIndex(qIndex + 1);
+        if (data._id) {
+          setIdChild(data._id);
+          setAnsText(data.answer);
+          setAnsImage(data.imageLink);
+        } else {
+          setIdChild("");
+          setAnsText("");
+          setAnsImage("");
+        }
+
+        setQIndex(qIndex + 1);
+        if (qIndex >= 11) {
+          navigate("/editPage");
+        }
       }
     }
   };
 
   const doApiNextIndex = async (_qIndex) => {
-    console.log(IdVideo);
     const dataBody = {
       id_video: IdVideo,
       index: _qIndex,
@@ -116,14 +124,11 @@ const QuestionPage = () => {
     let url = API_URL + "/videos/nextIndex";
     try {
       let resp = await doApiMethod(url, "PATCH", dataBody);
-      console.log(resp.data);
-      if (resp.status == 200) {
+      if (resp.status === 200) {
         return resp.data;
       }
-      console.log(resp);
       return {};
     } catch (err) {
-      alert(err.message);
       console.log(err.message);
       return err;
     }
@@ -133,15 +138,11 @@ const QuestionPage = () => {
     let url = API_URL + "/videos/child";
     try {
       let resp = await doApiMethod(url, "POST", _dataBody);
-      console.log(resp.data);
-      if (resp.status == 201) {
-        return true;
+      if (resp.status === 201) {
+        return [resp.data, true];
       }
-      console.log(resp);
-
       return resp;
     } catch (err) {
-      alert(err.message);
       console.log(err.message);
       return false;
     }
@@ -151,15 +152,11 @@ const QuestionPage = () => {
     let url = API_URL + "/videos/updatedchild";
     try {
       let resp = await doApiMethod(url, "PATCH", _dataBody);
-      console.log(resp.data);
-      if (resp.status == 200) {
-        return true;
+      if (resp.status === 200) {
+        return [resp.data, true];
       }
-      console.log(resp);
-
       return resp;
     } catch (err) {
-      alert(err.message);
       console.log(err.message);
       return false;
     }
@@ -170,11 +167,12 @@ const QuestionPage = () => {
       const prevChild = await doApiNextIndex(qIndex - 1);
       if (prevChild._id) {
         setIdChild(prevChild._id);
-        ansTextRef.current.value = prevChild.answer;
         setAnsText(prevChild.answer);
         setAnsImage(prevChild.imageLink);
       } else {
         setIdChild("");
+        setAnsText("");
+        setAnsImage("");
       }
       setQIndex(qIndex - 1);
     }
@@ -188,16 +186,20 @@ const QuestionPage = () => {
         <h2 className="m-2 ">Your answer:</h2>
         <input
           ref={ansTextRef}
-          className="form-control mb-2 w-50 mx-auto"
+          className={`form-control mb-2 w-50 mx-auto ${errorText ? "border border-danger" : ""}`}
           type="text"
+          value={ansText}
           onChange={handleTextChange}
         />
+        {errorText && (
+          <p className="text-danger">Please provide an answer before proceeding.</p>
+        )}
       </div>
       <div>
         <h2 className="m-2">Add a relevant image:</h2>
         <div
           onClick={triggerFileInput}
-          className="upload-box"
+          className={`upload-box ${errorImage ? "border border-danger" : ""}`}
           style={{
             width: "600px",
             height: "400px",
@@ -212,9 +214,7 @@ const QuestionPage = () => {
             backgroundPosition: "center",
           }}
         >
-          {!ansImage && (
-            <span style={{ fontSize: "24px", color: "#999" }}>+</span>
-          )}
+          {!ansImage && <span style={{ fontSize: "24px", color: "#999" }}>+</span>}
         </div>
         <input
           ref={fileInputRef}
@@ -223,12 +223,19 @@ const QuestionPage = () => {
           style={{ display: "none" }}
           onChange={handleFileChange}
         />
+        {errorImage && (
+          <p className="text-danger">Please add an image before proceeding.</p>
+        )}
       </div>
+
       <div className="d-flex justify-content-center w-50 m-auto gap-5 my-3">
         <button className="btn fw-bold btn-primary px-4" onClick={handlePrev}>
           Prev
         </button>
-        <button className="btn fw-bold btn-primary px-4" onClick={handleNext}>
+        <button
+          className="btn fw-bold btn-primary px-4"
+          onClick={handleNext}
+        >
           Next
         </button>
       </div>
