@@ -29,7 +29,7 @@ function HeaderClient() {
   const buttonStyle = {
     background: "linear-gradient(90deg, #BC7DFC, #0F98E7,rgb(205, 24, 221))", 
     border: "none",
-    borderRadius: "25px",
+    borderRadius: "5px",
     color: "white",
     padding: "10px 20px",
     fontSize: "16px",
