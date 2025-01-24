@@ -51,33 +51,33 @@ const NameProject = () => {
 
     return (
         <div className="container text-center py-5">
-            <div className="bg-light p-2 rounded shadow-sm mb-4">
-                <h3 className="fw-semibold">Guidelines for Creating Your Project</h3>
-                <ul className="text-start list-unstyled mt-3 mx-auto" style={{ maxWidth: "700px", lineHeight: "1.8" }}>
+            <div className="bg-light p-3 rounded shadow-sm col-lg-8 mb-4 mx-auto">
+                <h4 className="fw-semibold">Guidelines for Creating Your Project</h4>
+                <ul className="text-start list-unstyled mt-3 col-sm-10 col-lg-8 mx-auto" style={{ maxWidth: "700px", lineHeight: "1.8" }}>
                     <li><strong>1.</strong> Every project is unique and represents your vision. Choosing a meaningful name will make it easily identifiable.</li>
                     <li><strong>2.</strong> A well-named project simplifies organization and future reference.</li>
                     <li><strong>3.</strong> Ensure the name reflects your project's essence and purpose clearly.</li>
                 </ul>
             </div>
-            <div className="bg-white p-2 rounded shadow-sm">
-                <h2 className="mt-4">Please Name Your New Project:</h2>
-                <p className="text-muted mt-2" style={{ maxWidth: "700px", margin: "0 auto" }}>
+            <div className="bg-white p-2 rounded shadow-sm col-lg-8 mx-auto">
+                <h4 className="mt-2">Please Name Your New Project:</h4>
+                <p className="text-muted mt-2 col-lg-8 col-sm-10 mx-auto">
                     Enter a descriptive title that resonates with your project's goals and objectives.
                     This title will be prominently displayed in your profile and help in identifying the project.
                 </p>
                 <label htmlFor="projectName" className="form-label mt-3 fw-semibold">Project Name</label>
-                <div className="d-flex justify-content-center">
+                <div className="nameInput d-flex justify-content-center border quicksand">
 
                     <input
                         ref={titleIn}
                         id="projectName"
-                        className="form-control  w-30 mx-auto shadow-sm"
                         type="text"
+                        className="sofia fs-5"
                         placeholder="Enter your project name"
                         onChange={() => { updateTitle(); }}
                     />
                     <button
-                        className="btn fw-bold btn-primary mx-3 px-4 py-2"
+                        className="fw-bold fs-5 py-2"
                         onClick={onProceed}>
                         Proceed
                     </button>

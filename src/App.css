@@ -88,6 +88,36 @@ i {
   display: none;
 }
 
+.nameInput {
+  button, input{
+    border: none;
+  }
+  button {
+    transition: 120ms;
+    border-radius: 0 15px 15px 0;
+    color: #8c52ff;
+    background-color: white;
+    width: 150px;
+  }
+  button:hover {
+    color: white;
+    background-color: #8c52ff;
+  }
+  input {
+    border-radius: 15px 0 0 15px;
+    text-align: center;
+    width: 300px;
+    padding: 10px 20px;
+  }
+  input:focus {
+    outline: none;
+  }
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  border-radius: 15px;
+}
+
 @media (max-width: 1300px) {
   .editDialog {
     height: 100vh;
