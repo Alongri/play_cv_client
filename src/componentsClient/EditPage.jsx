@@ -1,136 +1,266 @@
-import React from "react";
-import { useState, useEffect, useRef} from "react";
-import EditDialog from "./EditDialog";
+// import "../carouselStyle.css";
+import "../App.css";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 const EditPage = () => {
-  // States
-  const imagesData = [
-    "./assets/Apple.webp", 
-    "./assets/Avocado.webp", 
-    "./assets/Coconut.jpg", 
-    "./assets/Grapes.webp", 
-    "./assets/Kiwi.webp", 
-    "./assets/Lemon.jpg", 
-    "./assets/Mango.webp", 
-    "./assets/Melon.jpg", 
-    "./assets/Orange.jpg", 
-    "./assets/Peach.jpg",  
-    "./assets/Pineapple.webp",  
-    "./assets/Watermelon.jpg", 
-  ];
-  const [currentImages, setCurrentImages] = useState([
-    "./assets/Apple.webp", 
-    "./assets/Avocado.webp", 
-    "./assets/Coconut.jpg", 
-    "./assets/Grapes.webp"
+  const [[activeIndex, direction], setActiveIndex] = useState([0, 0]);
+  const [editingItemId, setEditingItemId] = useState(null);
+  const [items, setItems] = useState([
+    {
+      _id: "1",
+      question: "When did you lead a team?",
+      answer: "Pizza",
+      index: 0,
+      imageLink: "http://fakeimg.pl/300/?text=1",
+    },
+    {
+      _id: "2",
+      question: "Describe a challenging project you worked on.",
+      answer: "Blue",
+      index: 1,
+      imageLink: "https://w.wallhaven.cc/full/o5/wallhaven-o5ov3l.jpg",
+    },
+    {
+      _id: "3",
+      question: "What’s a proud moment in your career?",
+      answer: "New York",
+      index: 2,
+      imageLink: "http://fakeimg.pl/300/?text=3",
+    },
+    {
+      _id: "4",
+      question: "Tell me about an event you participated in.",
+      answer: "Pizza",
+      index: 3,
+      imageLink: "http://fakeimg.pl/300/?text=4",
+    },
+    {
+      _id: "5",
+      question: "Describe a difficult situation you managed.",
+      answer: "Blue",
+      index: 4,
+      imageLink: "http://fakeimg.pl/300/?text=5",
+    },
+    {
+      _id: "6",
+      question: "Have you volunteered?",
+      answer: "New York",
+      index: 5,
+      imageLink: "http://fakeimg.pl/300/?text=6",
+    },
+    {
+      _id: "7",
+      question: "What’s the most creative project you’ve done?",
+      answer: "New York",
+      index: 6,
+      imageLink: "http://fakeimg.pl/300/?text=7",
+    },
+    {
+      _id: "8",
+      question: "When did you give a great presentation?",
+      answer: "New York",
+      index: 7,
+      imageLink: "http://fakeimg.pl/300/?text=8",
+    },
+    {
+      _id: "9",
+      question: "What’s a photo of a challenge you overcame?",
+      answer: "New York",
+      index: 8,
+      imageLink: "http://fakeimg.pl/300/?text=9",
+    },
+    {
+      _id: "10",
+      question: "Tell me about a team success.",
+      answer: "New York",
+      index: 9,
+      imageLink: "http://fakeimg.pl/300/?text=10",
+    },
+    {
+      _id: "11",
+      question: "When did you step out of your comfort zone?",
+      answer: "New York",
+      index: 10,
+      imageLink: "http://fakeimg.pl/300/?text=11",
+    },
+    {
+      _id: "12",
+      question: "Describe a professional achievement.",
+      answer: "New York",
+      index: 11,
+      imageLink: "http://fakeimg.pl/300/?text=12",
+    },
   ]);
-  const [numOfImages, setNumOfImages] = useState(4);
-  const [start, setStart] = useState(0);
-  const [selectedImg, setSelectedImg] = useState(imagesData[0]);
-  const [isEditing, setIsEditing] = useState(false);
-  const selectedView = useRef();
 
-  // Event handlers
-  const handleForward = () => {
-    let newStart = start + 1;
-    if (newStart >= imagesData.length) {
-      newStart = 0;
-      setStart(0);
-    } else {
-      setStart(newStart);
-    }
-    updateImages(newStart);
+  const handleClick = (newDirection) => {
+    setActiveIndex((prevIndex) => [prevIndex[0] + newDirection, newDirection]);
   };
-  const handleBackward = () => {
-    let newStart = start - 1;
-    if (newStart >= 0) {
-      setStart(newStart);
-    } else {
-      newStart = imagesData.length - 1;
-      setStart(imagesData.length - 1);
-    }
-    updateImages(newStart);
-  };
-  const handleEditButtonClick = () => {
-    const editing = !isEditing;
-    setIsEditing(!isEditing);
-    if (editing) {
-      console.log(editing);
-    } else {
-      console.log(editing);
-    }
-  }
-  const handleResize = () => {
-    // Update numOfImages according to window dimensions here.
-  }
 
-  // Update current imagesData array when start index changes
-  const updateImages = (newStart) => {
-    const newCurrentImages = [];
-    for (let i = 0; i < numOfImages; i++) {
-      if (i + newStart >= imagesData.length) {
-        newCurrentImages.push(imagesData[i + newStart - imagesData.length]);
-      } else {
-        newCurrentImages.push(imagesData[i + newStart]);
-      }
-    }
-    setCurrentImages(newCurrentImages);
-    console.log(newCurrentImages);
+  const handleEditButtonClick = (itemId) => {
+    setEditingItemId(itemId);
   };
-  
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
+  const handleInputChange = (id, field, value) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === id ? { ...item, [field]: value } : item
+      )
+    );
+  };
+
+  const handleImageChange = (id, event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      handleInputChange(id, "imageLink", imageUrl);
+    }
+  };
+
+  const handleSaveChanges = () => {
+    setEditingItemId(null);
+  };
+
+  const indexInArrayScope =
+    ((activeIndex % items.length) + items.length) % items.length;
+  const visibleItems = [...items, ...items].slice(
+    indexInArrayScope,
+    indexInArrayScope + 3
+  );
 
   return (
-    <div className="editContainer w-100">
-      <h1 className="w-100 text-center">Edit Page</h1>
-      <div
-        className="col-sm-12 col-md-10 col-lg-9 col-xl-8 col-xxl-6 col-12 bg-primary rounded-4 d-flex justify-content-center align-items-center position-relative"
-      >
-        <div style={{ textAlign: "center" }} ref={selectedView}>
-          <img className="selectedImg mb-4" src={selectedImg}></img>
-          <h2>{selectedImg}</h2>
-        </div>
-        <button onClick={handleEditButtonClick} style={{ fontSize: "60px" }} className="btn position-absolute top-0 end-0"><i className="bi bi-pencil-square"></i></button>
+    <div className="main-wrapper">
+      <div className="flex-container">
+        <h1 className="emphesis-carousel">Edit before the magic</h1>
+        <button className="generate-btn quicksand">Generate</button>
       </div>
-      <div
-        className="carousel d-flex justify-content-between w-100">
-        <button
-          className="btn float-start p-lg-4"
-          onClick={handleBackward}
+      <div className="wrapper">
+        <AnimatePresence mode="popLayout" initial={false}>
+          {visibleItems.map((item) => {
+            const isEditing = editingItemId === item._id;
+            const cardIndex = item.index + 1;
+            return (
+              <motion.div
+                className="card"
+                key={item._id}
+                layout
+                custom={{
+                  direction,
+                  position: () => {
+                    if (item === visibleItems[0]) {
+                      return "left";
+                    } else if (item === visibleItems[1]) {
+                      return "center";
+                    } else {
+                      return "right";
+                    }
+                  },
+                }}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 1 }}
+              >
+                <div className="card-content">
+                  <div>
+                    <h5 className="card-index">
+                      {cardIndex} of {items.length}
+                    </h5>
+                  </div>
+                  <h3 className="faustina">{item.question}</h3>
+                  <input
+                    type="text"
+                    value={item.answer}
+                    disabled={!isEditing}
+                    className="styled-input"
+                    onChange={(e) =>
+                      handleInputChange(item._id, "answer", e.target.value)
+                    }
+                  />
+                  <div className="image-container">
+                    {isEditing ? (
+                      <label>
+                        <img
+                          src={item.imageLink}
+                          alt="Card"
+                          className="card-image clickable"
+                        />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={(e) => handleImageChange(item._id, e)}
+                        />
+                      </label>
+                    ) : (
+                      <img
+                        src={item.imageLink}
+                        alt="Card"
+                        className="card-image"
+                      />
+                    )}
+                  </div>
+                  <button
+                    className="edit-btn faustina"
+                    onClick={() =>
+                      isEditing
+                        ? handleSaveChanges()
+                        : handleEditButtonClick(item._id)
+                    }
+                  >
+                    {isEditing ? "Save Changes" : "Edit"}
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </div>
+      <div className="buttons">
+        <motion.button
+          className="prev-btn"
+          whileTap={{ scale: 0.8 }}
+          onClick={() => handleClick(-1)}
         >
-          <i className="bi bi-arrow-left"></i>
-        </button>
-        <div className="text-white d-flex justify-content-around align-items-center w-100 gap-1">
-          {currentImages.map((image, index) => (
-            <div
-              className="carouselItem"
-              key={index}
-              style={{
-                height: "100%",
-                width: "25%",
-                cursor: "pointer"
-              }}
-              onClick={() => {
-                setSelectedImg(image);
-              }}
-            >
-              <img className="carouselImg" src={image}></img>
-            </div>
-          ))}
-        </div>
-        <button className="btn p-lg-4" onClick={handleForward}>
-          <i className="bi bi-arrow-right"></i>
-        </button>
+          ◀︎
+        </motion.button>
+        <motion.button
+          className="next-btn"
+          whileTap={{ scale: 0.8 }}
+          onClick={() => handleClick(1)}
+        >
+          ▶︎
+        </motion.button>
       </div>
-      {isEditing && <EditDialog isEditing = {isEditing} setIsEditing = {setIsEditing} selectedImg = {selectedImg}/>}
     </div>
   );
 };
+
+const variants = {
+  enter: ({ direction }) => {
+    return { scale: 0.2, x: direction < 1 ? 50 : -50, opacity: 0 };
+  },
+  center: ({ position, direction }) => {
+    return {
+      scale: position() === "center" ? 1 : 0.7,
+      x: 0,
+      zIndex: getZIndex({ position, direction }),
+      opacity: 1,
+    };
+  },
+  exit: ({ direction }) => {
+    return { scale: 0.2, x: direction < 1 ? -50 : 50, opacity: 0 };
+  },
+};
+
+function getZIndex({ position, direction }) {
+  const indexes = {
+    left: direction > 0 ? 2 : 1,
+    center: 3,
+    right: direction > 0 ? 1 : 2,
+  };
+  return indexes[position()];
+}
 
 export default EditPage;

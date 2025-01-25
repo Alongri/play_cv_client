@@ -1,24 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ephesis&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ephesis&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&display=swap");
 
 .quicksand {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 .sofia {
-  font-family: 'Sofia', sans-serif;
+  font-family: "Sofia", sans-serif;
 }
 .emphesis {
-  font-family: 'Ephesis', sans-serif;
+  font-family: "Ephesis", sans-serif;
 }
 .faustina {
-  font-family: 'Faustina', sans-serif;
+  font-family: "Faustina", sans-serif;
 }
 
-
 .playCVColor {
-    color: #8c52ff;
+  color: #8c52ff;
 }
 .playCVGradient {
   font-weight: bold;
@@ -29,7 +28,6 @@
   -webkit-background-clip: text;
   display: inline;
   padding-right: 0.5rem;
-
 }
 
 .editContainer {
@@ -89,7 +87,8 @@ i {
 }
 
 .nameInput {
-  button, input{
+  button,
+  input {
     border: none;
   }
   button {
@@ -132,4 +131,171 @@ i {
   i {
     font-size: 30px;
   }
+}
+
+/* Carousel CSS */
+
+.emphesis-carousel {
+  font-family: "Ephesis", sans-serif;
+  font-size: 100px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.generate-btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  color: white;
+  background-color: #2196f3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.generate-btn:hover {
+  background-color: #1769aa; /* Darker shade on hover */
+}
+
+.generate-btn:active {
+  transform: scale(0.95); /* Slight scale effect on click */
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 600px;
+  height: 600px;
+  font-size: 20px;
+  position: relative;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.card-index {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2196f3;
+  background-color: #fff;
+  padding: 5px 15px;
+  border-radius: 30px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.image-container {
+  width: 550px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  width: 100%;
+}
+
+.wrapper {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prev-btn,
+.next-btn {
+  margin: 10px;
+  background-color: white;
+  border: transparent;
+  padding: 7px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  font-size: 40px;
+}
+
+.prev-btn {
+  font-size: 30px;
+}
+
+.next-btn {
+  font-size: 30px;
+}
+
+.edit-btn {
+  position: absolute;
+  border-radius: 10px;
+  top: 10px;
+  right: 20px;
+  padding: 8px 12px;
+  background-image: linear-gradient(to right, #2196f3, #8e24aa);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.edit-btn:focus {
+  outline: none;
+}
+
+.edit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.styled-input {
+  width: 400px;
+  height: 40px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  background-color: #f9f9f9;
+  color: #555;
+  transition: border-color 0.3s;
+}
+
+.styled-input:focus {
+  outline: none;
+  border-color: #2196f3; /* Focus effect */
 }
