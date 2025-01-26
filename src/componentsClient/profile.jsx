@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../services/apiService";
 import { useNavigate } from "react-router-dom";
+import { addIdVideo } from "../featuers/myDetailsSlice";
 
 function Profile() {
   const [projects, setProjects] = useState([]);
   const [userInfo, setUserInfo] = useState({});
-  const ThisID = useSelector((state) => state.myDetailsSlice.idMorInfoAdmin); 
+  const ThisID = useSelector((state) => state.myDetailsSlice.idMorInfoAdmin);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (ThisID) {
@@ -31,31 +33,31 @@ function Profile() {
     }
   };
 
- 
   const goToVideoDetailsProfile = (id) => {
-    console.log("Navigating to video details with ID:", id);  
-    navigate(`/video/${id}`); 
+    console.log("Navigating to video details with ID:", id);
+    dispatch(addIdVideo({ idVideo: id }));
+    navigate(`/editpage`);
   };
 
   return (
     <div className="container">
-    <div className="text-center">
-      <h1
-        style={{
-            background: "linear-gradient(135deg, #8e44ad, #2980b9,rgb(10, 255, 42))", 
+      <div className="text-center">
+        <h1
+          style={{
+            background:
+              "linear-gradient(135deg, #8e44ad, #2980b9,rgb(10, 255, 42))",
             WebkitBackgroundClip: "text",
             color: "transparent",
             fontFamily: "'Arial', sans-serif",
-            fontSize: "48px", 
-            letterSpacing: "3px", 
+            fontSize: "48px",
+            letterSpacing: "3px",
             textAlign: "center",
-            textShadow: "4px 4px 8px rgba(0, 0, 0, 0.4)", 
-        }}
-      >
-        Welcome to your projects {userInfo.FirstName}
-      </h1>
-    </div>
-
+            textShadow: "4px 4px 8px rgba(0, 0, 0, 0.4)",
+          }}
+        >
+          Welcome to your projects {userInfo.FirstName}
+        </h1>
+      </div>
 
       <div>
         <table className="table table-striped shadow-lg">
@@ -78,9 +80,12 @@ function Profile() {
                 </td>
                 <td>{project.title}</td>
                 <td>
-                <button className="btn btn-sm" onClick={() => goToVideoDetailsProfile(project._id)}>
-                  <i className="bi bi-arrow-right-circle-fill"></i>
-                    </button>
+                  <button
+                    className="btn btn-sm"
+                    onClick={() => goToVideoDetailsProfile(project._id)}
+                  >
+                    <i className="bi bi-arrow-right-circle-fill"></i>
+                  </button>
                 </td>
               </tr>
             ))}

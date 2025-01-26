@@ -6,8 +6,8 @@ const initialState = {
   idMorInfoAdmin: "0",
   ifShowNav: false,
   isAdmin: false,
-  idVideo: "idVideo",
-}
+  idVideo: "start",
+};
 
 const myDetailsSlice = createSlice({
   name: "myDetails",
@@ -31,8 +31,8 @@ const myDetailsSlice = createSlice({
     addIdVideo: (start, activation) => {
       start.idVideo = activation.payload.idVideo;
     },
-  }
-})
+  },
+});
 
 export const {
   addName,
@@ -41,5 +41,5 @@ export const {
   addIfShowNav,
   addIsAdmin,
   addIdVideo,
-} = myDetailsSlice.actions
-export default myDetailsSlice.reducer
+} = myDetailsSlice.actions;
+export default myDetailsSlice.reducer;

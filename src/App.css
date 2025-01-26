@@ -137,7 +137,7 @@ i {
 
 .emphesis-carousel {
   font-family: "Ephesis", sans-serif;
-  font-size: 100px;
+  font-size: 60px;
 }
 
 @media (max-width: 768px) {
@@ -157,6 +157,10 @@ i {
 }
 
 .generate-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 10;
   padding: 10px 20px;
   font-size: 18px;
   color: white;

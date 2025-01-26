@@ -1,12 +1,12 @@
-// import "../carouselStyle.css";
 import "../App.css";
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
 
 const EditPage = () => {
-  const [[activeIndex, direction], setActiveIndex] = useState([0, 0]);
-  const [editingItemId, setEditingItemId] = useState(null);
-  const [items, setItems] = useState([
+  let startAR = [
     {
       _id: "1",
       question: "When did you lead a team?",
@@ -19,7 +19,7 @@ const EditPage = () => {
       question: "Describe a challenging project you worked on.",
       answer: "Blue",
       index: 1,
-      imageLink: "https://w.wallhaven.cc/full/o5/wallhaven-o5ov3l.jpg",
+      imageLink: "http://fakeimg.pl/300/?text=2",
     },
     {
       _id: "3",
@@ -91,7 +91,28 @@ const EditPage = () => {
       index: 11,
       imageLink: "http://fakeimg.pl/300/?text=12",
     },
-  ]);
+  ];
+  const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
+  const [[activeIndex, direction], setActiveIndex] = useState([0, 0]);
+  const [editingItemId, setEditingItemId] = useState(null);
+  const [items, setItems] = useState(startAR);
+
+  useEffect(() => {
+    console.log(IdVideo);
+    doApi();
+  }, []);
+
+  const doApi = async () => {
+    console.log(IdVideo);
+    let url = API_URL + "/videos/childobjects/" + IdVideo;
+    try {
+      let data = await doApiGet(url);
+      console.log(data);
+      setItems(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClick = (newDirection) => {
     setActiveIndex((prevIndex) => [prevIndex[0] + newDirection, newDirection]);
@@ -117,8 +138,24 @@ const EditPage = () => {
     }
   };
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = (_index) => {
+    doApiUpdate(items[_index]);
     setEditingItemId(null);
+  };
+
+  const doApiUpdate = async (_dataBody) => {
+    console.log(_dataBody);
+    let url = API_URL + "/videos/updatedchild";
+    try {
+      let resp = await doApiMethod(url, "PATCH", _dataBody);
+      if (resp.status === 200) {
+        return [resp.data, true];
+      }
+      return resp;
+    } catch (err) {
+      console.log(err.message);
+      return false;
+    }
   };
 
   const indexInArrayScope =
@@ -205,7 +242,7 @@ const EditPage = () => {
                     className="edit-btn faustina"
                     onClick={() =>
                       isEditing
-                        ? handleSaveChanges()
+                        ? handleSaveChanges(item.index)
                         : handleEditButtonClick(item._id)
                     }
                   >

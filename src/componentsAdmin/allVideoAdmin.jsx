@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../services/apiService";
 import { useNavigate } from "react-router-dom";
+import { addIdVideo } from "../featuers/myDetailsSlice";
 
 function AllVideoAdmin() {
-
-
   let [ar, setAr] = useState([]);
   const ThisID = useSelector((state) => state.myDetailsSlice.idMorInfoAdmin);
   const [thisUser, setThisUser] = useState([]);
-   let nav = useNavigate();
+  let nav = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     doApi();
@@ -37,11 +37,10 @@ function AllVideoAdmin() {
     }
   };
 
-
-  const toThisVideo = (id) => {
-    nav(`/admin/thisvideo/${id}`);
+  const toThisVideo = (_id) => {
+    dispatch(addIdVideo({ idVideo: _id }));
+    nav(`/admin/thisvideo`);
   };
-
 
   return (
     <div className="container">
@@ -65,11 +64,18 @@ function AllVideoAdmin() {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{video.createdAt ? video.createdAt.substring(10, length - 1) : ""}</td>
+                  <td>
+                    {video.createdAt
+                      ? video.createdAt.substring(10, length - 1)
+                      : ""}
+                  </td>
                   <td>{video.title}</td>
                   <td>
-                  <button className="btn btn-sm" onClick={() => toThisVideo(video._id)}>
-                  <i className="bi bi-arrow-right-circle-fill"></i>
+                    <button
+                      className="btn btn-sm"
+                      onClick={() => toThisVideo(video._id)}
+                    >
+                      <i className="bi bi-arrow-right-circle-fill"></i>
                     </button>
                   </td>
                 </tr>

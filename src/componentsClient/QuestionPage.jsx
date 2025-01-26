@@ -52,7 +52,7 @@ const QuestionPage = () => {
 
   const handleNext = async () => {
     if (ansText === "" || ansImage === "") {
-      setFormError(true); 
+      setFormError(true);
       if (ansText === "") setErrorText(true);
       if (ansImage === "") setErrorImage(true);
     } else {
@@ -92,7 +92,7 @@ const QuestionPage = () => {
         setAnsImage("");
         setErrorText(false);
         setErrorImage(false);
-        setFormError(false); 
+        setFormError(false);
 
         if (ansTextRef.current) ansTextRef.current.value = "";
         if (fileInputRef.current) fileInputRef.current.value = "";
@@ -186,13 +186,17 @@ const QuestionPage = () => {
         <h2 className="m-2 ">Your answer:</h2>
         <input
           ref={ansTextRef}
-          className={`form-control mb-2 w-50 mx-auto ${errorText ? "border border-danger" : ""}`}
+          className={`form-control mb-2 w-50 mx-auto ${
+            errorText ? "border border-danger" : ""
+          }`}
           type="text"
           value={ansText}
           onChange={handleTextChange}
         />
         {errorText && (
-          <p className="text-danger">Please provide an answer before proceeding.</p>
+          <p className="text-danger">
+            Please provide an answer before proceeding.
+          </p>
         )}
       </div>
       <div>
@@ -214,7 +218,9 @@ const QuestionPage = () => {
             backgroundPosition: "center",
           }}
         >
-          {!ansImage && <span style={{ fontSize: "24px", color: "#999" }}>+</span>}
+          {!ansImage && (
+            <span style={{ fontSize: "24px", color: "#999" }}>+</span>
+          )}
         </div>
         <input
           ref={fileInputRef}
@@ -232,10 +238,7 @@ const QuestionPage = () => {
         <button className="btn fw-bold btn-primary px-4" onClick={handlePrev}>
           Prev
         </button>
-        <button
-          className="btn fw-bold btn-primary px-4"
-          onClick={handleNext}
-        >
+        <button className="btn fw-bold btn-primary px-4" onClick={handleNext}>
           Next
         </button>
       </div>
