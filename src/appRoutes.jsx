@@ -19,6 +19,9 @@ import NameProject from './componentsClient/NameProject';
 import EditPage from './componentsClient/EditPage';
 import ThisVideo from "./componentsAdmin/thisVideo";
 import AllVideoAdmin from './componentsAdmin/allVideoAdmin';
+import Profile from './componentsClient/profile';
+import VideoDetailsProfile from './componentsClient/videoDetailsProfile.jsx';
+
 
 function AppRoutes() {
   return (
@@ -45,6 +48,8 @@ function AppRoutes() {
           <Route path="/help" element={<Help/>} />
           <Route path="/*" element={<Page404 />} />
           <Route path="/VarificationforgotPass" element={<VarificationforgotPass/>}/>
+          <Route path="/profile" element={<Profile/>} />
+          <Route path="/video/:id" element={<VideoDetailsProfile/>} />
         </Route>
       </Routes>
     </BrowserRouter>

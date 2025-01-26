@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
-import { addIfShowNav, addIsAdmin, addName } from '../featuers/myDetailsSlice';
+import { API_URL, doApiGet } from '../services/apiService';
+import { addIfShowNav, addIsAdmin, addName, addIdMorInfoAdmin } from '../featuers/myDetailsSlice';
 
 const HomeClient = () => {
     const myName = useSelector(state => state.myDetailsSlice.name);
@@ -15,7 +15,7 @@ const HomeClient = () => {
         dispatch(addIfShowNav({ ifShowNav: true }));
         console.log(myName);
 
-        doApi()
+        doApi();
     }, []);
 
     const doApi = async () => {
@@ -24,9 +24,8 @@ const HomeClient = () => {
             let data = await doApiGet(url);
             setmyInfo(data.data);
             dispatch(addName({ name: data.data.FirstName }));
-            if (data.data.role == "admin") {
-                dispatch(addIsAdmin({ isAdmin: true }));
-            }
+            dispatch(addIsAdmin({ isAdmin: data.data.role === "admin" }));
+            dispatch(addIdMorInfoAdmin({ idMorInfoAdmin: data.data._id }));
         } catch (error) {
             console.log(error);
         }
@@ -58,8 +57,6 @@ const HomeClient = () => {
                     View Profile
                 </button>
             </div>
-
-
         </div>
     );
 };
