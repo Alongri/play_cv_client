@@ -93,7 +93,7 @@ const EditPage = () => {
     },
   ];
   const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
-  const [[activeIndex, direction], setActiveIndex] = useState([0, 0]);
+  const [[activeIndex, direction], setActiveIndex] = useState([-1, -1]);
   const [editingItemId, setEditingItemId] = useState(null);
   const [items, setItems] = useState(startAR);
 

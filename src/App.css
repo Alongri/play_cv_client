@@ -161,23 +161,38 @@ i {
   bottom: 40px;
   right: 40px;
   z-index: 10;
-  padding: 10px 20px;
+  padding: 12px 25px;
   font-size: 18px;
   color: white;
-  background-color: #2196f3;
+  background-color: #A0CBF7;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
+  background-image: url('./assets/image.png');  /* Add your image here */
+  background-repeat: no-repeat;
+  background-position: 10px center;  /* Position the image to the left */
+  background-size: 20px 20px;  /* Adjust size of the image */
+  padding-left: 40px;  /* Add some padding to the left to make space for the image */
 }
 
 .generate-btn:hover {
-  background-color: #1769aa; /* Darker shade on hover */
+  background-color: #0d8bf0;
+  transform: translateY(-4px);
 }
 
 .generate-btn:active {
-  transform: scale(0.95); /* Slight scale effect on click */
+  background-color: #1565c0;
+  transform: translateY(0);
 }
+
+.generate-btn:focus {
+  outline: none;
+}
+
+
 
 .card {
   border-radius: 10px;
