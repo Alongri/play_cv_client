@@ -17,8 +17,22 @@ const DashboardAdmin = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    doApiCheckTokenAdmin()
     doApi()
   }, [])
+
+  const doApiCheckTokenAdmin = async () => {
+    let url = API_URL + "/users/checkTokenAdmin";
+    try {
+      let data = await doApiGet(url);
+      if (!data) {
+        nav("/");
+      }
+    } catch (error) {
+      console.log(error);
+      nav("/");
+    }
+  };
 
   const doApi = async () => {
     let url = API_URL + "/users"
