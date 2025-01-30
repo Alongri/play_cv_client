@@ -24,19 +24,18 @@ const loginClient = () => {
       console.log(resp.data);
 
       if (resp.data.token) {
-        setTimeout(() => {
-          saveTokenLocal(resp.data.token);
-          dispatch(addEmail({ email: _dataBody.email }));
-          dispatch(addIfShowNav({ ifShowNav: true }));
-          nav("/homeClient");
-          setLoading(false); 
-        }, 1700); 
+        saveTokenLocal(resp.data.token);
+        dispatch(addEmail({ email: _dataBody.email }));
+        dispatch(addIfShowNav({ ifShowNav: true }));
+        setLoading(false); 
+        nav("/homeClient");
       }
     } catch (err) {
-      console.log(err.response.data.err);
+      console.log(err.response?.data?.err || err.message);
       setLoading(false); 
     }
-  };
+};
+
 
   const toforgatPass = () => {
     nav("/submit");
