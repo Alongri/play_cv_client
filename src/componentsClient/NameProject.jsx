@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { API_URL, doApiMethod } from "../services/apiService";
 import { useDispatch } from "react-redux";
 import { addIdVideo } from "../featuers/myDetailsSlice";
+import { ToastContainer, toast } from "react-toastify"; import "react-toastify/dist/ReactToastify.css";
 
 const NameProject = () => {
     const [title, setTitle] = useState("")
@@ -49,6 +50,26 @@ const NameProject = () => {
         }
     };
 
+
+    const [str,setStr]=useState("")
+    const [msg,setMsg]=useState("")
+
+    const checkInput =() => {
+        if (str.length < 2 || str.length > 6){
+            // setMsg("Title must be between 2 and 6 characters long");
+            notify();
+        }
+        else{
+            onProceed();
+            // setMsg("");
+        }
+
+    };
+
+    const notify = () => {
+        toast.error("Title must be between 2 and 6 characters long");
+        };
+
     return (
         <div className="container text-center py-5">
             <div className="bg-light p-3 rounded shadow-sm col-lg-8 mb-4 mx-auto">
@@ -74,18 +95,39 @@ const NameProject = () => {
                         type="text"
                         className="sofia fs-5"
                         placeholder="Enter your project name"
-                        onChange={() => { updateTitle(); }}
+                        onChange={(e) => { 
+                            updateTitle();
+                            setStr(e.target.value);
+
+                            console.log(str)
+                         }}
                     />
                     <button
                         className="fw-bold fs-5 py-2"
-                        onClick={onProceed}>
+                        onClick={checkInput}>
                         Proceed
                     </button>
                 </div>
             </div>
+
+            <ToastContainer
+                position="top-center"  // or "bottom-center" if preferred
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+
+          
+{/*           
             <div className="d-flex justify-content-center mt-4">
 
-            </div>
+            </div> */}
         </div>
     );
 };

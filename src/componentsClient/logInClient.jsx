@@ -5,8 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { addEmail, addIfShowNav } from '../featuers/myDetailsSlice';
 import { API_URL, doApiMethod } from '../services/apiService';
 import { saveTokenLocal } from '../services/localService';
+import { ToastContainer, toast } from "react-toastify"; import "react-toastify/dist/ReactToastify.css";
+
+
+
+
 
 const loginClient = () => {
+
+  const [msg ,setMsg] = useState(""); // if  remove msg
+  const notify = (error) => { // pop tosatve error
+    toast.error(error);
+    };
+
+
   const [loading, setLoading] = useState(false); 
   let nav = useNavigate();
   let { register, handleSubmit, formState: { errors } } = useForm();
@@ -34,6 +46,8 @@ const loginClient = () => {
       }
     } catch (err) {
       console.log(err.response.data.err);
+      notify(err.response.data.err);
+      setMsg(err.response.data.err);
       setLoading(false); 
     }
   };
@@ -91,7 +105,9 @@ const loginClient = () => {
               {errors.password && <small className='text-danger'>* Enter valid password, min 3 chars</small>}
               <p onClick={toforgatPass} className='mt-1 text-danger text-end'>Forgot password?</p>
             </div>
-
+              <div>
+                {msg}
+              </div>
             <div className='m-2'>
               <button type="submit" className="btn btn-primary btn-lg w-100">Sign In</button>
             </div>
@@ -101,7 +117,20 @@ const loginClient = () => {
           </div>
         </div>
       )}
+                  <ToastContainer
+                position="top-center"  // or "bottom-center" if preferred
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
     </div>
+
   );
 };
 
