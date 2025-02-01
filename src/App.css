@@ -309,7 +309,17 @@ i {
   gap: 10px;
   padding: 10px;
 }
-
+.adminSearch {
+  border: 1px solid black;
+  border-radius: 12px;
+  button:hover{
+    background-color: #4230ff;
+    color: white;
+  }
+  input:focus{
+    outline: none;
+  }
+}
 .styled-input {
   width: 95%;
   height: 40px;
