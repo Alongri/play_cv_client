@@ -19,10 +19,9 @@ const HomeClient = () => {
   useEffect(() => {
     dispatch(addIfShowNav({ ifShowNav: true }));
     console.log(myName);
-    doApiCheckToken()
+    doApiCheckToken();
     doApi();
   }, []);
-
 
   const doApiCheckToken = async () => {
     let url = API_URL + "/users/checkToken";
@@ -51,37 +50,38 @@ const HomeClient = () => {
   };
 
   return (
-    <div
-      className="container-fluid d-flex flex-column bg-light"
-      style={{ minHeight: "100vh", padding: "20px" }}
-    >
-      {/* Original Section */}
-      <div className="container text-center my-4 py-4 bg-white shadow rounded">
-        <h1 className="emphesis mb-2 display-4 fw-bold">
-          Welcome <span className="playCVGradient">{myInfo.FirstName}</span>
-        </h1>
-        <button
-          className="btn btn-success fs-4 fw-bold mt-5 px-5 py-2"
-          onClick={() => navigate("/nameProject")}
-        >
-          Create a project
-        </button>
+    <div className="container-fluid d-flex pt-5" style={{ height: "80vh" }}>
+      <div className="container text-center w-50 d-flex flex-column justify-content-center align-items-center">
+        <div className="card tech-container mb-4">
+          <h1 className="emphesis mb-2 display-4 fw-bold">
+            Welcome <span className="playCVGradient">{myInfo.FirstName}</span>
+          </h1>
+          <button
+            className="special-button fs-4 fw-bold mt-5 px-5 py-2"
+            onClick={() => navigate("/nameProject")}
+          >
+            Create a project
+          </button>
+        </div>
+        <div className="card tech-container">
+          <h3 className="fw-bold">Your Dashboard</h3>
+          <p className="text-muted fs-5">
+            Discover tools and resources to help you manage your projects
+            efficiently. This space is designed to provide quick access to the
+            most important features for your success.
+          </p>
+          <button
+            className="dash-button fw-bold mt-3 px-4 py-2"
+            onClick={() => navigate("/profile")}
+          >
+            View Profile
+          </button>
+        </div>
       </div>
 
       {/* Informative Section */}
-      <div className="container text-center my-4 py-4 bg-white shadow rounded">
-        <h3 className="fw-bold">Your Dashboard</h3>
-        <p className="text-muted fs-5">
-          Discover tools and resources to help you manage your projects
-          efficiently. This space is designed to provide quick access to the
-          most important features for your success.
-        </p>
-        <button
-          className="btn btn-outline-primary fw-bold mt-3 px-4 py-2"
-          onClick={() => navigate("/profile")}
-        >
-          View Profile
-        </button>
+      <div className="container d-flex justify-content-center align-items-center w-50 vh-50">
+        <div className="card-home"></div>
       </div>
     </div>
   );

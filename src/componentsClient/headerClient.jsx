@@ -27,7 +27,7 @@ function HeaderClient() {
   };
 
   const buttonStyle = {
-    background: "linear-gradient(90deg, #BC7DFC, #0F98E7,rgb(205, 24, 221))",
+    background: "#6E2CF2",
     border: "none",
     borderRadius: "5px",
     color: "white",
@@ -40,15 +40,13 @@ function HeaderClient() {
   };
 
   const handleHover = (e) => {
-    e.target.style.transform = "scale(1.05)";
-    e.target.style.background =
-      "linear-gradient(90deg,rgb(52, 97, 245),rgb(172, 131, 224),rgb(9, 243, 60))";
+    e.target.style.transform = "translateY(-2px)";
+    e.target.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.3)";
   };
 
   const handleLeave = (e) => {
-    e.target.style.transform = "scale(1)";
-    e.target.style.background =
-      "linear-gradient(90deg,rgb(188, 125, 252),rgb(15, 152, 231),rgb(205, 24, 221))";
+    e.target.style.transform = "translateY(0)";
+    e.target.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.1)";
   };
 
   return (
