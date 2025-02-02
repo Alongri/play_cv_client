@@ -122,6 +122,10 @@ const EditPage = () => {
     setEditingItemId(itemId);
   };
 
+  const handleCancelEdit = () => {
+    setEditingItemId(null);
+  };
+
   const handleInputChange = (id, field, value) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -238,16 +242,29 @@ const EditPage = () => {
                       />
                     )}
                   </div>
-                  <button
-                    className="edit-btn faustina"
-                    onClick={() =>
-                      isEditing
-                        ? handleSaveChanges(item.index)
-                        : handleEditButtonClick(item._id)
-                    }
-                  >
-                    {isEditing ? "Save Changes" : "Edit"}
-                  </button>
+                  {isEditing ? (
+                    <>
+                      <button
+                        className="edit-btn faustina"
+                        onClick={() => handleSaveChanges(item.index)}
+                      >
+                        Save Changes
+                      </button>
+                      <button
+                        className="edit-btn faustina"
+                        onClick={handleCancelEdit}
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      className="edit-btn faustina"
+                      onClick={() => handleEditButtonClick(item._id)}
+                    >
+                      Edit
+                    </button>
+                  )}
                 </div>
               </motion.div>
             );

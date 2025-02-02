@@ -164,18 +164,18 @@ i {
   padding: 12px 25px;
   font-size: 18px;
   color: white;
-  background-color: #A0CBF7;
+  background-color: #a0cbf7;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  
-  background-image: url('./assets/image.png');  /* Add your image here */
+
+  background-image: url("./assets/image.png");
   background-repeat: no-repeat;
-  background-position: 10px center;  /* Position the image to the left */
-  background-size: 20px 20px;  /* Adjust size of the image */
-  padding-left: 40px;  /* Add some padding to the left to make space for the image */
+  background-position: 10px center;
+  background-size: 20px 20px;
+  padding-left: 40px;
 }
 
 .generate-btn:hover {
@@ -191,8 +191,6 @@ i {
 .generate-btn:focus {
   outline: none;
 }
-
-
 
 .card {
   border-radius: 10px;
@@ -242,7 +240,7 @@ i {
 
 .wrapper {
   display: flex;
-  margin: 20px;
+
   justify-content: center;
   width: 100%;
 }
@@ -271,6 +269,10 @@ i {
 
 .next-btn {
   font-size: 30px;
+}
+
+.cancel-save-div {
+  display: flex;
 }
 
 .edit-btn {
@@ -312,11 +314,11 @@ i {
 .adminSearch {
   border: 1px solid black;
   border-radius: 12px;
-  button:hover{
+  button:hover {
     background-color: #4230ff;
     color: white;
   }
-  input:focus{
+  input:focus {
     outline: none;
   }
 }
