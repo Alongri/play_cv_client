@@ -484,6 +484,8 @@ i {
 }
 
 .card-home {
+  position: fixed;
+  top: 100px;
   width: 400px;
   height: 400px;
   background-image: url("./assets/video-player.png");
