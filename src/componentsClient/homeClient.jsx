@@ -50,7 +50,7 @@ const HomeClient = () => {
   };
 
   return (
-    <div className="container-fluid d-flex pt-5" style={{ height: "80vh" }}>
+    <div className="container-fluid d-flex pt-5">
       <div className="container text-center w-50 d-flex flex-column justify-content-center align-items-center">
         <div className="card tech-container mb-4">
           <h1 className="emphesis mb-2 display-4 fw-bold">
@@ -80,7 +80,7 @@ const HomeClient = () => {
       </div>
 
       {/* Informative Section */}
-      <div className="container d-flex justify-content-center align-items-center w-50 vh-50">
+      <div className="container d-flex justify-content-center align-items-center w-50">
         <div className="card-home"></div>
       </div>
     </div>
