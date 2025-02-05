@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { addIfShowNav } from "../featuers/myDetailsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import logo from "../assets/Playcvlogo-removebg-preview.png";
 
 function HeaderClient() {
   let nav = useNavigate();
@@ -29,14 +30,18 @@ function HeaderClient() {
   const buttonStyle = {
     background: "#6E2CF2",
     border: "none",
-    borderRadius: "5px",
     color: "white",
-    padding: "10px 20px",
+    borderRadius: "5px",
+    padding: "20px 20px",
     fontSize: "16px",
     fontWeight: "bold",
     cursor: "pointer",
     transition: "transform 0.3s, background-color 0.3s",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+    onMouseHover: {
+      background: "#6E2CF2",
+      color: "white",
+    },
   };
 
   const handleHover = (e) => {
@@ -63,14 +68,16 @@ function HeaderClient() {
           </button>
         )}
         {IfShowNav && (
-          <button
-            style={buttonStyle}
-            onMouseOver={handleHover}
-            onMouseOut={handleLeave}
+          <img
+            src={logo}
+            style={{
+              cursor: "pointer",
+              position: "absolute",
+              left: "10px",
+              height: "80px",
+            }}
             onClick={onHomeClick}
-          >
-            Home
-          </button>
+          />
         )}
         <button
           style={buttonStyle}
@@ -82,12 +89,22 @@ function HeaderClient() {
         </button>
         {IfShowNav && (
           <button
-            style={buttonStyle}
-            onMouseOver={handleHover}
-            onMouseOut={handleLeave}
+            className="btn border-danger shadow d-flex justify-content-center align-items-center fs-4 text-white"
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "10px",
+              transition: "transform 0.3s, background-color 0.3s",
+            }}
             onClick={onlogout}
           >
             Logout
+            <span
+              style={{ boxShadow: "none", color: "red"}}
+              className="fs-1 bold material-symbols-outlined"
+            >
+              logout
+            </span>
           </button>
         )}
         {IfShowNav && IsAdmin && (

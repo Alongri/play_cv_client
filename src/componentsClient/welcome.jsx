@@ -65,12 +65,6 @@ const Welcome = () => {
               }}
               src="src/assets/Playcvlogo.png"
               alt="logo"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.10)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
-              }}
             />
           </div>
 
@@ -102,12 +96,6 @@ const Welcome = () => {
               overflow: "hidden",
               position: "relative",
               transition: "transform 0.5s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.03)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
             }}
           >
             {/* Decorative Shapes */}
