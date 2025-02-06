@@ -71,7 +71,7 @@ const HomeClient = () => {
             most important features for your success.
           </p>
           <button
-            className="dash-button fw-bold mt-3 px-4 py-2"
+            className="playCVButton mt-2"
             onClick={() => navigate("/profile")}
           >
             View Profile

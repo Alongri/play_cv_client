@@ -27,91 +27,51 @@ function HeaderClient() {
     nav("/Admin");
   };
 
-  const buttonStyle = {
-    background: "#6E2CF2",
-    border: "none",
-    color: "white",
-    borderRadius: "5px",
-    padding: "20px 20px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    transition: "transform 0.3s, background-color 0.3s",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-    onMouseHover: {
-      background: "#6E2CF2",
-      color: "white",
-    },
-  };
-
-  const handleHover = (e) => {
-    e.target.style.transform = "translateY(-2px)";
-    e.target.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.3)";
-  };
-
-  const handleLeave = (e) => {
-    e.target.style.transform = "translateY(0)";
-    e.target.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.1)";
-  };
-
   return (
     <div className="p-2 container" style={{ width: "30em" }}>
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between align-items-center" 
+      style={{height: "70px"}}
+      >
         {!IfShowNav && (
-          <button
-            style={buttonStyle}
-            onMouseOver={handleHover}
-            onMouseOut={handleLeave}
+          <button className="playCVButton"
             onClick={onWelcomeClick}
           >
             Welcome
           </button>
         )}
         {IfShowNav && (
-          <img
+          <img className="logo"
             src={logo}
             style={{
               cursor: "pointer",
               position: "absolute",
               left: "10px",
-              height: "80px",
+              height: "65px",
             }}
             onClick={onHomeClick}
           />
         )}
-        <button
-          style={buttonStyle}
-          onMouseOver={handleHover}
-          onMouseOut={handleLeave}
+        <button className="playCVButton"
           onClick={onHelpClick}
         >
           Q&A
         </button>
         {IfShowNav && (
           <button
-            className="btn border-danger shadow d-flex justify-content-center align-items-center fs-4 text-white"
-            style={{
-              position: "absolute",
-              right: "10px",
-              top: "10px",
-              transition: "transform 0.3s, background-color 0.3s",
-            }}
+            className="logout"
             onClick={onlogout}
           >
-            Logout
             <span
-              style={{ boxShadow: "none", color: "red"}}
+              style={{ boxShadow: "none"}}
               className="fs-1 bold material-symbols-outlined"
             >
               logout
             </span>
+            <p>Logout</p>
           </button>
         )}
         {IfShowNav && IsAdmin && (
-          <button
-            style={buttonStyle}
-            onMouseOver={handleHover}
-            onMouseOut={handleLeave}
+          <button className="playCVButton"
             onClick={onAdminClick}
           >
             Admin

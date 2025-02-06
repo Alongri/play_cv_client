@@ -41,6 +41,74 @@ body {
   padding-right: 0.5rem;
 }
 
+.playCVButton {
+  font-family: "Quicksand", sans-serif;
+  box-sizing: border-box;
+  color: #6e2cf2;
+  border: 2px solid #6e2cf2;
+  background: none;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  box-shadow: 0 5px 0 0 #5020b1;
+}
+.playCVButton:hover {
+  background-color: #6e2cf2;
+  color: white;
+}
+.playCVButton:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 0 #5020b1;
+}
+.logout {
+  font-family: "Quicksand", sans-serif;
+  box-sizing: border-box;
+  color: #ff2323;
+  border: 2px solid #ff2323;
+  background: none;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px 0 0 5px;
+  box-shadow: 5px 0 0 0 #c90000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: absolute;
+  right: 5px;
+  transition: 0.2s;
+  p {
+    margin: auto 0;
+    transform: translateX(15px);
+    max-width: 0px;
+    transition: 0.2s;
+  }
+  span {transition: 0.2s;}
+}
+.logout:hover {
+  color: white;
+  border: 2px solid #ff2d2d;
+  background: #ff2d2d;
+  p {
+    transform: translateX(0);
+    display: block;
+    max-width: 100px;
+  }
+}
+.logout:active {
+  transform: translateX(5px);
+  box-shadow: 0 0 0 0 #c90000;
+}
+.logo {
+  transition: 0.3s;
+}
+.logo:hover {
+  filter: brightness(150%);
+}
+
 .editContainer {
   height: 100vh;
   position: absolute;
