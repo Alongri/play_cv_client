@@ -122,6 +122,10 @@ const EditPage = () => {
     setEditingItemId(itemId);
   };
 
+  const handleCancelEdit = () => {
+    setEditingItemId(null);
+  };
+
   const handleInputChange = (id, field, value) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -169,7 +173,6 @@ const EditPage = () => {
     <div className="main-wrapper">
       <div className="flex-container">
         <h1 className="emphesis-carousel">Edit before the magic</h1>
-        <button className="generate-btn quicksand">Generate</button>
       </div>
       <div className="wrapper">
         <AnimatePresence mode="popLayout" initial={false}>
@@ -205,7 +208,7 @@ const EditPage = () => {
                       {cardIndex} of {items.length}
                     </h5>
                   </div>
-                  <h3 className="faustina">{item.question}</h3>
+                  <h3 className=" text-center faustina">{item.question}</h3>
                   <input
                     type="text"
                     value={item.answer}
@@ -238,16 +241,29 @@ const EditPage = () => {
                       />
                     )}
                   </div>
-                  <button
-                    className="edit-btn faustina"
-                    onClick={() =>
-                      isEditing
-                        ? handleSaveChanges(item.index)
-                        : handleEditButtonClick(item._id)
-                    }
-                  >
-                    {isEditing ? "Save Changes" : "Edit"}
-                  </button>
+                  {isEditing ? (
+                    <>
+                      <button
+                        className="save-btn btn-effects faustina"
+                        onClick={() => handleSaveChanges(item.index)}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="edit-btn btn-effects faustina"
+                        onClick={handleCancelEdit}
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      className="edit-btn btn-effects faustina"
+                      onClick={() => handleEditButtonClick(item._id)}
+                    >
+                      Edit
+                    </button>
+                  )}
                 </div>
               </motion.div>
             );
@@ -256,19 +272,16 @@ const EditPage = () => {
       </div>
       <div className="buttons">
         <motion.button
-          className="prev-btn"
+          className="prev-btn prev-btn-img"
           whileTap={{ scale: 0.8 }}
           onClick={() => handleClick(-1)}
-        >
-          ◀︎
-        </motion.button>
+        ></motion.button>
+
         <motion.button
-          className="next-btn"
+          className="next-btn next-btn-img"
           whileTap={{ scale: 0.8 }}
           onClick={() => handleClick(1)}
-        >
-          ▶︎
-        </motion.button>
+        ></motion.button>
       </div>
     </div>
   );

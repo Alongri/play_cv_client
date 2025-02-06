@@ -81,9 +81,9 @@ const DashboardAdmin = () => {
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4 ">
-        <div className="d-flex">
-          <input style={{ borderRadius: "6px" }} type="text" value={searchText} onChange={handleChange} className="d-flex justify-content-between align-items-center mb-4 " placeholder="Search Role" id="" />
-          <input style={{ color: "black" }} type="button" onClick={onSearchClick} value="Search" className="btn btn-outline-info info border-black  d-flex justify-content-between align-items-center mb-4 " stile={{ color: "black" }} />
+        <div className="d-flex m-auto border adminSearch">
+          <input style={{ border: "none", borderRadius: "12px 0 0 12px" }} type="text" value={searchText} onChange={handleChange} className="d-flex justify-content-between align-items-center text-center px-3 py-2" placeholder="Search Role" id="" />
+          <button style={{ border: "none", borderRadius: "0 12px 12px 0" }} onClick={onSearchClick} value="Search" className="btn d-flex justify-content-between align-items-center px-4 py-2">Search</button>
         </div>
       </div>
 

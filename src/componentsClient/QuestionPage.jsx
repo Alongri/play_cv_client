@@ -184,7 +184,15 @@ const QuestionPage = () => {
   };
 
   return (
-    <div className="container text-center">
+    <div
+      className="container text-center"
+      style={{
+        maxWidth: "700px",
+        padding: "10px",
+        backgroundColor: "white",
+        borderRadius: "10px",
+      }}
+    >
       <h2 className="m-2 ">Question {qIndex + 1}:</h2>
       <h3 className="m-2">{questions[qIndex]}</h3>
       <div>

@@ -3,6 +3,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Ephesis&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&display=swap");
 
+body {
+  background-image: url("./assets/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 .quicksand {
   font-family: "Quicksand", sans-serif;
 }
@@ -137,7 +148,7 @@ i {
 
 .emphesis-carousel {
   font-family: "Ephesis", sans-serif;
-  font-size: 60px;
+  font-size: 90px;
 }
 
 @media (max-width: 768px) {
@@ -156,43 +167,12 @@ i {
   padding: 10px;
 }
 
-.generate-btn {
+/* .generate-btn {
   position: fixed;
-  bottom: 40px;
-  right: 40px;
+  left: 40px;
   z-index: 10;
-  padding: 12px 25px;
   font-size: 18px;
-  color: white;
-  background-color: #A0CBF7;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  
-  background-image: url('./assets/image.png');  /* Add your image here */
-  background-repeat: no-repeat;
-  background-position: 10px center;  /* Position the image to the left */
-  background-size: 20px 20px;  /* Adjust size of the image */
-  padding-left: 40px;  /* Add some padding to the left to make space for the image */
-}
-
-.generate-btn:hover {
-  background-color: #0d8bf0;
-  transform: translateY(-4px);
-}
-
-.generate-btn:active {
-  background-color: #1565c0;
-  transform: translateY(0);
-}
-
-.generate-btn:focus {
-  outline: none;
-}
-
-
+} */
 
 .card {
   border-radius: 10px;
@@ -242,7 +222,7 @@ i {
 
 .wrapper {
   display: flex;
-  margin: 20px;
+  margin-bottom: 20px;
   justify-content: center;
   width: 100%;
 }
@@ -251,26 +231,63 @@ i {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .prev-btn,
 .next-btn {
   margin: 10px;
-  background-color: white;
-  border: transparent;
-  padding: 7px;
+  border: none;
+  padding: 10px;
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background: transparent;
+  transition: all 0.3s ease;
 }
 
-.prev-btn {
-  font-size: 30px;
+.prev-btn-img {
+  /* Add the background image */
+  background-image: url("./assets/left-arrow.png");
+  background-size: cover;
+  background-position: center;
 }
 
-.next-btn {
-  font-size: 30px;
+.next-btn-img {
+  /* Add the background image */
+  background-image: url("./assets/right-arrow.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.prev-btn img,
+.next-btn img {
+  width: 30px; /* Adjust the size of the arrow icons */
+  height: 30px; /* Adjust the size of the arrow icons */
+  z-index: 1; /* Make sure the arrow icons are on top of the background */
+}
+
+/* ---- Hover Effect ---- */
+.prev-btn:hover,
+.next-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ---- Active Effect (when clicked) ---- */
+.prev-btn:active,
+.next-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-save-div {
+  display: flex;
 }
 
 .edit-btn {
@@ -288,16 +305,31 @@ i {
   transition: all 0.3s ease;
 }
 
-.edit-btn:hover {
+.save-btn {
+  position: absolute;
+  border-radius: 10px;
+  top: 10px;
+  left: 20px;
+  padding: 8px 12px;
+  background-image: linear-gradient(to right, #2196f3, #8e24aa);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-effects:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.edit-btn:focus {
+.btn-effects:focus {
   outline: none;
 }
 
-.edit-btn:active {
+.btn-effects:active {
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
@@ -309,7 +341,17 @@ i {
   gap: 10px;
   padding: 10px;
 }
-
+.adminSearch {
+  border: 1px solid black;
+  border-radius: 12px;
+  button:hover {
+    background-color: #4230ff;
+    color: white;
+  }
+  input:focus {
+    outline: none;
+  }
+}
 .styled-input {
   width: 95%;
   height: 40px;
@@ -325,4 +367,128 @@ i {
 .styled-input:focus {
   outline: none;
   border-color: #2196f3; /* Focus effect */
+}
+
+/* ---- Special Button (You already have this, but adding some neon extras) ---- */
+.special-button {
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, #ff007f, #8a2be2, #1e90ff);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ---- Hover Effects ---- */
+.special-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 0, 127, 0.6);
+}
+
+.special-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 10px rgba(255, 0, 127, 0.5);
+}
+
+/* ---- High-Tech Glassmorphic Container ---- */
+.tech-container {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  text-align: center;
+  color: white;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* ---- Smooth Hover Glow ---- */
+.tech-container:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+}
+
+/* ---- Title Text ---- */
+.tech-title {
+  font-size: 26px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgba(0, 255, 255, 0.9);
+  letter-spacing: 2px;
+}
+
+/* ---- Description ---- */
+.tech-description {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+}
+
+/* ---- High-Tech Button ---- */
+.tech-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  background: transparent;
+  border: 2px solid rgba(0, 255, 255, 0.7);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* ---- Button Hover Effect ---- */
+.tech-button:hover {
+  background: rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+}
+
+.tech-button:active {
+  transform: scale(0.95);
+}
+
+.dash-button {
+  background: #6e2cf2;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ---- Hover Effect ---- */
+.dash-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Restore on Leave ---- */
+.dash-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-home {
+  position: fixed;
+  top: 100px;
+  width: 400px;
+  height: 400px;
+  background-image: url("./assets/video-player.png");
+  background-size: cover;
+  background-position: center;
 }
