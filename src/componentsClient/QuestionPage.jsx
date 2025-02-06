@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_URL, doApiMethod } from "../services/apiService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const QuestionPage = () => {
   const questions = [
@@ -129,6 +131,7 @@ const QuestionPage = () => {
       }
       return {};
     } catch (err) {
+      toast.error(err.message);
       console.log(err.message);
       return err;
     }
@@ -143,6 +146,7 @@ const QuestionPage = () => {
       }
       return resp;
     } catch (err) {
+       toast.error(err.message);
       console.log(err.message);
       return false;
     }
@@ -157,6 +161,7 @@ const QuestionPage = () => {
       }
       return resp;
     } catch (err) {
+       toast.error(err.message);
       console.log(err.message);
       return false;
     }
@@ -242,6 +247,18 @@ const QuestionPage = () => {
           Next
         </button>
       </div>
+      <ToastContainer
+        position="top-center" // or "bottom-center" if preferred
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

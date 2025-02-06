@@ -45,7 +45,7 @@ const NameProject = () => {
             // dispatch(addIfShowNav({ ifShowNav: true }));
             return resp;
         } catch (err) {
-            alert(err.message);
+            toast.error(err.message);
             console.log(err.message);
         }
     };
