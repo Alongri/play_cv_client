@@ -40,7 +40,6 @@ body {
   display: inline;
   padding-right: 0.5rem;
 }
-
 .playCVButton {
   font-family: "Quicksand", sans-serif;
   box-sizing: border-box;
@@ -62,6 +61,13 @@ body {
   transform: translateY(5px);
   box-shadow: 0 0 0 0 #5020b1;
 }
+.logo {
+  transition: 0.3s;
+}
+.logo:hover {
+  filter: brightness(150%);
+}
+
 .logout {
   font-family: "Quicksand", sans-serif;
   box-sizing: border-box;
@@ -82,11 +88,14 @@ body {
   transition: 0.2s;
   p {
     margin: auto 0;
-    transform: translateX(15px);
+    transform: translateX(12px);
     max-width: 0px;
     transition: 0.2s;
   }
-  span {transition: 0.2s;}
+  span {
+    transition: 0.2s;
+    font-weight: bold;
+  }
 }
 .logout:hover {
   color: white;
@@ -101,12 +110,6 @@ body {
 .logout:active {
   transform: translateX(5px);
   box-shadow: 0 0 0 0 #c90000;
-}
-.logo {
-  transition: 0.3s;
-}
-.logo:hover {
-  filter: brightness(150%);
 }
 
 .editContainer {
