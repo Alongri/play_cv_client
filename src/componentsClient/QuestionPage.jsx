@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_URL, doApiMethod } from "../services/apiService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const QuestionPage = () => {
   const questions = [
@@ -129,6 +131,7 @@ const QuestionPage = () => {
       }
       return {};
     } catch (err) {
+      toast.error(err.message);
       console.log(err.message);
       return err;
     }
@@ -143,6 +146,7 @@ const QuestionPage = () => {
       }
       return resp;
     } catch (err) {
+       toast.error(err.message);
       console.log(err.message);
       return false;
     }
@@ -157,6 +161,7 @@ const QuestionPage = () => {
       }
       return resp;
     } catch (err) {
+       toast.error(err.message);
       console.log(err.message);
       return false;
     }
@@ -184,11 +189,14 @@ const QuestionPage = () => {
       style={{
         maxWidth: "700px",
         padding: "10px",
+        backgroundColor: "white",
+        borderRadius: "10px",
       }}
     >
+      <h2 className="m-2 ">Question {qIndex + 1}:</h2>
       <h3 className="m-2">{questions[qIndex]}</h3>
       <div>
-        <h2 className="m-2 sofia">Your answer:</h2>
+        <h2 className="m-2 ">Your answer:</h2>
         <input
           ref={ansTextRef}
           className={`form-control mb-2 w-50 mx-auto ${
@@ -211,7 +219,7 @@ const QuestionPage = () => {
           className={`upload-box ${errorImage ? "border border-danger" : ""}`}
           style={{
             width: "600px",
-            height: "300px",
+            height: "400px",
             border: "2px dashed #ccc",
             display: "flex",
             justifyContent: "center",
@@ -247,6 +255,18 @@ const QuestionPage = () => {
           Next
         </button>
       </div>
+      <ToastContainer
+        position="top-center" // or "bottom-center" if preferred
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

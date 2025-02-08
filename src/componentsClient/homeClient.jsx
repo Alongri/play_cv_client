@@ -19,22 +19,22 @@ const HomeClient = () => {
   useEffect(() => {
     dispatch(addIfShowNav({ ifShowNav: true }));
     console.log(myName);
-    doApiCheckToken();
+    // doApiCheckToken();
     doApi();
   }, []);
 
-  const doApiCheckToken = async () => {
-    let url = API_URL + "/users/checkToken";
-    try {
-      let data = await doApiGet(url);
-      if (!data) {
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
-      navigate("/");
-    }
-  };
+  // const doApiCheckToken = async () => {
+  //   let url = API_URL + "/users/checkToken";
+  //   try {
+  //     let data = await doApiGet(url);
+  //     if (!data) {
+  //       navigate("/");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     navigate("/");
+  //   }
+  // };
 
   const doApi = async () => {
     let url = API_URL + "/users/myInfo";
@@ -71,7 +71,7 @@ const HomeClient = () => {
             most important features for your success.
           </p>
           <button
-            className="dash-button fw-bold mt-3 px-4 py-2"
+            className="playCVButton mt-2"
             onClick={() => navigate("/profile")}
           >
             View Profile
