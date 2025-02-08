@@ -3,17 +3,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Ephesis&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&display=swap");
 
-body {
-  background-image: url("./assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
 .quicksand {
   font-family: "Quicksand", sans-serif;
 }
