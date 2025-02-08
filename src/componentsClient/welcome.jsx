@@ -28,16 +28,13 @@ const Welcome = () => {
   };
 
   return (
-    <div className="container-fluid mt-5">
+    <div className="container-fluid mt-5" style={{}}>
       <div
-        className="d-flex justify-content-around p-5 m-3"
-        style={{ height: "350px" }}
+        className="d-flex justify-content-around flex-wrap m-3"
       >
         <div
-          className="text-center p-3"
+          className="text-center p-3 col-6"
           style={{
-            height: "100%",
-            width: "40%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -81,10 +78,11 @@ const Welcome = () => {
             Sign Up
           </button>
         </div>
-
+        <div className="col-6 d-flex justify-content-center align-items-center">
+          <img className="img-fluid" src="public\assets\A"/>
+        </div>
         <div
-          className="px-4 d-flex justify-content-center align-items-center"
-          style={{ height: "100%", width: "60%" }}
+          className="px-4 d-flex justify-content-center align-items-center col-12"
         >
           <div
             className="bg-white p-4 text-center about-container"
