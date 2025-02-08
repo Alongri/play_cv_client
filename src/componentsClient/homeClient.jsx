@@ -81,7 +81,7 @@ const HomeClient = () => {
 
       {/* Informative Section */}
       <div className="container d-flex justify-content-center align-items-center w-50">
-        <div className="card-home"></div>
+        <div></div>
       </div>
     </div>
   );

@@ -42,20 +42,9 @@ function Profile() {
   return (
     <div className="container">
       <div className="text-center">
-        <h1
-          style={{
-            background:
-              "linear-gradient(135deg, #8e44ad, #2980b9,rgb(10, 255, 42))",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-            fontFamily: "'Arial', sans-serif",
-            fontSize: "48px",
-            letterSpacing: "3px",
-            textAlign: "center",
-            textShadow: "4px 4px 8px rgba(0, 0, 0, 0.4)",
-          }}
-        >
-          Welcome to your projects {userInfo.FirstName}
+        <h1 className="mb-2 display-6 fw-bold">
+          Welcome to your projects{" "}
+          <span className="playCVGradient emphesis">{userInfo.FirstName}</span>
         </h1>
       </div>
 

@@ -44,9 +44,25 @@ function AllVideoAdmin() {
 
   return (
     <div className="container">
-      <div style={{ textAlign: "center", justifyContent: "center" }}>
-        <h1>My projects</h1>
-        <h4>Name : {thisUser.FirstName}</h4>
+      <div className="d-flex justify-content-center align-items-center py-5 gap-3">
+        <h1
+          className="fw-bold m-0 quicksand"
+          style={{ fontSize: "2.5rem", letterSpacing: "1px" }}
+        >
+          ✨ Projects Of
+        </h1>
+        <h4
+          className="m-0 px-4 py-2 d-flex align-items-center"
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "500",
+            background: "rgba(255, 255, 255, 0.2)",
+            borderRadius: "8px",
+            backdropFilter: "blur(5px)",
+          }}
+        >
+          <i className="bi bi-person-fill me-2"></i> {thisUser.FirstName}
+        </h4>
       </div>
 
       <div>

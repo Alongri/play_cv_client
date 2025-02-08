@@ -28,41 +28,42 @@ function HeaderClient() {
   };
 
   return (
-    <div className="p-2 container" style={{ width: "30em" }}>
-      <div className="d-flex justify-content-between align-items-center" 
-      style={{height: "70px"}}
+    <div
+      className="nav-container p-2 container"
+      style={{
+        width: "100%",
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+        borderRadius: "8px",
+        backgroundColor: "white", // Ensure visibility
+      }}
+    >
+      <div
+        className="d-flex justify-content-between align-items-center"
+        style={{ height: "70px" }}
       >
         {!IfShowNav && (
-          <button className="playCVButton"
-            onClick={onWelcomeClick}
-          >
+          <button className="playCVButton" onClick={onWelcomeClick}>
             Welcome
           </button>
         )}
         {IfShowNav && (
-          <img className="logo"
+          <img
+            className="logo"
             src={logo}
             style={{
               cursor: "pointer",
-              position: "absolute",
-              left: "10px",
               height: "65px",
             }}
             onClick={onHomeClick}
           />
         )}
-        <button className="playCVButton"
-          onClick={onHelpClick}
-        >
+        <button className="playCVButton" onClick={onHelpClick}>
           Q&A
         </button>
         {IfShowNav && (
-          <button
-            className="logout"
-            onClick={onlogout}
-          >
+          <button className="logout" onClick={onlogout}>
             <span
-              style={{ boxShadow: "none"}}
+              style={{ boxShadow: "none" }}
               className="fs-1 bold material-symbols-outlined"
             >
               logout
@@ -71,9 +72,7 @@ function HeaderClient() {
           </button>
         )}
         {IfShowNav && IsAdmin && (
-          <button className="playCVButton"
-            onClick={onAdminClick}
-          >
+          <button className="playCVButton" onClick={onAdminClick}>
             Admin
           </button>
         )}

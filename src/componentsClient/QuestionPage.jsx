@@ -21,6 +21,7 @@ const QuestionPage = () => {
     "Describe a professional achievement.",
   ];
 
+  const totalQuestions = questions.length;
   const [qIndex, setQIndex] = useState(0);
   const [ansText, setAnsText] = useState("");
   const [ansImage, setAnsImage] = useState("");
@@ -146,7 +147,7 @@ const QuestionPage = () => {
       }
       return resp;
     } catch (err) {
-       toast.error(err.message);
+      toast.error(err.message);
       console.log(err.message);
       return false;
     }
@@ -161,7 +162,7 @@ const QuestionPage = () => {
       }
       return resp;
     } catch (err) {
-       toast.error(err.message);
+      toast.error(err.message);
       console.log(err.message);
       return false;
     }
@@ -189,29 +190,25 @@ const QuestionPage = () => {
       style={{
         maxWidth: "700px",
         padding: "10px",
-        backgroundColor: "white",
         borderRadius: "10px",
       }}
     >
-      <h2 className="m-2 ">Question {qIndex + 1}:</h2>
-      <h3 className="m-2">{questions[qIndex]}</h3>
-      <div>
-        <h2 className="m-2 ">Your answer:</h2>
-        <input
-          ref={ansTextRef}
-          className={`form-control mb-2 w-50 mx-auto ${
-            errorText ? "border border-danger" : ""
-          }`}
-          type="text"
-          value={ansText}
-          onChange={handleTextChange}
-        />
-        {errorText && (
-          <p className="text-danger">
-            Please provide an answer before proceeding.
-          </p>
-        )}
-      </div>
+      <h3 className="m-2 m-3">{questions[qIndex]}</h3>
+      <h2 className="m-2 ">Your answer:</h2>
+      <input
+        ref={ansTextRef}
+        className={`form-control mb-2 w-70 mx-auto ${
+          errorText ? "border border-danger" : ""
+        }`}
+        type="text"
+        value={ansText}
+        onChange={handleTextChange}
+      />
+      {errorText && (
+        <p className="text-danger">
+          Please provide an answer before proceeding.
+        </p>
+      )}
       <div>
         <h2 className="m-2">Add a relevant image:</h2>
         <div
@@ -248,24 +245,47 @@ const QuestionPage = () => {
       </div>
 
       <div className="d-flex justify-content-center w-50 m-auto gap-5 my-3">
-        <button className="btn fw-bold btn-primary px-4" onClick={handlePrev}>
+        <button className="playCVButton" onClick={handlePrev}>
           Prev
         </button>
-        <button className="btn fw-bold btn-primary px-4" onClick={handleNext}>
+        <button className="playCVButton" onClick={handleNext}>
           Next
         </button>
       </div>
+
+      {/* Progress Bar */}
+      <div className="mt-4">
+        <p style={{ fontWeight: "bold", fontSize: "1.1rem", color: "#333" }}>
+          Question {qIndex + 1} of {totalQuestions}
+        </p>
+        <div
+          className="progress"
+          style={{
+            height: "20px",
+            borderRadius: "15px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+          }}
+        >
+          <div
+            className="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            style={{
+              width: `${((qIndex + 1) / totalQuestions) * 100}%`,
+              background: `linear-gradient(45deg, #ff6f61, #ff914d)`,
+              borderRadius: "15px",
+            }}
+          >
+            <span style={{ color: "#fff", fontWeight: "bold" }}>
+              {Math.round(((qIndex + 1) / totalQuestions) * 100)}%
+            </span>
+          </div>
+        </div>
+      </div>
+
       <ToastContainer
-        position="top-center" // or "bottom-center" if preferred
+        position="top-center"
         autoClose={5000}
         hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
       />
     </div>
   );

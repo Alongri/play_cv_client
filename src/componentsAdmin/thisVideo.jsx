@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function ThisVideo() {
+const EditPage = () => {
   let startAR = [
     {
       _id: "1",
@@ -98,6 +100,7 @@ function ThisVideo() {
   const [items, setItems] = useState(startAR);
 
   useEffect(() => {
+    console.log(IdVideo);
     doApi();
   }, []);
 
@@ -117,6 +120,62 @@ function ThisVideo() {
     setActiveIndex((prevIndex) => [prevIndex[0] + newDirection, newDirection]);
   };
 
+  const handleEditButtonClick = (itemId) => {
+    setEditingItemId(itemId);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingItemId(null);
+  };
+
+  const handleInputChange = (id, field, value) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === id ? { ...item, [field]: value } : item
+      )
+    );
+  };
+
+  const handleImageChange = (id, event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      handleInputChange(id, "imageLink", imageUrl);
+    }
+  };
+
+  const handleSaveChanges = (_index) => {
+    if (!items[_index].answer.trim()) {
+      toast.error("Value cannot be empty!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+      return;
+    }
+    doApiUpdate(items[_index]);
+    setEditingItemId(null);
+  };
+
+  const doApiUpdate = async (_dataBody) => {
+    console.log(_dataBody);
+    let url = API_URL + "/videos/updatedchild";
+    try {
+      let resp = await doApiMethod(url, "PATCH", _dataBody);
+      if (resp.status === 200) {
+        return [resp.data, true];
+      }
+      return resp;
+    } catch (err) {
+      console.log(err.message);
+      return false;
+    }
+  };
+
   const indexInArrayScope =
     ((activeIndex % items.length) + items.length) % items.length;
   const visibleItems = [...items, ...items].slice(
@@ -126,13 +185,14 @@ function ThisVideo() {
 
   return (
     <div className="main-wrapper">
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="flex-container">
         <h1 className="emphesis-carousel">Edit before the magic</h1>
-        {/* <button className="generate-btn quicksand">Generate</button> */}
       </div>
       <div className="wrapper">
         <AnimatePresence mode="popLayout" initial={false}>
           {visibleItems.map((item) => {
+            const isEditing = editingItemId === item._id;
             const cardIndex = item.index + 1;
             return (
               <motion.div
@@ -157,25 +217,42 @@ function ThisVideo() {
                 exit="exit"
                 transition={{ duration: 1 }}
               >
-                <div className="card-content">
-                  <div>
+                <div className="btn-and-index-container">
+                  <div className="index-sign">
                     <h5 className="card-index">
                       {cardIndex} of {items.length}
                     </h5>
                   </div>
-                  <h3 className="faustina">{item.question}</h3>
-                  <input
-                    type="text"
-                    value={item.answer}
-                    className="styled-input"
-                  />
-                  <div className="image-container">
+                </div>
+                <h3 className="text-center faustina">{item.question}</h3>
+                <input
+                  type="text"
+                  value={item.answer}
+                  disabled={!isEditing}
+                  className="styled-input"
+                  onChange={(e) =>
+                    handleInputChange(item._id, "answer", e.target.value)
+                  }
+                />
+                <div className="image-container">
+                  <label className="image-wrapper">
                     <img
                       src={item.imageLink}
                       alt="Card"
-                      className="card-image"
+                      className="card-image clickable"
                     />
-                  </div>
+                    {isEditing && (
+                      <>
+                        <span className="edit-icon">✏️</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={(e) => handleImageChange(item._id, e)}
+                        />
+                      </>
+                    )}
+                  </label>
                 </div>
               </motion.div>
             );
@@ -184,23 +261,20 @@ function ThisVideo() {
       </div>
       <div className="buttons">
         <motion.button
-          className="prev-btn"
+          className="prev-btn prev-btn-img"
           whileTap={{ scale: 0.8 }}
           onClick={() => handleClick(-1)}
-        >
-          ◀︎
-        </motion.button>
+        ></motion.button>
+
         <motion.button
-          className="next-btn"
+          className="next-btn next-btn-img"
           whileTap={{ scale: 0.8 }}
           onClick={() => handleClick(1)}
-        >
-          ▶︎
-        </motion.button>
+        ></motion.button>
       </div>
     </div>
   );
-}
+};
 
 const variants = {
   enter: ({ direction }) => {
@@ -228,4 +302,4 @@ function getZIndex({ position, direction }) {
   return indexes[position()];
 }
 
-export default ThisVideo;
+export default EditPage;

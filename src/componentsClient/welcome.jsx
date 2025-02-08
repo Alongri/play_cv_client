@@ -8,14 +8,6 @@ const Welcome = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    document.body.style.background = "none";
-
-    return () => {
-      document.body.style.background = "";
-    };
-  }, []);
-
-  useEffect(() => {
     dispatch(addIfShowNav({ ifShowNav: false }));
   }, []);
 
@@ -29,9 +21,7 @@ const Welcome = () => {
 
   return (
     <div className="container-fluid mt-5" style={{}}>
-      <div
-        className="d-flex justify-content-around flex-wrap m-3"
-      >
+      <div className="d-flex justify-content-around flex-wrap m-3">
         <div
           className="text-center p-3 col-6"
           style={{
@@ -79,11 +69,9 @@ const Welcome = () => {
           </button>
         </div>
         <div className="col-6 d-flex justify-content-center align-items-center">
-          <img className="img-fluid" src="public\assets\A"/>
+          <img className="img-fluid" src="public\assets\A" />
         </div>
-        <div
-          className="px-4 d-flex justify-content-center align-items-center col-12"
-        >
+        <div className="px-4 d-flex justify-content-center align-items-center col-12">
           <div
             className="bg-white p-4 text-center about-container"
             style={{

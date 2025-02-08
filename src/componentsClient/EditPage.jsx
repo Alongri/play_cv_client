@@ -143,6 +143,10 @@ const EditPage = () => {
   };
 
   const handleSaveChanges = (_index) => {
+    if (!editedValue.trim()) {
+      alert("Value cannot be empty!");
+      return;
+    }
     doApiUpdate(items[_index]);
     setEditingItemId(null);
   };
@@ -202,68 +206,68 @@ const EditPage = () => {
                 exit="exit"
                 transition={{ duration: 1 }}
               >
-                <div className="card-content">
-                  <div>
+                <div className="btn-and-index-container">
+                  <div className="index-sign">
                     <h5 className="card-index">
                       {cardIndex} of {items.length}
                     </h5>
                   </div>
-                  <h3 className=" text-center faustina">{item.question}</h3>
-                  <input
-                    type="text"
-                    value={item.answer}
-                    disabled={!isEditing}
-                    className="styled-input"
-                    onChange={(e) =>
-                      handleInputChange(item._id, "answer", e.target.value)
-                    }
-                  />
-                  <div className="image-container">
+                  <div className="button-container">
                     {isEditing ? (
-                      <label>
-                        <img
-                          src={item.imageLink}
-                          alt="Card"
-                          className="card-image clickable"
-                        />
+                      <>
+                        <button
+                          className="playCVButton carousel-btn"
+                          onClick={() => handleSaveChanges(item.index)}
+                          disabled={item.answer.trim() === ""}
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="playCVButton carousel-btn"
+                          onClick={handleCancelEdit}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className="playCVButton carousel-btn"
+                        onClick={() => handleEditButtonClick(item._id)}
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <h3 className="text-center faustina">{item.question}</h3>
+                <input
+                  type="text"
+                  value={item.answer}
+                  disabled={!isEditing}
+                  className="styled-input"
+                  onChange={(e) =>
+                    handleInputChange(item._id, "answer", e.target.value)
+                  }
+                />
+                <div className="image-container">
+                  <label className="image-wrapper">
+                    <img
+                      src={item.imageLink}
+                      alt="Card"
+                      className="card-image clickable"
+                    />
+                    {isEditing && (
+                      <>
+                        <span className="edit-icon">✏️</span>
                         <input
                           type="file"
                           accept="image/*"
                           style={{ display: "none" }}
                           onChange={(e) => handleImageChange(item._id, e)}
                         />
-                      </label>
-                    ) : (
-                      <img
-                        src={item.imageLink}
-                        alt="Card"
-                        className="card-image"
-                      />
+                      </>
                     )}
-                  </div>
-                  {isEditing ? (
-                    <>
-                      <button
-                        className="save-btn btn-effects faustina"
-                        onClick={() => handleSaveChanges(item.index)}
-                      >
-                        Save
-                      </button>
-                      <button
-                        className="edit-btn btn-effects faustina"
-                        onClick={handleCancelEdit}
-                      >
-                        Cancel
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      className="edit-btn btn-effects faustina"
-                      onClick={() => handleEditButtonClick(item._id)}
-                    >
-                      Edit
-                    </button>
-                  )}
+                  </label>
                 </div>
               </motion.div>
             );
