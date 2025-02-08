@@ -184,14 +184,11 @@ const QuestionPage = () => {
       style={{
         maxWidth: "700px",
         padding: "10px",
-        backgroundColor: "white",
-        borderRadius: "10px",
       }}
     >
-      <h2 className="m-2 ">Question {qIndex + 1}:</h2>
       <h3 className="m-2">{questions[qIndex]}</h3>
       <div>
-        <h2 className="m-2 ">Your answer:</h2>
+        <h2 className="m-2 sofia">Your answer:</h2>
         <input
           ref={ansTextRef}
           className={`form-control mb-2 w-50 mx-auto ${
@@ -214,7 +211,7 @@ const QuestionPage = () => {
           className={`upload-box ${errorImage ? "border border-danger" : ""}`}
           style={{
             width: "600px",
-            height: "400px",
+            height: "300px",
             border: "2px dashed #ccc",
             display: "flex",
             justifyContent: "center",

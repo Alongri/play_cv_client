@@ -36,24 +36,26 @@ function HeaderAdmin() {
   };
 
   return (
-    <div className="p-2 container" style={{ width: "30em" }}>
-      <div className="d-flex justify-content-between">
-        <button
-          style={buttonStyle}
-          onMouseOver={handleHover}
-          onMouseOut={handleLeave}
-          onClick={onDashboardAdminClick}
-        >
-          Home Admin
-        </button>
-        <button
-          style={buttonStyle}
-          onMouseOver={handleHover}
-          onMouseOut={handleLeave}
-          onClick={onHomeClick}
-        >
-          Home Client
-        </button>
+    <div className="shadow">
+      <div className="p-2 container">
+        <div className="d-flex justify-content-between">
+          <button
+            style={buttonStyle}
+            onMouseOver={handleHover}
+            onMouseOut={handleLeave}
+            onClick={onDashboardAdminClick}
+          >
+            Home Admin
+          </button>
+          <button
+            style={buttonStyle}
+            onMouseOver={handleHover}
+            onMouseOut={handleLeave}
+            onClick={onHomeClick}
+          >
+            Home Client
+          </button>
+        </div>
       </div>
     </div>
   );

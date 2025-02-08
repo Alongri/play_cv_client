@@ -50,56 +50,51 @@ function HeaderClient() {
   };
 
   return (
-    <div className="p-2 container" style={{ width: "30em" }}>
-      <div className="d-flex justify-content-between">
-        {!IfShowNav && (
-          <button
-            style={buttonStyle}
-            onMouseOver={handleHover}
-            onMouseOut={handleLeave}
-            onClick={onWelcomeClick}
-          >
-            Welcome
-          </button>
-        )}
-        {IfShowNav && (
-          <button
-            style={buttonStyle}
-            onMouseOver={handleHover}
-            onMouseOut={handleLeave}
-            onClick={onHomeClick}
-          >
-            Home
-          </button>
-        )}
-        <button
-          style={buttonStyle}
-          onMouseOver={handleHover}
-          onMouseOut={handleLeave}
-          onClick={onHelpClick}
-        >
-          Q&A
-        </button>
-        {IfShowNav && (
-          <button
-            style={buttonStyle}
-            onMouseOver={handleHover}
-            onMouseOut={handleLeave}
-            onClick={onlogout}
-          >
-            Logout
-          </button>
-        )}
-        {IfShowNav && IsAdmin && (
-          <button
-            style={buttonStyle}
-            onMouseOver={handleHover}
-            onMouseOut={handleLeave}
-            onClick={onAdminClick}
-          >
-            Admin
-          </button>
-        )}
+    <div className="shadow">
+      <div className="py-3 container  ">
+        <div className="d-flex justify-content-between">
+          {IfShowNav && (
+            <button
+              style={buttonStyle}
+              onMouseOver={handleHover}
+              onMouseOut={handleLeave}
+              onClick={onHomeClick}
+            >
+              Home
+            </button>
+          )}
+          {IfShowNav && (
+            <button
+              style={buttonStyle}
+              onMouseOver={handleHover}
+              onMouseOut={handleLeave}
+              onClick={onHelpClick}
+            >
+              Q&A
+            </button>
+          )}
+
+          {IfShowNav && IsAdmin && (
+            <button
+              style={buttonStyle}
+              onMouseOver={handleHover}
+              onMouseOut={handleLeave}
+              onClick={onAdminClick}
+            >
+              Admin
+            </button>
+          )}
+          {IfShowNav && (
+            <button
+              style={buttonStyle}
+              onMouseOver={handleHover}
+              onMouseOut={handleLeave}
+              onClick={onlogout}
+            >
+              Logout
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
