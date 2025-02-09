@@ -72,6 +72,7 @@ function AllVideoAdmin() {
               <th>List</th>
               <th>Creation Date</th>
               <th>Title</th>
+              <th>Recommended</th>
               <th>More Info</th>
             </tr>
           </thead>
@@ -86,6 +87,7 @@ function AllVideoAdmin() {
                       : ""}
                   </td>
                   <td>{video.title}</td>
+                  <td>{video.recommend}</td>
                   <td>
                     <button
                       className="btn btn-sm"

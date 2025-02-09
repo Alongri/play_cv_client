@@ -55,6 +55,7 @@ function Profile() {
               <th>List</th>
               <th>Creation Date</th>
               <th>Title</th>
+              <th>Recommended</th>
               <th>More Info</th>
             </tr>
           </thead>
@@ -68,6 +69,7 @@ function Profile() {
                     : "N/A"}
                 </td>
                 <td>{project.title}</td>
+                <td>{project.recommend}</td>
                 <td>
                   <button
                     className="btn btn-sm"
