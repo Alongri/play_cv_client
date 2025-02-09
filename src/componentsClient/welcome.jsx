@@ -20,8 +20,8 @@ const Welcome = () => {
   };
 
   return (
-    <div className="container-fluid mt-5" style={{}}>
-      <div className="d-flex justify-content-around flex-wrap m-3">
+    <div className="container-fluid">
+      <div className="d-flex justify-content-around flex-wrap mx-3">
         <div
           className="text-center p-3 col-6"
           style={{
@@ -32,25 +32,16 @@ const Welcome = () => {
           }}
         >
           <div
-            className="m-3"
+            className="mx-3"
             style={{
-              height: "250px",
-              width: "250px",
-              borderRadius: "300px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: "20px",
             }}
           >
             <img
-              style={{
-                height: "100%",
-                width: "100%",
-                borderRadius: "300px",
-                transition: "transform 0.5s ease", // Transition pour l'animation
-              }}
-              src="src/assets/Playcvlogo.png"
+              style={{ width: "250px" }}
+              src="public\assets\Playcvlogo-removebg-preview.png"
               alt="logo"
             />
           </div>
@@ -69,7 +60,7 @@ const Welcome = () => {
           </button>
         </div>
         <div className="col-6 d-flex justify-content-center align-items-center">
-          <img className="img-fluid" src="public\assets\A" />
+          <img className="img-fluid" src="public\assets\react.svg" />
         </div>
         <div className="px-4 d-flex justify-content-center align-items-center col-12">
           <div
@@ -111,7 +102,7 @@ const Welcome = () => {
             ></div>
 
             {/* Content */}
-            <div style={{ position: "relative", zIndex: "1" }}>
+            <div className="mb-5" style={{ position: "relative", zIndex: "1" }}>
               <h3 className="py-2 playCVGradient">About Us</h3>
               <br />
               <br />

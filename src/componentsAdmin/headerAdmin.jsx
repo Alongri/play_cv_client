@@ -12,48 +12,35 @@ function HeaderAdmin() {
     nav("/admin");
   };
 
-  const buttonStyle = {
-    background: "#6E2CF2",
-    border: "none",
-    borderRadius: "5px",
-    color: "white",
-    padding: "10px 20px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    transition: "transform 0.3s, background-color 0.3s",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-  };
-
-  const handleHover = (e) => {
-    e.target.style.transform = "translateY(-2px)";
-    e.target.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.3)";
-  };
-
-  const handleLeave = (e) => {
-    e.target.style.transform = "translateY(0)";
-    e.target.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.1)";
-  };
 
   return (
-    <div className="p-2 container" style={{ width: "30em" }}>
-      <div className="d-flex justify-content-between">
-        <button
-          className="playCVButton"
-          onMouseOver={handleHover}
-          onMouseOut={handleLeave}
-          onClick={onDashboardAdminClick}
-        >
-          Home Admin
-        </button>
-        <button
-          className="playCVButton"
-          onMouseOver={handleHover}
-          onMouseOut={handleLeave}
-          onClick={onHomeClick}
-        >
-          Home Client
-        </button>
+
+    <div className="py-2 "
+      style={{
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+        // borderRadius: "8px",
+        backgroundColor: "white", // Ensure visibility
+      }}>
+      <div className="p-2 container"
+        style={{
+          width: "30em",
+          // borderRadius: "8px",
+          backgroundColor: "white", // Ensure visibility
+        }}>
+        <div className="d-flex justify-content-between">
+          <button
+            className="playCVButton"
+            onClick={onDashboardAdminClick}
+          >
+            Home Admin
+          </button>
+          <button
+            className="playCVButton"
+            onClick={onHomeClick}
+          >
+            Home Client
+          </button>
+        </div>
       </div>
     </div>
   );
