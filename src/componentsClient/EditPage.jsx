@@ -127,11 +127,11 @@ const EditPage = () => {
   };
 
   const handleInputChange = (id, field, value) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item._id === id ? { ...item, [field]: value } : item
+      setItems((prevItems) =>
+        prevItems.map((item) =>
+          item._id === id ? { ...item, [field]: value } : item
+        )
       )
-    );
   };
 
   const handleImageChange = (id, event) => {
@@ -143,12 +143,13 @@ const EditPage = () => {
   };
 
   const handleSaveChanges = (_index) => {
-    if (!editedValue.trim()) {
-      alert("Value cannot be empty!");
-      return;
+    if (items[_index].answer !== ""){
+      doApiUpdate(items[_index]);
+      setEditingItemId(null);
     }
-    doApiUpdate(items[_index]);
-    setEditingItemId(null);
+    else {
+      // TOASTIFY HERE!!!!!
+    }
   };
 
   const doApiUpdate = async (_dataBody) => {
@@ -218,7 +219,6 @@ const EditPage = () => {
                         <button
                           className="playCVButton carousel-btn"
                           onClick={() => handleSaveChanges(item.index)}
-                          disabled={item.answer.trim() === ""}
                         >
                           Save
                         </button>

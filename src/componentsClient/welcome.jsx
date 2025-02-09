@@ -61,7 +61,7 @@ const Welcome = () => {
           </button>
         </div>
         <div className="col-6 d-flex justify-content-center align-items-center">
-          <img className="img-fluid" src="public\assets\react.svg" />
+          <img style={{height: "200px"}} src={logo} />
         </div>
         <div className="px-4 d-flex justify-content-center align-items-center col-12">
           <div
