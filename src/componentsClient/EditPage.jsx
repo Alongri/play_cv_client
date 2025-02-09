@@ -148,6 +148,7 @@ const EditPage = () => {
       setEditingItemId(null);
     }
     else {
+      alert("Answer cannot be empty! >:(");
       // TOASTIFY HERE!!!!!
     }
   };
