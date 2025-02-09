@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addIfShowNav } from "../featuers/myDetailsSlice";
+import logo from "../assets/Playcvlogo-removebg-preview.png";
 
 const Welcome = () => {
   let nav = useNavigate();
@@ -40,8 +41,8 @@ const Welcome = () => {
             }}
           >
             <img
-              style={{ width: "250px" }}
-              src="public\assets\Playcvlogo-removebg-preview.png"
+              style={{ width: "200px" }}
+              src={logo}
               alt="logo"
             />
           </div>

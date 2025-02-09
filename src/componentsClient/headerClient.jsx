@@ -29,7 +29,6 @@ function HeaderClient() {
 
   return (
     IfShowNav ?
-
       <div
         className=" p-1 "
         style={{
@@ -43,11 +42,6 @@ function HeaderClient() {
           className="d-flex justify-content-between align-items-center"
           style={{ height: "70px" }}
         >
-          {/* {!IfShowNav && (
-          <button className="playCVButton" onClick={onWelcomeClick}>
-            Welcome
-          </button>
-        )} */}
           {IfShowNav && (
             <img
               className="logo"
