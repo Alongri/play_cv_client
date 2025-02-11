@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { API_URL, doApiMethod } from "../services/apiService";
+import { API_URL, doApiFromData, doApiMethod } from "../services/apiService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -59,6 +59,7 @@ const QuestionPage = () => {
       if (ansText === "") setErrorText(true);
       if (ansImage === "") setErrorImage(true);
     } else {
+
       const data = {
         id_video: IdVideo,
         question: questions[qIndex],
@@ -83,7 +84,7 @@ const QuestionPage = () => {
           imageLink: ansImage,
           index: qIndex,
         };
-        const uploadedImageUrl = ansImage;
+        const uploadedImageUrl = await doApiGetImgLink(ansImage);
         if (uploadedImageUrl) {
           newData.imageLink = uploadedImageUrl;
           newChild = await doApiUpdateChild(newData);
@@ -135,6 +136,21 @@ const QuestionPage = () => {
       toast.error(err.message);
       console.log(err.message);
       return err;
+    }
+  };
+
+  const doApiGetImgLink = async (_link) => {
+    let url = API_URL + "/videos/uploadimage";
+    try {
+      let resp = await doApiFromData(url, "POST", _link);
+      if (resp.status === 201) {
+        return [resp.data, true];
+      }
+      return resp;
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err.message);
+      return false;
     }
   };
 
@@ -229,8 +245,10 @@ const QuestionPage = () => {
           }}
         >
           {!ansImage && (
-            <span style={{ fontSize: "24px", color: "#999" }}>+</span>
-          )}
+            // <span style={{ fontSize: "24px", color: "#999" }}></span>
+<span class="material-symbols-outlined">
+add_photo_alternate
+</span>          )}
         </div>
         <input
           ref={fileInputRef}
@@ -245,10 +263,10 @@ const QuestionPage = () => {
       </div>
 
       <div className="d-flex justify-content-center w-50 m-auto gap-5 my-3">
-        <button className="playCVButton" onClick={handlePrev}>
+        <button className="special-button shadow-none" onClick={handlePrev}>
           Prev
         </button>
-        <button className="playCVButton" onClick={handleNext}>
+        <button className="special-button shadow-none" onClick={handleNext}>
           Next
         </button>
       </div>
