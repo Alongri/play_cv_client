@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { API_URL, doApiFromData, doApiMethod } from "../services/apiService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const QuestionPage = () => {
   const questions = [
@@ -44,12 +45,38 @@ const QuestionPage = () => {
     setErrorText(false); // Clear error if user starts typing
   };
 
-  const handleFileChange = (event) => {
+  // const handleFileChange = (event) => {
+  //   const file = event?.target?.files?.[0];
+  //   if (!file) return;
+  //     console.log(file);
+
+  //     // const imagePath = URL.createObjectURL(file);
+  //     setAnsImage(imagePath);
+  //     setErrorImage(false); // Clear error if image is selected
+  // };
+
+  const handleFileChange = async (event) => {
+    console.log(event);
+    console.log(event.target.files);
+    
     const file = event?.target?.files?.[0];
-    if (file) {
-      const imagePath = URL.createObjectURL(file);
-      setAnsImage(imagePath);
-      setErrorImage(false); // Clear error if image is selected
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const response = await axios.post(`${API_URL}/videos/uploadimage`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      console.log(response.data);
+      setAnsImage(response.data.url); // שמור את ה-URL של התמונה שהתקבל מהשרת
+      setErrorImage(false); // נקה שגיאות
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      toast.error(err.response?.data?.message || "Failed to upload image");
     }
   };
 
@@ -84,7 +111,8 @@ const QuestionPage = () => {
           imageLink: ansImage,
           index: qIndex,
         };
-        const uploadedImageUrl = await doApiGetImgLink(ansImage);
+        // const uploadedImageUrl = await doApiGetImgLink(ansImage);
+        const uploadedImageUrl = ansImage;
         if (uploadedImageUrl) {
           newData.imageLink = uploadedImageUrl;
           newChild = await doApiUpdateChild(newData);
@@ -139,20 +167,6 @@ const QuestionPage = () => {
     }
   };
 
-  const doApiGetImgLink = async (_link) => {
-    let url = API_URL + "/videos/uploadimage";
-    try {
-      let resp = await doApiFromData(url, "POST", _link);
-      if (resp.status === 201) {
-        return [resp.data, true];
-      }
-      return resp;
-    } catch (err) {
-      toast.error(err.message);
-      console.log(err.message);
-      return false;
-    }
-  };
 
   const doApiNewChild = async (_dataBody) => {
     let url = API_URL + "/videos/child";
@@ -213,9 +227,8 @@ const QuestionPage = () => {
       <h2 className="m-2 ">Your answer:</h2>
       <input
         ref={ansTextRef}
-        className={`form-control mb-2 w-70 mx-auto ${
-          errorText ? "border border-danger" : ""
-        }`}
+        className={`form-control mb-2 w-70 mx-auto ${errorText ? "border border-danger" : ""
+          }`}
         type="text"
         value={ansText}
         onChange={handleTextChange}
@@ -246,9 +259,9 @@ const QuestionPage = () => {
         >
           {!ansImage && (
             // <span style={{ fontSize: "24px", color: "#999" }}></span>
-<span class="material-symbols-outlined">
-add_photo_alternate
-</span>          )}
+            <span className="material-symbols-outlined">
+              add_photo_alternate
+            </span>)}
         </div>
         <input
           ref={fileInputRef}
