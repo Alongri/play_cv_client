@@ -12,35 +12,23 @@ function HeaderAdmin() {
     nav("/admin");
   };
 
-
   return (
-
-    <div className="py-2 "
+    <div
       style={{
         boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-        // borderRadius: "8px",
-        backgroundColor: "white", // Ensure visibility
-      }}>
-      <div className="p-2 container"
-        style={{
-          width: "30em",
-          // borderRadius: "8px",
-          backgroundColor: "white", // Ensure visibility
-        }}>
-        <div className="d-flex justify-content-between">
-          <button
-            className="playCVButton"
-            onClick={onDashboardAdminClick}
-          >
-            Home Admin
-          </button>
-          <button
-            className="playCVButton"
-            onClick={onHomeClick}
-          >
-            Home Client
-          </button>
-        </div>
+        backgroundColor: "white",
+        height: "60px",
+      }}
+    >
+      <div
+        className="d-flex justify-content-around pt-1"
+      >
+        <button className="playCVButton1" onClick={onDashboardAdminClick}>
+          Home Admin
+        </button>
+        <button className="playCVButton1" onClick={onHomeClick}>
+          Home Client
+        </button>
       </div>
     </div>
   );
