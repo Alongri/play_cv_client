@@ -246,12 +246,17 @@ const QuestionPage = () => {
           style={{
             width: "600px",
             height: "400px",
-            border: "2px dashed #ccc",
+            border: "3px dashed #aaa", /* Softer border */
+            borderRadius: "12px", /* Rounded corners */
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            flexDirection: "column", /* Stack content */
             margin: "auto",
             cursor: "pointer",
+            backgroundColor: "#f9f9f9", /* Light background */
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", /* Subtle shadow */
+            transition: "all 0.3s ease-in-out",
             backgroundImage: ansImage ? `url(${ansImage})` : "none",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -259,9 +264,11 @@ const QuestionPage = () => {
         >
           {!ansImage && (
             // <span style={{ fontSize: "24px", color: "#999" }}></span>
-            <span className="material-symbols-outlined">
-              add_photo_alternate
-            </span>)}
+            <span className="material-symbols-outlined" style={{ fontSize: "48px", color: "#000" }}>
+
+            add_photo_alternate
+            
+          </span>)}
         </div>
         <input
           ref={fileInputRef}
