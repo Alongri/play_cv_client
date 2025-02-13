@@ -65,12 +65,12 @@ function HeaderClient() {
           )}
           {IfShowNav && (
             <button className="logout" onClick={onlogout}>
-              {/* <span
+              <span
                 style={{ boxShadow: "none" }}
                 className="fs-1 bold material-symbols-outlined"
               >
                 logout
-              </span> */}
+              </span>
               <p>Logout</p>
             </button>
           )}
