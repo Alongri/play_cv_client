@@ -42,12 +42,27 @@ function Profile() {
   return (
     <div className="container">
       <div className="text-center">
-        <h1 className="mb-2 display-6 fw-bold">
+        <h1 className="mt-5 display-6 fw-bold">
           Welcome to your projects{" "}
           <span className="playCVGradient emphesis">{userInfo.FirstName}</span>
         </h1>
       </div>
-
+      <div className="d-flex m-auto border mt-4 mb-3 search">
+          <input
+            style={{ border: "none", borderRadius: "12px 0 0 12px" }}
+            type="text"
+            className="d-flex justify-content-between align-items-center text-center px-3 py-2"
+            placeholder="Search Role"
+            id=""
+          />
+          <button
+            style={{ border: "none", borderRadius: "0 12px 12px 0" }}
+            value="Search"
+            className="btn d-flex justify-content-between align-items-center px-4 py-2"
+          >
+            Search
+          </button>
+        </div>
       <div>
         <table className="table table-striped shadow-lg">
           <thead>

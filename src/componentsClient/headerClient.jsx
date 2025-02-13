@@ -40,7 +40,7 @@ function HeaderClient() {
       >
         <div
           className="d-flex justify-content-between align-items-center"
-          style={{ height: "70px" }}
+          style={{ height: "60px" }}
         >
           {IfShowNav && (
             <img
@@ -48,18 +48,18 @@ function HeaderClient() {
               src={logo}
               style={{
                 cursor: "pointer",
-                height: "65px",
+                height: "60px",
               }}
               onClick={onHomeClick}
             />
           )}
           {IfShowNav && (
-            <button className="playCVButton" onClick={onHelpClick}>
+            <button className="playCVButton1" onClick={onHelpClick}>
               Q&A
             </button>
           )}
           {IfShowNav && IsAdmin && (
-            <button className="playCVButton" onClick={onAdminClick}>
+            <button className="playCVButton1" onClick={onAdminClick}>
               Admin
             </button>
           )}

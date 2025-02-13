@@ -78,7 +78,7 @@ const DashboardAdmin = () => {
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4 ">
-        <div className="d-flex m-auto border adminSearch">
+        <div className="d-flex m-auto border search">
           <input
             style={{ border: "none", borderRadius: "12px 0 0 12px" }}
             type="text"

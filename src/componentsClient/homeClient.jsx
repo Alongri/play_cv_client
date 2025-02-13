@@ -71,7 +71,7 @@ const HomeClient = () => {
             most important features for your success.
           </p>
           <button
-            className="playCVButton mt-2"
+            className="playCVButton2 mt-2"
             onClick={() => navigate("/profile")}
           >
             View Profile

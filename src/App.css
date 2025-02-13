@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Sofia&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ephesis&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&display=swap");
-
+search
 .quicksand {
   font-family: "Quicksand", sans-serif;
 }
@@ -36,7 +36,36 @@
   display: inline;
   padding-right: 0.5rem;
 }
-.playCVButton {
+.playCVButton1 {
+  font-family: "Quicksand", sans-serif;
+  box-sizing: border-box;
+  position: relative;
+  color: #000000;
+  border: none;
+  height: 100%;
+  background: none;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 8px 18px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.playCVButton1::after {
+  content: "";
+  position: absolute;
+  border-radius: 2px;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 4px;
+  background-color: rgb(0, 0, 0);
+  transition: 0.2s;
+}
+.playCVButton1:hover::after {
+  width: 100%;
+  left: 0;
+}
+.playCVButton2 {
   font-family: "Quicksand", sans-serif;
   box-sizing: border-box;
   color: #000000;
@@ -49,11 +78,11 @@
   transition: 0.3s;
   box-shadow: 0 5px 0 0 #000000;
 }
-.playCVButton:hover {
+.playCVButton2:hover {
   background-color: #000000;
   color: white;
 }
-.playCVButton:active {
+.playCVButton2:active {
   transform: translateY(5px);
   box-shadow: 0 0 0 0 #000000;
 }
@@ -67,45 +96,40 @@
 .logout {
   font-family: "Quicksand", sans-serif;
   box-sizing: border-box;
+  border: none;
   color: #ff2323;
-  border: 2px solid #ff2323;
   background: none;
   font-size: 20px;
   font-weight: bold;
+  height: 100%;
   padding: 5px 10px;
-  border-radius: 5px 0 0 5px;
-  box-shadow: 5px 0 0 0 #c90000;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  /* position: absolute; */
-  right: 5px;
+  position: relative;
   transition: 0.2s;
   p {
     margin: auto 0;
-    transform: translateX(12px);
-    max-width: 0px;
-    transition: 0.2s;
   }
   span {
-    transition: 0.2s;
     font-weight: bold;
   }
 }
-.logout:hover {
-  color: white;
-  border: 2px solid #ff2d2d;
-  background: #ff2d2d;
-  p {
-    transform: translateX(0);
-    display: block;
-    max-width: 100px;
-  }
+.logout::after {
+  content: "";
+  position: absolute;
+  border-radius: 2px;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 4px;
+  background-color: red;
+  transition: 0.2s;
 }
-.logout:active {
-  transform: translateX(5px);
-  box-shadow: 0 0 0 0 #c90000;
+.logout:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 .editContainer {
@@ -419,11 +443,12 @@ i {
 .card div:last-child {
   margin-bottom: 0; /* Prevent extra space on the last div */
 }
-.adminSearch {
+.search {
   border: 1px solid black;
+  width: fit-content;
   border-radius: 12px;
   button:hover {
-    background-color: #4230ff;
+    background-color: #000000;
     color: white;
   }
   input:focus {
