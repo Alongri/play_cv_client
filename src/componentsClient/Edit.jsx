@@ -7,7 +7,7 @@ import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const EditPage = () => {
+const Edit = () => {
   let startAR = [
     {
       _id: "1",
@@ -381,4 +381,4 @@ function getZIndex({ position, direction }) {
   return indexes[position()];
 }
 
-export default EditPage;
+export default Edit;
