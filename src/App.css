@@ -2,8 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Sofia&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ephesis&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,300..800;1,300..800&display=swap");
-search
-.quicksand {
+search .quicksand {
   font-family: "Quicksand", sans-serif;
 }
 .sofia {
@@ -235,33 +234,12 @@ i {
   }
 }
 
-/* Carousel CSS */
-
-.emphesis-carousel {
-  font-family: "Ephesis", sans-serif;
-  font-size: 70px;
-}
-
-@media (max-width: 768px) {
-  .card h3 {
-    font-size: 20px;
-    font-weight: 500;
-  }
-}
-
-.flex-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-}
-
+/* Base Card Styles */
 .card {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   width: 600px;
+  max-width: 100%;
   height: auto;
   font-size: 20px;
   position: relative;
@@ -272,22 +250,68 @@ i {
   gap: 10px;
   align-items: center;
   background-color: white;
+  box-sizing: border-box;
+}
+
+/* Carousel CSS */
+.emphesis-carousel {
+  font-family: "Ephesis", sans-serif;
+  font-size: 70px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .emphesis-carousel {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .card h3 {
+    font-size: 16px;
+  }
+
+  .emphesis-carousel {
+    font-size: 30px;
+  }
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* gap: 10px; */
+  padding: 10px;
 }
 
 .card-index {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  color: #2196f3;
+  color: #8c55fc;
   background-color: #fff;
   padding: 5px 15px;
   border-radius: 30px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
 }
 
 .image-container {
   width: 100%;
-  height: 200px;
+  height: 250px;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -298,8 +322,8 @@ i {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  max-width: 300px;
-  max-height: 200px;
+  max-width: 600px;
+  max-height: 400px;
 }
 
 .clickable {
@@ -321,14 +345,28 @@ i {
   justify-content: center;
   width: 100%;
   height: auto;
+  margin: 0;
 }
 
 .wrapper {
   display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
   justify-content: center;
   width: 100%;
-  height: 80%;
+  height: 600px;
+}
+
+.header-container {
+  margin: 40px;
+}
+
+.card-container {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .buttons {
@@ -362,19 +400,22 @@ i {
   cursor: pointer;
 }
 
+.generate-btn-div {
+  display: flex;
+  justify-content: center;
+}
+
 .prev-btn,
 .next-btn {
   margin: 10px;
   border: none;
   padding: 10px;
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
+  height: 50px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   background: transparent;
   transition: all 0.3s ease;
 }
@@ -418,11 +459,14 @@ i {
   align-items: center;
   width: 50%;
   gap: 10px;
+  margin-right: 10px;
 }
 
 .index-sign {
   display: flex;
   width: 50%;
+  margin-left: 10px;
+  align-items: center;
 }
 
 .carousel-btn {
@@ -434,10 +478,10 @@ i {
 .btn-and-index-container {
   display: flex;
   width: 100%;
-}
-
-.card div {
-  margin-bottom: 10px;
+  position: absolute;
+  top: 10px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .card div:last-child {

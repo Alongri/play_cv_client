@@ -45,32 +45,24 @@ const QuestionPage = () => {
     setErrorText(false); // Clear error if user starts typing
   };
 
-  // const handleFileChange = (event) => {
-  //   const file = event?.target?.files?.[0];
-  //   if (!file) return;
-  //     console.log(file);
-
-  //     // const imagePath = URL.createObjectURL(file);
-  //     setAnsImage(imagePath);
-  //     setErrorImage(false); // Clear error if image is selected
-  // };
-
   const handleFileChange = async (event) => {
     console.log(event);
     console.log(event.target.files);
-    
+
     const file = event?.target?.files?.[0];
     if (!file) return;
     const formData = new FormData();
     formData.append("image", file);
     try {
-      const response = await axios.post(`${API_URL}/videos/uploadimage`,
+      const response = await axios.post(
+        `${API_URL}/videos/uploadimage`,
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        });
+        }
+      );
       console.log(response.data);
       setAnsImage(response.data.url); // שמור את ה-URL של התמונה שהתקבל מהשרת
       setErrorImage(false); // נקה שגיאות
@@ -86,7 +78,6 @@ const QuestionPage = () => {
       if (ansText === "") setErrorText(true);
       if (ansImage === "") setErrorImage(true);
     } else {
-
       const data = {
         id_video: IdVideo,
         question: questions[qIndex],
@@ -167,7 +158,6 @@ const QuestionPage = () => {
     }
   };
 
-
   const doApiNewChild = async (_dataBody) => {
     let url = API_URL + "/videos/child";
     try {
@@ -227,8 +217,9 @@ const QuestionPage = () => {
       <h2 className="m-2 ">Your answer:</h2>
       <input
         ref={ansTextRef}
-        className={`form-control mb-2 w-70 mx-auto ${errorText ? "border border-danger" : ""
-          }`}
+        className={`form-control mb-2 w-70 mx-auto ${
+          errorText ? "border border-danger" : ""
+        }`}
         type="text"
         value={ansText}
         onChange={handleTextChange}
@@ -246,16 +237,16 @@ const QuestionPage = () => {
           style={{
             width: "600px",
             height: "400px",
-            border: "3px dashed #aaa", /* Softer border */
-            borderRadius: "12px", /* Rounded corners */
+            border: "3px dashed #aaa" /* Softer border */,
+            borderRadius: "12px" /* Rounded corners */,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            flexDirection: "column", /* Stack content */
+            flexDirection: "column" /* Stack content */,
             margin: "auto",
             cursor: "pointer",
-            backgroundColor: "#f9f9f9", /* Light background */
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", /* Subtle shadow */
+            backgroundColor: "#f9f9f9" /* Light background */,
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" /* Subtle shadow */,
             transition: "all 0.3s ease-in-out",
             backgroundImage: ansImage ? `url(${ansImage})` : "none",
             backgroundSize: "cover",
@@ -264,11 +255,13 @@ const QuestionPage = () => {
         >
           {!ansImage && (
             // <span style={{ fontSize: "24px", color: "#999" }}></span>
-            <span className="material-symbols-outlined" style={{ fontSize: "48px", color: "#000" }}>
-
-            add_photo_alternate
-            
-          </span>)}
+            <span
+              className="material-symbols-outlined"
+              style={{ fontSize: "48px", color: "#000" }}
+            >
+              add_photo_alternate
+            </span>
+          )}
         </div>
         <input
           ref={fileInputRef}
@@ -309,7 +302,7 @@ const QuestionPage = () => {
             role="progressbar"
             style={{
               width: `${((qIndex + 1) / totalQuestions) * 100}%`,
-              background: `linear-gradient(45deg, #ff6f61, #ff914d)`,
+              background: `linear-gradient(45deg, #8e44ad, #9b59b6)`,
               borderRadius: "15px",
             }}
           >

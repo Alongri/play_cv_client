@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditPage = () => {
   let startAR = [
@@ -122,7 +124,7 @@ const EditPage = () => {
     setEditingItemId(itemId);
   };
 
-  const handleCancelEdit = () => {
+  const handleCancelEdit = (itemId) => {
     setEditingItemId(null);
   };
 
@@ -147,8 +149,14 @@ const EditPage = () => {
       doApiUpdate(items[_index]);
       setEditingItemId(null);
     } else {
-      alert("Answer cannot be empty! >:(");
-      // TOASTIFY HERE!!!!!
+      toast.error("Answer cannot be empty!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -167,6 +175,50 @@ const EditPage = () => {
     }
   };
 
+  const handleGenerateClick = () => {
+    // Display a confirmation message in the toast
+    toast(
+      <div>
+        <p>Are you sure you want to generate?</p>
+        <div style={{ marginTop: "10px" }}>
+          <button
+            style={{
+              marginRight: "10px",
+              padding: "5px 10px",
+              borderRadius: "5px",
+              border: "none",
+              backgroundColor: "#8c55fc",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              console.log("User confirmed generation");
+              toast.dismiss();
+            }}
+          >
+            Yes
+          </button>
+          <button
+            style={{
+              padding: "5px 10px",
+              borderRadius: "5px",
+              border: "none",
+              backgroundColor: "#ccc",
+              cursor: "pointer",
+            }}
+            onClick={() => toast.dismiss()}
+          >
+            No
+          </button>
+        </div>
+      </div>,
+      {
+        autoClose: false,
+        closeOnClick: false,
+      }
+    );
+  };
+
   const indexInArrayScope =
     ((activeIndex % items.length) + items.length) % items.length;
   const visibleItems = [...items, ...items].slice(
@@ -176,116 +228,128 @@ const EditPage = () => {
 
   return (
     <div className="main-wrapper">
-      <div className="flex-container">
+      <div className="header-container">
         <h1 className="emphesis-carousel">Edit before the magic</h1>
       </div>
       <div className="wrapper">
-        <AnimatePresence mode="popLayout" initial={false}>
-          {visibleItems.map((item) => {
-            const isEditing = editingItemId === item._id;
-            const cardIndex = item.index + 1;
-            return (
-              <motion.div
-                className="card"
-                key={item._id}
-                layout
-                custom={{
-                  direction,
-                  position: () => {
-                    if (item === visibleItems[0]) {
-                      return "left";
-                    } else if (item === visibleItems[1]) {
-                      return "center";
-                    } else {
-                      return "right";
+        <div className="card-container">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {visibleItems.map((item) => {
+              const isEditing = editingItemId === item._id;
+              const cardIndex = item.index + 1;
+              return (
+                <motion.div
+                  className="card"
+                  key={item._id}
+                  layout
+                  custom={{
+                    direction,
+                    position: () => {
+                      if (item === visibleItems[0]) {
+                        return "left";
+                      } else if (item === visibleItems[1]) {
+                        return "center";
+                      } else {
+                        return "right";
+                      }
+                    },
+                  }}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 1 }}
+                >
+                  <div className="btn-and-index-container">
+                    <div className="index-sign">
+                      <h5 className="card-index">
+                        {cardIndex} of {items.length}
+                      </h5>
+                    </div>
+                    <div className="button-container">
+                      {isEditing ? (
+                        <>
+                          <button
+                            className="playCVButton1 carousel-btn"
+                            onClick={() => handleSaveChanges(item.index)}
+                          >
+                            Save
+                          </button>
+                          <button
+                            className="playCVButton1 carousel-btn"
+                            onClick={() => handleCancelEdit(item._id)}
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <button
+                          className="playCVButton1 carousel-btn"
+                          onClick={() => handleEditButtonClick(item._id)}
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <h3 className="text-center faustina">{item.question}</h3>
+                  <input
+                    type="text"
+                    value={item.answer}
+                    disabled={!isEditing}
+                    className="styled-input"
+                    onChange={(e) =>
+                      handleInputChange(item._id, "answer", e.target.value)
                     }
-                  },
-                }}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 1 }}
-              >
-                <div className="btn-and-index-container">
-                  <div className="index-sign">
-                    <h5 className="card-index">
-                      {cardIndex} of {items.length}
-                    </h5>
+                  />
+                  <div className="image-container">
+                    <label className="image-wrapper">
+                      <img
+                        src={item.imageLink}
+                        alt="Card"
+                        className="card-image clickable"
+                      />
+                      {isEditing && (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{ fontSize: "48px", color: "#000" }}
+                          >
+                            add_photo_alternate
+                          </span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            onChange={(e) => handleImageChange(item._id, e)}
+                          />
+                        </>
+                      )}
+                    </label>
                   </div>
-                  <div className="button-container">
-                    {isEditing ? (
-                      <>
-                        <button
-                          className="playCVButton carousel-btn"
-                          onClick={() => handleSaveChanges(item.index)}
-                        >
-                          Save
-                        </button>
-                        <button
-                          className="playCVButton carousel-btn"
-                          onClick={() => handleCancelEdit(item._id)}
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
-                      <button
-                        className="playCVButton carousel-btn"
-                        onClick={() => handleEditButtonClick(item._id)}
-                      >
-                        Edit
-                      </button>
-                    )}
-                  </div>
-                </div>
-                <h3 className="text-center faustina">{item.question}</h3>
-                <input
-                  type="text"
-                  value={item.answer}
-                  disabled={!isEditing}
-                  className="styled-input"
-                  onChange={(e) =>
-                    handleInputChange(item._id, "answer", e.target.value)
-                  }
-                />
-                <div className="image-container">
-                  <label className="image-wrapper">
-                    <img
-                      src={item.imageLink}
-                      alt="Card"
-                      className="card-image clickable"
-                    />
-                    {isEditing && (
-                      <>
-                        <span className="edit-icon">✏️</span>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          style={{ display: "none" }}
-                          onChange={(e) => handleImageChange(item._id, e)}
-                        />
-                      </>
-                    )}
-                  </label>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
-      <div className="buttons">
-        <motion.button
-          className="prev-btn prev-btn-img"
-          whileTap={{ scale: 0.8 }}
-          onClick={() => handleClick(-1)}
-        ></motion.button>
-
-        <motion.button
-          className="next-btn next-btn-img"
-          whileTap={{ scale: 0.8 }}
-          onClick={() => handleClick(1)}
-        ></motion.button>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+        <div className="buttons">
+          <motion.button
+            className="prev-btn prev-btn-img"
+            whileTap={{ scale: 0.8 }}
+            onClick={() => handleClick(-1)}
+          ></motion.button>
+          <div>
+            <button className="special-button" onClick={handleGenerateClick}>
+              Generate
+            </button>
+            <ToastContainer position="bottom-right" />
+          </div>
+          <motion.button
+            className="next-btn next-btn-img"
+            whileTap={{ scale: 0.8 }}
+            onClick={() => handleClick(1)}
+          ></motion.button>
+        </div>
       </div>
     </div>
   );

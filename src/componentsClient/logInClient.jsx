@@ -70,7 +70,7 @@ const loginClient = () => {
     borderImage: "conic-gradient(from 0deg, blue, violet) 1",
     borderRadius: "50%",
     animation: "spin 1s linear infinite",
-    backgroundColor: "transparent", 
+    backgroundColor: "transparent",
     boxSizing: "border-box",
   };
 
@@ -86,18 +86,19 @@ const loginClient = () => {
   `;
 
   return (
-    <div
-      className="container mt-5 p-4 d-flex flex-column align-items-center"
-    >
+    <div className="container mt-5 p-4 d-flex flex-column align-items-center">
       <style>{keyframesSpin}</style>
       {loading ? (
         <div style={spinnerStyle}></div>
       ) : (
-        <div className="row justify-content-center w-100" style={{
-          maxWidth: "500px",
-          backgroundColor: "white",
-          borderRadius: "10px",
-        }}>
+        <div
+          className="row justify-content-center w-100"
+          style={{
+            maxWidth: "500px",
+            backgroundColor: "white",
+            borderRadius: "10px",
+          }}
+        >
           <h3 className="m-2">Sign in</h3>
 
           <form
