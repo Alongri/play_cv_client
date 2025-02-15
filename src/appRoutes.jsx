@@ -16,7 +16,7 @@ import VarificationforgotPass from "./componentsClient/varificationforgotPass";
 import LogoutClient from "./componentsClient/logoutClient";
 import QuestionPage from "./componentsClient/QuestionPage";
 import NameProject from "./componentsClient/NameProject";
-import EditPage from "./componentsClient/EditPage";
+import Edit from "./componentsClient/Edit.jsx";
 import ThisVideo from "./componentsAdmin/thisVideo";
 import AllVideoAdmin from "./componentsAdmin/allVideoAdmin";
 import Profile from "./componentsClient/profile";
@@ -41,7 +41,7 @@ function AppRoutes() {
           <Route path="/homeClient" element={<HomeClient />} />
           <Route path="/nameProject" element={<NameProject />} />
           <Route path="/questionPage" element={<QuestionPage />} />
-          <Route path="/editPage" element={<EditPage />} />
+          <Route path="/edit" element={<Edit/>} />
           <Route path="/submit" element={<Submit />} />
           <Route path="/forgotPassClient" element={<ForgotPass />} />
           <Route path="/help" element={<Help />} />

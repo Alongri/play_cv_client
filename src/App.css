@@ -626,3 +626,23 @@ i {
   font-size: 18px;
   text-align: center; /* Center header text */
 }
+
+.editHome {
+  background-color: white;
+  text-align: center;
+  width: 800px;
+  padding-bottom: 20px;
+  position: fixed;
+  top: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px 10px rgb(186, 186, 186);
+  left: calc(50% - 400px);
+  .editHomeBtns {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    display: flex;
+    gap: 20px;
+    span{cursor: pointer;}
+  }
+}
