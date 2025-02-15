@@ -36,7 +36,7 @@ function Profile() {
   const goToVideoDetailsProfile = (id) => {
     console.log("Navigating to video details with ID:", id);
     dispatch(addIdVideo({ idVideo: id }));
-    navigate(`/editpage`);
+    navigate(`/edit`);
   };
 
   return (

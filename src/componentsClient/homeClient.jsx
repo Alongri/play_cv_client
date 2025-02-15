@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { API_URL, doApiGet } from "../services/apiService";
@@ -8,21 +8,24 @@ import {
   addName,
   addIdMorInfoAdmin,
 } from "../featuers/myDetailsSlice";
+import homeImg from "../assets/video-player.png";
+import EditHome from "../componentsAdmin/EditHome";
 
 const HomeClient = () => {
   const myName = useSelector((state) => state.myDetailsSlice.name);
   const IsAdmin = useSelector((state) => state.myDetailsSlice.isAdmin);
   const navigate = useNavigate();
   const [myInfo, setmyInfo] = useState({});
+  let [showEdit, setShowEdit] = useState(false);
   const dispatch = useDispatch();
+  const [adminText, setAdminText] = useState("DEAR ADMIN. YOU CAN EDIT THIS SECTION!");
+  const [adminImage, setAdminImage] = useState(homeImg);
 
   useEffect(() => {
     dispatch(addIfShowNav({ ifShowNav: true }));
-    console.log(myName);
     // doApiCheckToken();
     doApi();
   }, []);
-
   // const doApiCheckToken = async () => {
   //   let url = API_URL + "/users/checkToken";
   //   try {
@@ -48,7 +51,6 @@ const HomeClient = () => {
       console.log(error);
     }
   };
-
   return (
     <div className="container-fluid d-flex pt-5">
       <div className="container text-center w-50 d-flex flex-column justify-content-center align-items-center">
@@ -80,9 +82,28 @@ const HomeClient = () => {
       </div>
 
       {/* Informative Section */}
-      <div className="container d-flex justify-content-center align-items-center w-50">
-        <div></div>
+      <div
+        className="container d-flex justify-content-center position-relative flex-wrap
+      align-items-center w-50"
+      >
+        {!IsAdmin && (
+          <span className="edit-icon" onClick={() => setShowEdit(true)}>
+            ✏️
+          </span>
+        )}
+        <img src={adminImage}></img>
+        <h4>{adminText}</h4>
       </div>
+      {showEdit && (
+        <EditHome
+          showEdit={showEdit}
+          setShowEdit={setShowEdit}
+          image={adminImage}
+          setImage={setAdminImage}
+          text={adminText}
+          setText={setAdminText}
+        />
+      )}
     </div>
   );
 };

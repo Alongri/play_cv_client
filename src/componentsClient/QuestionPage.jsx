@@ -133,7 +133,7 @@ const QuestionPage = () => {
 
         setQIndex(qIndex + 1);
         if (qIndex >= 11) {
-          navigate("/editPage");
+          navigate("/edit");
         }
       }
     }

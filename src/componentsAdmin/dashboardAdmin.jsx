@@ -12,6 +12,7 @@ const DashboardAdmin = () => {
   let [ar, setAr] = useState([]);
   let [ar2, setAr2] = useState([]);
   let [searchText, setSearchText] = useState("");
+  let [showEdit, setShowEdit] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
