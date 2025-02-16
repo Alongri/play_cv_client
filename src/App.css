@@ -195,13 +195,13 @@ i {
   button {
     transition: 120ms;
     border-radius: 0 15px 15px 0;
-    color: #8c52ff;
+    color: #000000;
     background-color: white;
     width: 150px;
   }
   button:hover {
     color: white;
-    background-color: #8c52ff;
+    background-color: #000000;
   }
   input {
     border-radius: 15px 0 0 15px;
@@ -687,6 +687,8 @@ i {
     right: 15px;
     display: flex;
     gap: 20px;
-    span{cursor: pointer;}
+    span {
+      cursor: pointer;
+    }
   }
 }

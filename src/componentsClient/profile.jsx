@@ -6,7 +6,9 @@ import { addIdVideo } from "../featuers/myDetailsSlice";
 
 function Profile() {
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [userInfo, setUserInfo] = useState({});
+  const [searchText, setSearchText] = useState("");
   const ThisID = useSelector((state) => state.myDetailsSlice.idMorInfoAdmin);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ function Profile() {
       const videosUrl = `${API_URL}/videos/allUserVideosAdmin/${ThisID}`;
       const videosData = await doApiGet(videosUrl);
       setProjects(videosData.data);
+      setFilteredProjects(videosData.data); // Initialize filteredProjects
     } catch (err) {
       console.error(err);
     }
@@ -39,6 +42,21 @@ function Profile() {
     navigate(`/edit`);
   };
 
+  const onSearchClick = () => {
+    // Filter projects based on the title field
+    const tempAr = projects.filter((project) =>
+      project.title.toLowerCase().includes(searchText.trim().toLowerCase())
+    );
+
+    if (tempAr.length > 0) {
+      setFilteredProjects(tempAr);
+      console.log("Projects found");
+    } else {
+      console.log("No projects found");
+      setFilteredProjects([]); // Show empty table if no matches found
+    }
+  };
+
   return (
     <div className="container">
       <div className="text-center">
@@ -48,21 +66,23 @@ function Profile() {
         </h1>
       </div>
       <div className="d-flex m-auto border mt-4 mb-3 search">
-          <input
-            style={{ border: "none", borderRadius: "12px 0 0 12px" }}
-            type="text"
-            className="d-flex justify-content-between align-items-center text-center px-3 py-2"
-            placeholder="Search Role"
-            id=""
-          />
-          <button
-            style={{ border: "none", borderRadius: "0 12px 12px 0" }}
-            value="Search"
-            className="btn d-flex justify-content-between align-items-center px-4 py-2"
-          >
-            Search
-          </button>
-        </div>
+        <input
+          style={{ border: "none", borderRadius: "12px 0 0 12px" }}
+          type="text"
+          className="d-flex justify-content-between align-items-center text-center px-3 py-2"
+          placeholder="Search by Title"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)} // Bind the input to searchText
+        />
+        <button
+          style={{ border: "none", borderRadius: "0 12px 12px 0" }}
+          onClick={onSearchClick}
+          value="Search"
+          className="btn d-flex justify-content-between align-items-center px-4 py-2"
+        >
+          Search
+        </button>
+      </div>
       <div>
         <table className="table table-striped shadow-lg">
           <thead>
@@ -75,7 +95,7 @@ function Profile() {
             </tr>
           </thead>
           <tbody>
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>

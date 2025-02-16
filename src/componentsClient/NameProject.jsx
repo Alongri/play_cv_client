@@ -101,7 +101,7 @@ const NameProject = () => {
             ref={titleIn}
             id="projectName"
             type="text"
-            className="sofia fs-5"
+            className="fs-5"
             placeholder="Enter your project name"
             onChange={(e) => {
               updateTitle();
