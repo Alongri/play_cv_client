@@ -236,6 +236,7 @@ i {
 
 /* Base Card Styles */
 .card {
+  margin: 10px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   width: 600px;
@@ -311,19 +312,20 @@ i {
 
 .image-container {
   width: 100%;
-  height: 250px;
+  height: 300px;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .image-container img {
   width: 100%;
-  height: 100%;
+  height: 80%;
   object-fit: contain;
-  max-width: 600px;
-  max-height: 400px;
+  max-width: 500px;
+  max-height: 300px;
 }
 
 .clickable {
@@ -354,7 +356,7 @@ i {
   margin-bottom: 20px;
   justify-content: center;
   width: 100%;
-  height: 600px;
+  height: 700px;
 }
 
 .header-container {
@@ -378,16 +380,17 @@ i {
 
 .image-wrapper {
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .card-image {
-  display: block;
-  width: 100%;
+  max-width: 100%;
   height: auto;
-  border-radius: 8px;
 }
-
 .edit-icon {
   position: absolute;
   top: 10px;
@@ -540,8 +543,13 @@ i {
   border-radius: 10px;
   /* background: linear-gradient(45deg, #ff007f, #8a2be2, #1e90ff); */
   background: black;
+
+  /* For WebKit browsers */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
+
+  /* For other browsers */
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
 }
 

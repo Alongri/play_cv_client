@@ -7,6 +7,7 @@ import { API_URL, doApiMethod } from "../services/apiService";
 import { saveTokenLocal } from "../services/localService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "../assets/Playcvlogo-removebg-preview.png";
 
 const loginClient = () => {
   const [msg, setMsg] = useState(""); // if  remove msg
@@ -86,7 +87,13 @@ const loginClient = () => {
   `;
 
   return (
-    <div className="container mt-5 p-4 d-flex flex-column align-items-center">
+    <div
+      className="d-flex justify-content-center align-items-center text-center"
+      style={{
+        height: "100vh", // Full height of the viewport
+        backgroundColor: "#f8f9fa", // Optional: background color for contrast
+      }}
+    >
       <style>{keyframesSpin}</style>
       {loading ? (
         <div style={spinnerStyle}></div>
@@ -97,10 +104,16 @@ const loginClient = () => {
             maxWidth: "500px",
             backgroundColor: "white",
             borderRadius: "10px",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Optional: subtle shadow
+            padding: "20px",
           }}
         >
+          <img
+            src={logo}
+            alt="PlayCV Logo"
+            style={{ width: "220px", marginBottom: "2rem" }}
+          />
           <h3 className="m-2">Sign in</h3>
-
           <form
             onSubmit={handleSubmit(onSubForm)}
             className="text-center w-100"

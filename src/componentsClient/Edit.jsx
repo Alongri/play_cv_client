@@ -297,7 +297,7 @@ const Edit = () => {
                     type="text"
                     value={item.answer}
                     disabled={!isEditing}
-                    className="styled-input"
+                    className="styled-input mb-2"
                     onChange={(e) =>
                       handleInputChange(item._id, "answer", e.target.value)
                     }
@@ -309,20 +309,32 @@ const Edit = () => {
                         alt="Card"
                         className="card-image clickable"
                       />
-                      {isEditing && (
+                      {isEditing ? (
                         <>
-                          <span
-                            className="material-symbols-outlined"
-                            style={{ fontSize: "48px", color: "#000" }}
-                          >
-                            add_photo_alternate
-                          </span>
                           <input
                             type="file"
                             accept="image/*"
                             style={{ display: "none" }}
                             onChange={(e) => handleImageChange(item._id, e)}
                           />
+                          <span
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "48px",
+                              color: "#000",
+                            }}
+                          >
+                            add_photo_alternate
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span
+                            className="material-symbols-outlined"
+                            style={{ fontSize: "48px", color: "#FFF" }}
+                          >
+                            _
+                          </span>
                         </>
                       )}
                     </label>

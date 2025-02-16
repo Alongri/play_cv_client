@@ -59,65 +59,6 @@ const Welcome = () => {
         >
           Sign Up
         </button>
-
-        <p style={{ margin: "20px 0", fontWeight: "bold" }}>Or sign in with:</p>
-
-        {/* Social Login Buttons */}
-        <div className="d-flex align-items-center gap-2">
-          <button
-            className="btn btn-outline-secondary"
-            style={{
-              borderRadius: "50%",
-              padding: "10px",
-              width: "40px",
-              height: "40px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <i
-              className="fab fa-facebook-f"
-              style={{ color: "#1877f2", fontSize: "1.2rem" }}
-            ></i>
-          </button>
-
-          <button
-            className="btn btn-outline-secondary"
-            style={{
-              borderRadius: "50%",
-              padding: "10px",
-              width: "40px",
-              height: "40px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <i
-              className="fab fa-google"
-              style={{ color: "#db4437", fontSize: "1.2rem" }}
-            ></i>
-          </button>
-
-          <button
-            className="btn btn-outline-secondary"
-            style={{
-              borderRadius: "50%",
-              padding: "10px",
-              width: "40px",
-              height: "40px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <i
-              className="fab fa-apple"
-              style={{ color: "#000", fontSize: "1.2rem" }}
-            ></i>
-          </button>
-        </div>
       </div>
 
       {/* Right Section */}
