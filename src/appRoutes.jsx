@@ -21,6 +21,7 @@ import ThisVideo from "./componentsAdmin/thisVideo";
 import AllVideoAdmin from "./componentsAdmin/allVideoAdmin";
 import Profile from "./componentsClient/profile";
 import VideoDetailsProfile from "./componentsClient/videoDetailsProfile.jsx";
+import VideoGenerator from "./componentsClient/VideoGenerator.jsx";
 
 function AppRoutes() {
   return (
@@ -45,6 +46,7 @@ function AppRoutes() {
           <Route path="/submit" element={<Submit />} />
           <Route path="/forgotPassClient" element={<ForgotPass />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/videoGenerator" element={<VideoGenerator />} />
           <Route path="/*" element={<Page404 />} />
           <Route
             path="/VarificationforgotPass"

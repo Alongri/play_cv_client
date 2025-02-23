@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Edit = () => {
   let startAR = [
@@ -101,6 +102,7 @@ const Edit = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(IdVideo);
@@ -231,36 +233,37 @@ const Edit = () => {
   );
 
   const generateAndDownloadVideo = async () => {
-    setLoading(true);
-    setError(null);
+    // setLoading(true);
+    // setError(null);
 
-    try {
-      // Step 1: Request the backend to generate the video
-      let url = API_URL + "/videos/generate";
-      let data_check = {
-        ar: items,
-      };
-      const response = await doApiMethod(url, "PATCH", data_check);
-      console.log(response);
+    // try {
+    //   // Step 1: Request the backend to generate the video
+    //   let url = API_URL + "/videos/generate";
+    //   let data_check = {
+    //     ar: items,
+    //   };
+    //   const response = await doApiMethod(url, "PATCH", data_check);
+    //   console.log(response);
 
-      const data = await response.json();
-      if (data.videoUrl) {
-        // Step 2: Trigger the download
-        const downloadUrl = data.videoUrl;
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.download = `generated_video_${videoId}.mp4`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        setError("Failed to generate video. Please try again.");
-      }
-    } catch (err) {
-      setError("Error generating video.");
-    } finally {
-      setLoading(false);
-    }
+    //   const data = await response.json();
+    //   if (data.videoUrl) {
+    //     // Step 2: Trigger the download
+    //     const downloadUrl = data.videoUrl;
+    //     const link = document.createElement("a");
+    //     link.href = downloadUrl;
+    //     link.download = `generated_video_${videoId}.mp4`;
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    //   } else {
+    //     setError("Failed to generate video. Please try again.");
+    //   }
+    // } catch (err) {
+    //   setError("Error generating video.");
+    // } finally {
+    //   setLoading(false);
+    // }
+    navigate("/videoGenerator");
   };
 
   return (

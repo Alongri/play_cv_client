@@ -1,106 +1,126 @@
-import React, { useState, useEffect } from "react";
-import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
-import "@ffmpeg/core";
+import React, { useEffect, useState, useRef } from "react";
+import { API_URL, doApiGet } from "../services/apiService";
+import { useSelector } from "react-redux";
 
-const VideoGenerator = ({ jsonData }) => {
-  const [ffmpeg] = useState(createFFmpeg({ log: true }));
-  const [loading, setLoading] = useState(true);
-  const [videoURL, setVideoURL] = useState(null);
+function VideoGenerator() {
+  const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);  // מתחילים בטעינה
+  const [error, setError] = useState(null);
+  const [isConverting, setIsConverting] = useState(false);  // מצב המרה
+  const canvasRef = useRef(null); // Ref ל-canvas
 
   useEffect(() => {
-    const loadFFmpeg = async () => {
-      if (!ffmpeg.isLoaded()) {
-        await ffmpeg.load();
-        setLoading(false);
-      }
-    };
-    loadFFmpeg();
-  }, [ffmpeg]);
+    if (IdVideo) {
+      doApi();
+    }
+  }, [IdVideo]);
 
-  const downloadFile = (blob, fileName) => {
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const processFrames = async () => {
-    const frameDuration = 3; // Each frame appears for 3 seconds
-    let index = 1;
-
-    // Create a list of promises to download images and add them to ffmpeg's memory
-    const downloadPromises = jsonData.map(async (item) => {
-      const imageName = `image${index}.jpg`;
-
-      // Download image and save to ffmpeg memory
-      const imageResponse = await fetch(item.imageLink);
-      const imageBlob = await imageResponse.blob();
-      const imageFile = new File([imageBlob], imageName, {
-        type: "image/jpeg",
-      });
-
-      ffmpeg.FS("writeFile", imageName, await fetchFile(imageFile));
-      index++;
-    });
-
-    // Wait for all images to be downloaded and stored in ffmpeg's memory
-    await Promise.all(downloadPromises);
-
-    return jsonData.length * frameDuration; // Total duration
-  };
-
-  const generateVideo = async () => {
+  const doApi = async () => {
+    setLoading(true);
+    let url = `${API_URL}/videos/childobjects/${IdVideo}`;
     try {
-      setLoading(true);
-      const totalDuration = await processFrames();
-
-      // Generate the video with FFmpeg
-      await ffmpeg.run(
-        "-framerate",
-        "1",
-        "-pattern_type",
-        "glob",
-        "-i",
-        "image*.jpg", // Input pattern for images
-        "-vf",
-        "scale=1280:720,format=yuv420p", // Video filter (scaling and format)
-        "-t",
-        `${totalDuration}`, // Total duration of the video in seconds
-        "-c:v",
-        "libx264",
-        "-pix_fmt",
-        "yuv420p", // Pixel format
-        "output.mp4" // Output video file name
-      );
-
-      // Read the generated video file
-      const data = ffmpeg.FS("readFile", "output.mp4");
-
-      // Convert the file to a Blob and create a URL
-      const videoBlob = new Blob([data.buffer], { type: "video/mp4" });
-
-      // Set video URL and trigger download
-      setVideoURL(URL.createObjectURL(videoBlob));
-      downloadFile(videoBlob, "generated_video.mp4");
-
-      setLoading(false);
+      let data = await doApiGet(url);
+      let data_check = data.data;
+      const filteredData = data_check.map(({ answer, imageLink }) => ({
+        answer,
+        imageLink,
+      }));
+      setItems(filteredData);
     } catch (error) {
-      console.error("Error generating video:", error);
+      setError(error);
+    } finally {
       setLoading(false);
     }
   };
 
+  const generateVideo = async () => {
+    if (!canvasRef.current || items.length === 0) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const fps = 30;
+    const durationPerImage = 4; // שניות לכל תמונה
+    const totalFrames = items.length * fps * durationPerImage;
+    const stream = canvas.captureStream(fps);
+    const mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+    let chunks = [];
+
+    mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
+    mediaRecorder.onstop = async () => {
+      const blob = new Blob(chunks, { type: "video/webm" });
+      const url = URL.createObjectURL(blob);
+
+      // המרת WebM ל-MP4 עם ייבוא דינמי
+      setIsConverting(true);
+      const ffmpeg = await import('@ffmpeg/ffmpeg');
+      const { createFFmpeg, fetchFile } = ffmpeg;
+      const ffmpegInstance = createFFmpeg({ log: true });
+      await ffmpegInstance.load();
+      ffmpegInstance.FS("writeFile", "video.webm", await fetchFile(blob));
+      await ffmpegInstance.run("-i", "video.webm", "output.mp4");
+      const mp4Data = ffmpegInstance.FS("readFile", "output.mp4");
+
+      // יצירת קובץ MP4 להורדה
+      const mp4Blob = new Blob([mp4Data], { type: "video/mp4" });
+      const mp4Url = URL.createObjectURL(mp4Blob);
+
+      const a = document.createElement("a");
+      a.href = mp4Url;
+      a.download = "video.mp4";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      setIsConverting(false);
+    };
+
+    mediaRecorder.start();
+    let frame = 0;
+
+    function drawFrame() {
+      let imageIndex = Math.floor(frame / (fps * durationPerImage));
+
+      if (imageIndex >= items.length) {
+        mediaRecorder.stop();
+        return;
+      }
+
+      const { answer, imageLink } = items[imageIndex];
+      const img = new Image();
+      img.src = imageLink;
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // הוספת טקסט
+        ctx.fillStyle = "white";
+        ctx.font = "40px Arial";
+        ctx.fillText(answer, 50, 550);
+
+        frame++;
+        requestAnimationFrame(drawFrame);
+      };
+    }
+
+    drawFrame();
+  };
+
+  useEffect(() => {
+    // ברגע שהנתונים נטענו, נתחיל את יצירת הסרטון
+    if (!loading && items.length > 0) {
+      generateVideo();
+    }
+  }, [loading, items]);
+
   return (
-    <div>
-      <button onClick={generateVideo} disabled={loading}>
-        {loading ? "Processing..." : "Generate Video"}
-      </button>
-      {videoURL && <video controls src={videoURL} width="640" />}
+    <div className="container">
+      {error && <div>Error: {error.message}</div>}
+      {loading && <div>Loading...</div>}
+      {isConverting && <div>Converting to MP4...</div>}
+      <canvas ref={canvasRef} width={800} height={600} className="border my-4" />
     </div>
   );
-};
+}
 
 export default VideoGenerator;
