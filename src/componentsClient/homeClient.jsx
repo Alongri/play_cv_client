@@ -18,7 +18,9 @@ const HomeClient = () => {
   const [myInfo, setmyInfo] = useState({});
   let [showEdit, setShowEdit] = useState(false);
   const dispatch = useDispatch();
-  const [adminText, setAdminText] = useState("DEAR ADMIN. YOU CAN EDIT THIS SECTION!");
+  const [adminText, setAdminText] = useState(
+    "DEAR ADMIN. YOU CAN EDIT THIS SECTION!"
+  );
   const [adminImage, setAdminImage] = useState(homeImg);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const HomeClient = () => {
   };
   return (
     <div className="container-fluid d-flex pt-5">
-      <div className="container text-center w-50 d-flex flex-column justify-content-center align-items-center">
+      <div className="container text-center w-40 d-flex flex-column justify-content-center align-items-center">
         <div className="card tech-container mb-4">
           <h1 className="emphesis mb-2 display-4 fw-bold">
             Welcome <span className="playCVGradient">{myInfo.FirstName}</span>
@@ -62,7 +64,7 @@ const HomeClient = () => {
             className="special-button fs-4 fw-bold mt-5 px-5 py-2"
             onClick={() => navigate("/nameProject")}
           >
-            Create a project
+            Create your story
           </button>
         </div>
         <div className="card tech-container">
@@ -83,12 +85,19 @@ const HomeClient = () => {
 
       {/* Informative Section */}
       <div
-        className="container d-flex justify-content-center position-relative flex-wrap
-      align-items-center w-50"
+        className="container d-flex justify-content-center flex-column position-relative flex-wrap
+      align-items-center w-60"
       >
-        {!IsAdmin && (
-          <span className="edit-icon" onClick={() => setShowEdit(true)}>
-            ✏️
+        {IsAdmin && (
+          <span
+            className="material-symbols-outlined"
+            style={{
+              fontSize: "48px",
+              color: "#000",
+            }}
+            onClick={() => setShowEdit(true)}
+          >
+            add_photo_alternate
           </span>
         )}
         <img src={adminImage}></img>
