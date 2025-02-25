@@ -7,6 +7,7 @@ import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Edit = () => {
   let startAR = [
@@ -99,7 +100,6 @@ const Edit = () => {
   const [[activeIndex, direction], setActiveIndex] = useState([0, 0]);
   const [editingItemId, setEditingItemId] = useState(null);
   const [items, setItems] = useState(startAR);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -129,7 +129,7 @@ const Edit = () => {
     setEditingItemId(itemId);
   };
 
-  const handleCancelEdit = (itemId) => {
+  const handleCancelEdit = () => {
     setEditingItemId(null);
   };
 
@@ -139,14 +139,6 @@ const Edit = () => {
         item._id === id ? { ...item, [field]: value } : item
       )
     );
-  };
-
-  const handleImageChange = (id, event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      handleInputChange(id, "imageLink", imageUrl);
-    }
   };
 
   const handleSaveChanges = (_index) => {
@@ -162,6 +154,31 @@ const Edit = () => {
         pauseOnHover: true,
         draggable: true,
       });
+    }
+  };
+
+  const handleImageChange = async (id, event) => {
+    console.log(event);
+    console.log(event.target.files);
+    const file = event?.target?.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const response = await axios.post(
+        `${API_URL}/videos/uploadimage`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      handleInputChange(id, "imageLink", response.data.url);
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      toast.error(err.response?.data?.message || "Failed to upload image");
     }
   };
 
@@ -233,36 +250,6 @@ const Edit = () => {
   );
 
   const generateAndDownloadVideo = async () => {
-    // setLoading(true);
-    // setError(null);
-
-    // try {
-    //   // Step 1: Request the backend to generate the video
-    //   let url = API_URL + "/videos/generate";
-    //   let data_check = {
-    //     ar: items,
-    //   };
-    //   const response = await doApiMethod(url, "PATCH", data_check);
-    //   console.log(response);
-
-    //   const data = await response.json();
-    //   if (data.videoUrl) {
-    //     // Step 2: Trigger the download
-    //     const downloadUrl = data.videoUrl;
-    //     const link = document.createElement("a");
-    //     link.href = downloadUrl;
-    //     link.download = `generated_video_${videoId}.mp4`;
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     document.body.removeChild(link);
-    //   } else {
-    //     setError("Failed to generate video. Please try again.");
-    //   }
-    // } catch (err) {
-    //   setError("Error generating video.");
-    // } finally {
-    //   setLoading(false);
-    // }
     navigate("/videoGenerator");
   };
 

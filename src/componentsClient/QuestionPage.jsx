@@ -48,7 +48,6 @@ const QuestionPage = () => {
   const handleFileChange = async (event) => {
     console.log(event);
     console.log(event.target.files);
-
     const file = event?.target?.files?.[0];
     if (!file) return;
     const formData = new FormData();
