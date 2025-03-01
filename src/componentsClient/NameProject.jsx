@@ -67,34 +67,34 @@ const NameProject = () => {
   return (
     <div className="container text-center py-5">
       <div className="bg-light p-3 rounded shadow-sm col-lg-8 mb-4 mx-auto">
-        <h4 className="fw-semibold">Guidelines for Creating Your Project</h4>
+        <h4 className="fw-semibold">Guidelines for Creating Your Story</h4>
         <ul
           className="text-start list-unstyled mt-3 col-sm-10 col-lg-8 mx-auto"
           style={{ maxWidth: "700px", lineHeight: "1.8" }}
         >
           <li>
-            <strong>1.</strong> Every project is unique and represents your
+            <strong>1.</strong> Every Story is unique and represents your
             vision. Choosing a meaningful name will make it easily identifiable.
           </li>
           <li>
-            <strong>2.</strong> A well-named project simplifies organization and
+            <strong>2.</strong> A well-named Story simplifies organization and
             future reference.
           </li>
           <li>
-            <strong>3.</strong> Ensure the name reflects your project's essence
+            <strong>3.</strong> Ensure the name reflects your Story's essence
             and purpose clearly.
           </li>
         </ul>
       </div>
       <div className="bg-white p-2 rounded shadow-sm col-lg-8 mx-auto">
-        <h4 className="mt-2">Please Name Your New Project:</h4>
+        <h4 className="mt-2">Please Name Your New Story:</h4>
         <p className="text-muted mt-2 col-lg-8 col-sm-10 mx-auto">
-          Enter a descriptive title that resonates with your project's goals and
+          Enter a descriptive title that resonates with your Story's goals and
           objectives. This title will be prominently displayed in your profile
-          and help in identifying the project.
+          and help in identifying the Story.
         </p>
         <label htmlFor="projectName" className="form-label mt-3 fw-semibold">
-          Project Name
+          Story Name
         </label>
         <div className="nameInput d-flex justify-content-center border quicksand">
           <input
@@ -102,7 +102,7 @@ const NameProject = () => {
             id="projectName"
             type="text"
             className="fs-5"
-            placeholder="Enter your project name"
+            placeholder="Enter your Story name"
             onChange={(e) => {
               updateTitle();
               setStr(e.target.value);

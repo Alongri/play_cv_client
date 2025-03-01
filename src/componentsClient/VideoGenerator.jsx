@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { API_URL, doApiGet } from "../services/apiService";
 import { useSelector } from "react-redux";
+import "../App.css";
 
 function VideoGenerator() {
   const IdVideo = useSelector((state) => state.myDetailsSlice.idVideo);
@@ -94,15 +95,29 @@ function VideoGenerator() {
   }, [loading, items]);
 
   return (
-    <div className="container">
-      {error && <div>Error: {error.message}</div>}
-      {loading && <div>Loading...</div>}
-      <canvas
-        ref={canvasRef}
-        width={800}
-        height={600}
-        className="border my-4"
-      />
+    <div className="d-flex flex-column align-items-center justify-content-center vh-100 bg-dark text-white">
+      <h2 className="mb-4 text-center">Creating your story, please wait...</h2>
+
+      {error && (
+        <div className="alert alert-danger" role="alert">
+          Error: {error.message}
+        </div>
+      )}
+
+      {loading && (
+        <div className="spinner-border text-light my-3" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      )}
+
+      <div className="tv-border p-3">
+        <canvas
+          ref={canvasRef}
+          width={800}
+          height={600}
+          className="border-0 rounded screen-effect"
+        />
+      </div>
     </div>
   );
 }
