@@ -11,16 +11,11 @@ const QuestionPage = () => {
     "When did you lead a team?",
     "Describe a challenging project you worked on.",
     "What’s a proud moment in your career?",
-    "Tell me about an event you participated in.",
     "Describe a difficult situation you managed.",
-    "Have you volunteered?",
-    "What’s the most creative project you’ve done?",
-    "When did you give a great presentation?",
-    "What’s a photo of a challenge you overcame?",
-    "Tell me about a team success.",
     "When did you step out of your comfort zone?",
-    "Describe a professional achievement.",
+    "What’s the most creative project you’ve done?",
   ];
+  
 
   const totalQuestions = questions.length;
   const [qIndex, setQIndex] = useState(0);
@@ -131,7 +126,7 @@ const QuestionPage = () => {
         }
 
         setQIndex(qIndex + 1);
-        if (qIndex >= 11) {
+        if (qIndex >= 5) {
           navigate("/edit");
         }
       }
