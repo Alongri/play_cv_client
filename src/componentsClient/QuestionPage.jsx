@@ -8,12 +8,12 @@ import axios from "axios";
 
 const QuestionPage = () => {
   const questions = [
-    "When did you lead a team?",
-    "Describe a challenging project you worked on.",
-    "What’s a proud moment in your career?",
-    "Describe a difficult situation you managed.",
-    "When did you step out of your comfort zone?",
-    "What’s the most creative project you’ve done?",
+    "Tell me about a success you're particularly proud of. What made it successful?",
+    "Describe a time when you received criticism. How did you respond, and what did you learn?",
+    "How do you handle pressure or tight deadlines? Give an example.",
+    "Describe the kind of team or environment where you thrive. Why does it suit you?",
+    "If you could change one thing about how you worked on a past project, what would it be and why?",
+    "What is the most important value you bring to a team or workplace?",
   ];
   
 

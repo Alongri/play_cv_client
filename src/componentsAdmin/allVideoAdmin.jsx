@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { addIdVideo } from "../featuers/myDetailsSlice";
 
 function AllVideoAdmin() {
-  let [ar, setAr] = useState([]);
+  const [ar, setAr] = useState([]);
   const ThisID = useSelector((state) => state.myDetailsSlice.idMorInfoAdmin);
   const [thisUser, setThisUser] = useState([]);
-  let nav = useNavigate();
+  const nav = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,9 +16,9 @@ function AllVideoAdmin() {
   }, []);
 
   const doApi = async () => {
-    let url = API_URL + "/users/single/" + ThisID;
+    const url = API_URL + "/users/single/" + ThisID;
     try {
-      let data = await doApiGet(url);
+      const data = await doApiGet(url);
       setThisUser(data.data);
       doApiAllVideo();
     } catch (error) {
@@ -27,9 +27,9 @@ function AllVideoAdmin() {
   };
 
   const doApiAllVideo = async () => {
-    let url = API_URL + "/videos/allUserVideosAdmin/" + ThisID;
+    const url = API_URL + "/videos/allUserVideosAdmin/" + ThisID;
     try {
-      let data = await doApiGet(url);
+      const data = await doApiGet(url);
       console.log(data.data);
       setAr(data.data);
     } catch (error) {
@@ -40,6 +40,10 @@ function AllVideoAdmin() {
   const toThisVideo = (_id) => {
     dispatch(addIdVideo({ idVideo: _id }));
     nav(`/admin/thisvideo`);
+  };
+
+  const goToAssessment = (videoId) => {
+    nav(`/admin/assessment/${videoId}`); // ✅ שולח את video._id
   };
 
   return (
@@ -77,28 +81,35 @@ function AllVideoAdmin() {
             </tr>
           </thead>
           <tbody>
-            {ar.map((video, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>
-                    {video.createdAt
-                      ? video.createdAt.substring(10, length - 1)
-                      : ""}
-                  </td>
-                  <td>{video.title}</td>
-                  <td>{video.recommend}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm"
-                      onClick={() => toThisVideo(video._id)}
-                    >
-                      <i className="bi bi-arrow-right-circle-fill"></i>
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+            {ar.map((video, index) => (
+              <tr key={video._id}>
+                <td>{index + 1}</td>
+                <td>
+                  {video.createdAt
+                    ? new Date(video.createdAt).toLocaleString()
+                    : ""}
+                </td>
+                <td>{video.title}</td>
+                <td>{video.recommend || "-"}</td>
+                <td className="d-flex gap-2">
+                  <button
+                    className="btn btn-outline-primary btn-sm"
+                    onClick={() => toThisVideo(video._id)}
+                    title="View Video Details"
+                  >
+                    <i className="bi bi-eye-fill"></i>
+                  </button>
+
+                  <button
+                    className="btn btn-outline-success btn-sm"
+                    onClick={() => goToAssessment(video._id)} // ✅ מתוקן כאן
+                    title="View Personality Assessment"
+                  >
+                    <i className="bi bi-bar-chart-line-fill"></i>
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

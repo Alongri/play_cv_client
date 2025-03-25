@@ -22,6 +22,8 @@ import AllVideoAdmin from "./componentsAdmin/allVideoAdmin";
 import Profile from "./componentsClient/profile";
 import VideoDetailsProfile from "./componentsClient/videoDetailsProfile.jsx";
 import VideoGenerator from "./componentsClient/VideoGenerator.jsx";
+import AssessmentPage from "./componentsAdmin/AssessmentPage";
+
 
 function AppRoutes() {
   return (
@@ -31,6 +33,7 @@ function AppRoutes() {
           <Route index element={<DashboardAdmin />} />
           <Route path="/admin/AllVideoAdmin" element={<AllVideoAdmin />} />
           <Route path="/admin/thisvideo" element={<ThisVideo />} />
+          <Route path="assessment/:id" element={<AssessmentPage />} /> {/* ✅ חדש */}
         </Route>
 
         <Route path="/" element={<LayoutClient />}>
