@@ -9,32 +9,11 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from "recharts";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const AssessmentPage = () => {
   const { id } = useParams();
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const spinnerStyle = {
-    width: "60px",
-    height: "60px",
-    border: "6px solid transparent",
-    borderTop: "6px solid transparent",
-    borderLeft: "6px solid transparent",
-    borderRight: "6px solid transparent",
-    borderImage: "conic-gradient(from 0deg, #0d6efd, #6610f2) 1",
-    borderRadius: "50%",
-    animation: "spin 1s linear infinite",
-    margin: "auto",
-  };
-
-  const keyframesSpin = `
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  `;
 
   useEffect(() => {
     const fetchAssessment = async () => {
@@ -52,126 +31,109 @@ const AssessmentPage = () => {
     fetchAssessment();
   }, [id]);
 
+  const radarData =
+    analysis?.traits &&
+    Object.entries(analysis.traits).map(([key, value]) => ({
+      trait: key.charAt(0).toUpperCase() + key.slice(1),
+      value,
+    }));
+
   if (loading)
     return (
-      <div className="d-flex flex-column justify-content-center align-items-center vh-100">
-        <style>{keyframesSpin}</style>
-        <div style={spinnerStyle}></div>
-        <p className="mt-3 text-secondary">Loading assessment...</p>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-white text-gray-700">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+        <p className="mt-4 text-blue-600 font-medium">Loading assessment...</p>
       </div>
     );
 
   if (!analysis)
     return (
-      <div className="container text-center text-danger mt-5">
+      <div className="flex items-center justify-center min-h-screen text-red-500 text-lg">
         ❌ No assessment found.
       </div>
     );
 
-  const radarData = Object.entries(analysis.traits).map(([key, value]) => ({
-    trait: key.charAt(0).toUpperCase() + key.slice(1),
-    value,
-  }));
-
   return (
-    <div
-      className="container d-flex flex-column align-items-center justify-content-center"
-      style={{ minHeight: "100vh", maxWidth: "1080px", padding: "20px 0" }}
-    >
-      <h2 className="text-center mb-3 fw-bold display-6">
-        🧠 Candidate Personality Assessment
-      </h2>
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-100 to-purple-200 p-6 md:p-12 text-gray-800">
+      <div className="max-w-5xl mx-auto space-y-8">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-center text-fuchsia-700">
+          🧠 Personality Assessment
+        </h2>
 
-      {/* Summary */}
-      <div className="card shadow-sm mb-3 w-100" style={{ fontSize: "0.95rem" }}>
-        <div className="card-body py-3 px-4">
-          <h6 className="text-primary fw-bold mb-2">📄 Summary</h6>
-          <p className="mb-0">{analysis.summary}</p>
+        {/* Summary */}
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <h3 className="text-xl font-semibold text-fuchsia-700 mb-2">📄 Summary</h3>
+          <p className="text-gray-700">{analysis.summary}</p>
         </div>
-      </div>
 
-      {/* Traits + Chart */}
-      <div className="row w-100 mb-2 g-3">
-        <div className="col-md-6">
-          <div className="card border-success shadow-sm h-100">
-            <div className="card-body p-3">
-              <h6 className="text-success fw-bold mb-3">
-                📊 Personality Traits (1–5)
-              </h6>
-              <ul className="list-group list-group-flush small">
-                {Object.entries(analysis.traits).map(([trait, value]) => (
-                  <li
-                    key={trait}
-                    className="list-group-item d-flex justify-content-between align-items-center px-2 py-1"
-                  >
-                    <span>{trait.charAt(0).toUpperCase() + trait.slice(1)}</span>
-                    <span className="badge bg-primary rounded-pill">{value}</span>
-                  </li>
-                ))}
-              </ul>
+        {/* Traits and Radar */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl shadow p-6">
+            <h3 className="text-lg font-bold text-purple-700 mb-4">
+              📊 Personality Traits (1–5)
+            </h3>
+            <ul className="space-y-2">
+              {Object.entries(analysis.traits).map(([trait, value]) => (
+                <li
+                  key={trait}
+                  className="flex justify-between text-gray-700 border-b pb-1"
+                >
+                  <span>{trait.charAt(0).toUpperCase() + trait.slice(1)}</span>
+                  <span className="font-semibold text-purple-600">{value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white rounded-xl shadow p-6">
+            <h3 className="text-lg font-bold text-blue-700 mb-4 text-center">
+              📈 Visual Personality Chart
+            </h3>
+            <div className="w-full h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
+                  <PolarGrid />
+                  <PolarAngleAxis dataKey="trait" tick={{ fontSize: 12 }} />
+                  <PolarRadiusAxis angle={30} domain={[0, 5]} />
+                  <Radar
+                    name="Candidate"
+                    dataKey="value"
+                    stroke="#9333ea"
+                    fill="#e879f9"
+                    fillOpacity={0.5}
+                  />
+                </RadarChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
 
-        <div className="col-md-6">
-          <div className="card border-info shadow-sm h-100 px-2 py-2">
-            <div className="card-body d-flex flex-column align-items-center justify-content-center p-2">
-              <h6 className="text-info fw-bold mb-2">📈 Visual Personality Chart</h6>
-              <div style={{ width: "100%", height: "300px", padding: "10px" }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart
-                    cx="50%"
-                    cy="50%"
-                    outerRadius="65%"
-                    data={radarData}
-                  >
-                    <PolarGrid />
-                    <PolarAngleAxis dataKey="trait" tick={{ fontSize: 12 }} />
-                    <PolarRadiusAxis angle={30} domain={[0, 5]} />
-                    <Radar
-                      name="Candidate"
-                      dataKey="value"
-                      stroke="#8884d8"
-                      fill="#8884d8"
-                      fillOpacity={0.6}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Strengths */}
-      <div className="card mb-2 shadow-sm border-success w-100">
-        <div className="card-body py-3 px-4">
-          <h6 className="text-success fw-bold">💪 Strengths</h6>
-          <ul className="mb-0 small">
-            {analysis.strengths.map((item, idx) => (
-              <li key={idx}>{item}</li>
+        {/* Strengths */}
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-lg font-bold text-green-600 mb-3">💪 Strengths</h3>
+          <ul className="list-disc list-inside text-gray-700 space-y-1">
+            {analysis.strengths.map((s, i) => (
+              <li key={i}>{s}</li>
             ))}
           </ul>
         </div>
-      </div>
 
-      {/* Improvement Areas */}
-      <div className="card mb-2 shadow-sm border-warning w-100">
-        <div className="card-body py-3 px-4">
-          <h6 className="text-warning fw-bold">📌 Areas for Improvement</h6>
-          <ul className="mb-0 small">
-            {analysis.improvementAreas.map((item, idx) => (
-              <li key={idx}>{item}</li>
+        {/* Improvement Areas */}
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-lg font-bold text-yellow-600 mb-3">📌 Areas for Improvement</h3>
+          <ul className="list-disc list-inside text-gray-700 space-y-1">
+            {analysis.improvementAreas.map((s, i) => (
+              <li key={i}>{s}</li>
             ))}
           </ul>
         </div>
-      </div>
 
-      {/* Overall Recommendation */}
-      <div className="card shadow-sm border-info w-100">
-        <div className="card-body py-3 px-4">
-          <h6 className="text-info fw-bold">✅ Overall Recommendation</h6>
-          <p className="fw-semibold small mb-0">{analysis.overallRecommendation}</p>
+        {/* Recommendation */}
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-lg font-bold text-cyan-700 mb-2">✅ Overall Recommendation</h3>
+          <p className="font-semibold text-gray-800">
+            {analysis.overallRecommendation}
+          </p>
         </div>
       </div>
     </div>
