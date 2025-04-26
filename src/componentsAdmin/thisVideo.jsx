@@ -186,78 +186,80 @@ const ThisVideo = () => {
   return (
     <div className="main-wrapper">
       <ToastContainer position="top-right" autoClose={3000} />
-      <div className="flex-container">
+      <div className="header-container">
         <h1 className="emphesis-carousel">Edit before the magic</h1>
       </div>
       <div className="wrapper">
-        <AnimatePresence mode="popLayout" initial={false}>
-          {visibleItems.map((item) => {
-            const isEditing = editingItemId === item._id;
-            const cardIndex = item.index + 1;
-            return (
-              <motion.div
-                className="card"
-                key={item._id}
-                layout
-                custom={{
-                  direction,
-                  position: () => {
-                    if (item === visibleItems[0]) {
-                      return "left";
-                    } else if (item === visibleItems[1]) {
-                      return "center";
-                    } else {
-                      return "right";
-                    }
-                  },
-                }}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 1 }}
-              >
-                <div className="btn-and-index-container">
-                  <div className="index-sign">
-                    <h5 className="card-index">
-                      {cardIndex} of {items.length}
-                    </h5>
+        <div className="card-container">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {visibleItems.map((item) => {
+              const isEditing = editingItemId === item._id;
+              const cardIndex = item.index + 1;
+              return (
+                <motion.div
+                  className="card"
+                  key={item._id}
+                  layout
+                  custom={{
+                    direction,
+                    position: () => {
+                      if (item === visibleItems[0]) {
+                        return "left";
+                      } else if (item === visibleItems[1]) {
+                        return "center";
+                      } else {
+                        return "right";
+                      }
+                    },
+                  }}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 1 }}
+                >
+                  <div className="btn-and-index-container">
+                    <div className="index-sign">
+                      <h5 className="card-index">
+                        {cardIndex} of {items.length}
+                      </h5>
+                    </div>
                   </div>
-                </div>
-                <h3 className="text-center faustina">{item.question}</h3>
-                <input
-                  type="text"
-                  value={item.answer}
-                  disabled={!isEditing}
-                  className="styled-input"
-                  onChange={(e) =>
-                    handleInputChange(item._id, "answer", e.target.value)
-                  }
-                />
-                <div className="image-container">
-                  <label className="image-wrapper">
-                    <img
-                      src={item.imageLink}
-                      alt="Card"
-                      className="card-image clickable"
-                    />
-                    {isEditing && (
-                      <>
-                        <span className="edit-icon">✏️</span>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          style={{ display: "none" }}
-                          onChange={(e) => handleImageChange(item._id, e)}
-                        />
-                      </>
-                    )}
-                  </label>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
+                  <h3 className="text-center faustina">{item.question}</h3>
+                  <input
+                    type="text"
+                    value={item.answer}
+                    disabled={!isEditing}
+                    className="styled-input"
+                    onChange={(e) =>
+                      handleInputChange(item._id, "answer", e.target.value)
+                    }
+                  />
+                  <div className="image-container">
+                    <label className="image-wrapper">
+                      <img
+                        src={item.imageLink}
+                        alt="Card"
+                        className="card-image clickable"
+                      />
+                      {isEditing && (
+                        <>
+                          <span className="edit-icon">✏️</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            onChange={(e) => handleImageChange(item._id, e)}
+                          />
+                        </>
+                      )}
+                    </label>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
       </div>
       <div className="buttons">
         <motion.button
